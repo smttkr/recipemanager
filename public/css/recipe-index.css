@@ -1,0 +1,80 @@
+main {
+  min-height: 660px;
+}
+.test {
+  color: red;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
+}
+.grid > .nav {
+  grid-column: 4 span;
+}
+.grid > .news {
+  grid-column: 8 span;
+}
+
+.nav-news {
+  width: 80%;
+  margin: 0 auto;
+}
+.news {
+  height: 267.5px;
+  overflow-y: auto;
+}
+.news h3 {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.grid .dish {
+  grid-column: 2 span;
+}
+.content-box {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.slide-x-enter-active {
+  animation: slide-x-in 0.3s;
+}
+.slide-x-leave-active {
+  animation: slide-x-in 0.6s reverse;
+  position: absolute;
+}
+.slide-x-leave,
+.slide-x-leave-to {
+  position: absolute;
+}
+.slide-x-move {
+  transition: transform 0.6s;
+}
+@keyframes slide-x-in {
+  from {
+    transform: translateX(-600%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@media (max-width: 899px) {
+  .nav-news {
+    width: 90%;
+  }
+  .grid > .nav {
+    grid-column: 12 span;
+  }
+  .grid > .news {
+    grid-column: 12 span;
+    margin-top: 1rem;
+  }
+
+  .grid .dish {
+    grid-column: 12 span;
+  }
+}

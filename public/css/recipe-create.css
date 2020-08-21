@@ -1,0 +1,22 @@
+form {
+  width: 70%;
+}
+form .title-form {
+  width: 50%;
+}
+form .img-form {
+  width: 50%;
+}
+form .form-check {
+  margin: 0 auto;
+}
+@media (max-width: 899px) {
+  form {
+    width: 90%;
+  }
+
+  form .form-check {
+    display: inline-block;
+    width: 24%;
+  }
+}
