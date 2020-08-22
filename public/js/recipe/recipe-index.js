@@ -29,7 +29,7 @@ new Vue({
     dishes: [
       {
         id: 1,
-        src: "../images/greensalad.jpg",
+        src: "../images/dishes/greensalad.jpg",
         category: "salad",
         title: "salad",
         description:
@@ -37,7 +37,7 @@ new Vue({
       },
       {
         id: 2,
-        src: "../images/firedpotato.jpg",
+        src: "../images/dishes/firedpotato.jpg",
         category: "fried",
         title: "FriedPotato",
         description:
@@ -45,7 +45,7 @@ new Vue({
       },
       {
         id: 3,
-        src: "../images/chocolatecake.jpg",
+        src: "../images/dishes/chocolatecake.jpg",
         category: "dessert",
         title: "Cake",
         description:
@@ -53,7 +53,7 @@ new Vue({
       },
       {
         id: 4,
-        src: "../images/beefsteak.jpg",
+        src: "../images/dishes/beefsteak.jpg",
         category: "meat",
         title: "BeefSteak",
         description:

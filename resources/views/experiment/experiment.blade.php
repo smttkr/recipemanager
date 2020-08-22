@@ -1,4 +1,4 @@
-@extends('default.default')
+@extends('layouts.default')
 
 @section('title')
 experiment

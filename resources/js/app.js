@@ -50,6 +50,11 @@ Vue.component(
   require("./components/comment/PostCommentComponent.vue").default
 );
 
+Vue.component(
+  "toppage-detail-component",
+  require("./components/top/ToppageComponent.vue").default
+);
+
 // const app = new Vue({
 //   el: "#app",
 // });

@@ -8,12 +8,14 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet" />
 
   <style text="css">
     #app {
-      min-height: 1000px;
+      min-height: 100vh;
       color: #43484d;
       background-color: #e4e7f5;
       font-family: "M PLUS Rounded 1c", sans-serif;

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/welcom', function () {
-  return view('welcome');
-});
-Route::get('/experiment', function () {
-  return view('experiment.experiment');
-});
+Auth::routes();
 
 Route::get('/', function () {
-  return view('recipe.index');
+  if (Auth::check()) {
+    return view('home');       //name付きroute()に変える
+  }
+  return view('top.welcome');
+});
+
+
+
+Route::group(['middleware' => 'auth'], function () {
+});
+Route::get('/home2', 'HomeController@index')->name('home');
+Route::get('/home', function () {
+  return view('recipe.show');
 });

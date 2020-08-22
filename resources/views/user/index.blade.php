@@ -1,7 +1,7 @@
-@extends('default.default')
+@extends('layouts.default')
 
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/user-index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/user/user-index.css') }}">
 @endsection
 
 @section('title')
@@ -17,5 +17,5 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/user-index.js') }}"></script>
+<script src="{{ asset('js/user/user-index.js') }}"></script>
 @endsection

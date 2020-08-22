@@ -1,7 +1,7 @@
-@extends('default.default')
+@extends('layouts.default')
 
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/recipe-create.css') }}">
+<link rel="stylesheet" href="{{ asset('css/recipe/recipe-create.css') }}">
 @endsection
 
 @section('title')
@@ -52,5 +52,5 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/recipe-create.js') }}"></script>
+<script src="{{ asset('js/recipe/recipe-create.js') }}"></script>
 @endsection

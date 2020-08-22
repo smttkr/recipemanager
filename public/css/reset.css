@@ -7,11 +7,11 @@
 button:focus {
   box-shadow: none !important;
 }
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   *,
   *::before,
   *::after {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 
