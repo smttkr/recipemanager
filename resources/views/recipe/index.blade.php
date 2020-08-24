@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/recipe/recipe-index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/recipe/recipe_index.css') }}">
 @endsection
 
 @section('title')
@@ -45,5 +45,5 @@ RecipeManager
 @endsection
 
 @section('script')
-<script src="{{ asset('js/recipe/recipe-index.js') }}"></script>
+<script src="{{ asset('js/recipe/recipe_index.js') }}"></script>
 @endsection

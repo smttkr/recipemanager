@@ -1,19 +1,14 @@
 <template>
-  <header class="bg-light cf">
-    <h1 class="logo">RecipeManager</h1>
-    <div class="user">
-      <span>testman</span>
-      <span class="logout-btn ml-4"><a href="">ログアウト</a></span>
-    </div>
-    <div class="search-box mt-5">
-      <div class="input-group mt-4">
+  <div>
+    <div class="search-box mt-3">
+      <div class="input-group">
         <input type="text" class="form-control" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-primary">検索</button>
         </span>
       </div>
     </div>
-    <div class="menu">
+    <div class="menu mt-1">
       <button type="button" class="btn btn-outline-secondary btn-sm">
         新規作成
       </button>
@@ -29,7 +24,7 @@
       </button>
       <bookmark-component :bookmarkShow="bookmarkShow"></bookmark-component>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -56,43 +51,31 @@ export default {
 </script>
 
 <style scoped>
-header {
-  padding: 20px 40px;
-  position: relative;
-}
-header .logo {
-  display: inline-block;
-}
-header .search-box {
+.search-box {
   width: 30%;
 }
-header .user {
-  float: right;
-  margin-top: 10px;
-  font-size: 1.4rem;
-}
 
-header .menu {
+.menu {
   font-size: 1.4rem;
   float: right;
 }
-header .bookmark-box {
+.menu button {
+  color: aliceblue;
+}
+.bookmark-box {
   width: 180px;
   top: 95%;
   right: 5px;
 }
-
 @media (max-width: 899px) {
-  header .logo {
+  .logo {
     display: block;
   }
-  header .search-box {
+  .search-box {
     width: 90%;
   }
-  header .user {
-    font-size: 1rem;
-  }
-  header .menu {
+
+  .menu {
     margin-top: 10px;
     float: none;
     text-align: center;

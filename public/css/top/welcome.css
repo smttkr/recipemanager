@@ -14,8 +14,8 @@ html,
 }
 
 .links > a {
-  color: aliceblue;
-  border: 1px solid aliceblue;
+  color: black;
+  border: 1px solid;
   border-radius: 100vh;
   padding: 0 25px;
   font-size: 1.1rem;
@@ -26,25 +26,27 @@ html,
   margin-left: 5px;
 }
 .links > a:hover {
-  color: aliceblue;
+  color: black;
   text-decoration: none;
   opacity: 0.7;
 }
 
 .content .top-box {
   height: 80vh;
-  background-image: url("../../images/01.jpg");
+  background-image: url("../../images/top/restaurant.jpg");
+  background-size: cover;
 }
 
 .content .top-box .title {
   color: aliceblue;
   overflow: hidden;
   position: absolute;
-  top: 40%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .content .top-box .title h1 {
@@ -52,12 +54,18 @@ html,
   font-size: 8vw;
   font-family: "Montserrat";
 }
+
 .content .top-box .title li {
   font-size: 1.1rem;
   letter-spacing: 1.7px;
   list-style: none;
   line-height: 2.5rem;
-  font-weight: 400;
+  font-weight: 300;
+}
+
+.container {
+  max-width: 100%;
+  margin-top: 100px;
 }
 
 .start-btn {
@@ -97,7 +105,7 @@ footer small {
   }
 }
 @media (max-width: 575px) {
-.start-btn button {
+  .start-btn button {
     width: 70%;
     height: 50px;
   }

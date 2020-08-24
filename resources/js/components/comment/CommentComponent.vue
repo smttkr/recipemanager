@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import PostCommentComponent from "./PostCommentComponent.vue";
 export default {
   props: {
     comments: {
@@ -46,6 +47,9 @@ export default {
     closeBookmark() {
       this.bookmarkShow = false;
     },
+  },
+  components: {
+    "post-comment-component": PostCommentComponent,
   },
 };
 </script>

@@ -85,4 +85,10 @@ new Vue({
       this.modalTopicContent = "";
     },
   },
+  // components: {
+  //   "nav-component": NavComponent,
+  //   "content-group-component": ContentGroupComponent,
+  //   "news-component": NewsComponent,
+  //   "topic-modal-component": TopicModalComponent,
+  // },
 });

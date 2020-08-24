@@ -8,15 +8,21 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
   <!-- Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet" />
   <style>
     #app {
-      min-height: 800px;
+      min-height: 100vh;
       color: #43484d;
       background-color: #e4e7f5;
       font-family: "M PLUS Rounded 1c", sans-serif;
       font-family: "Noto Sans JP", sans-serif;
+    }
+
+    main {
+      margin: 10% 0
     }
   </style>
   @yield('style')
@@ -30,7 +36,8 @@
           RecipeManager
         </a>
         {{-- unknown --}}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -58,7 +65,7 @@
     </main>
   </div>
   <!-- Scripts -->
-  <script src="{{ mix('js/app.js') }}" defer></script>
+  <script src="{{ mix('js/app.js') }}"></script>
   @yield('script')
 </body>
 

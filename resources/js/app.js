@@ -46,13 +46,12 @@ Vue.component(
 );
 
 Vue.component(
-  "post-comment-component",
-  require("./components/comment/PostCommentComponent.vue").default
+  "welcome-points-component",
+  require("./components/top/WelcomePointsComponent.vue").default
 );
-
 Vue.component(
-  "toppage-detail-component",
-  require("./components/top/ToppageComponent.vue").default
+  "welcome-carousel-component",
+  require("./components/top/WelcomeCarouselComponent.vue").default
 );
 
 // const app = new Vue({

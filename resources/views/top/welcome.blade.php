@@ -39,7 +39,7 @@
         <div class="content">
           <div class="top-box">
             <div class="title">
-              <h1 class="mb-5">Recipe&nbsp;Manager</h1>
+              <h1 class="mb-4">Recipe&nbsp;Manager</h1>
               <ul>
                 <li>お店のレシピをWeb上で管理しませんか？</li>
                 <li>
@@ -54,7 +54,12 @@
 
       <section>
         <h2 class="hidden">TOP-DETAILS</h2>
-        <toppage-detail-component :images="images"></toppage-detail-component>
+        <div class="detail">
+          <div class="container">
+            <welcome-points-component></welcome-points-component>
+            <welcome-carousel-component :images="images"></welcome-carousel-component>
+          </div>
+        </div>
       </section>
       <div class="start-btn">
         <a href="{{ route('register') }}">
