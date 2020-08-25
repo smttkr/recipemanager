@@ -17,7 +17,7 @@ class CreateRecipesTable extends Migration
       $table->increments('id');
       $table->unsignedInteger("shop_id");
       $table->enum('category', ['salad', 'meat', 'fried', 'dessert']);
-      $table->string("name", 20);
+      $table->string("name");
       $table->string('image');
       $table->text("description");
       $table->timestamps();

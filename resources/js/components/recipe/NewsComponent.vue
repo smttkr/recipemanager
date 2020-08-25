@@ -2,8 +2,12 @@
   <div class="bg-light">
     <h3 class="border-bottom text-danger m-0 pb-1">NEWS!</h3>
     <table class="table">
-      <tr v-for="topic in news" :key="topic.id" @click="topicClick(topic.content)">
-        <td>{{ topic.day }}</td>
+      <tr
+        v-for="topic in news"
+        :key="topic.id"
+        @click="topicClick(topic.content)"
+      >
+        <td>{{ topic.created_at.slice(5,10) }}</td>
         <td>{{ topic.category }}</td>
         <td class="content">{{ topic.content | maxLengthValidator }}</td>
         <td>

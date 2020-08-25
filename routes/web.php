@@ -17,19 +17,13 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', function () {
-  // ログインしていれば
-  if (Auth::check()) {
-    return redirect(route('recipes.index'));
-  } else {
-    return view('top.welcome');
-  }
+return view('top.welcome');
 });
 
 
 
 Route::group(['middleware' => 'auth'], function () {
   Route::resource('users', 'UserController', ['only' => ['edit', 'update', 'destroy']]);
-  Route::resource('shops', 'ShopController', ['only' => ['destroy']]);
   Route::resource('shopusers', 'ShopUserController', ['only' => ['index']]);
   Route::resource('recipes', 'RecipeController', ['only' => ['index', 'create', 'store', 'show', 'update', 'destroy']]);
   Route::resource('comments', 'CommentController', ['only' => ['store', 'destroy']]);

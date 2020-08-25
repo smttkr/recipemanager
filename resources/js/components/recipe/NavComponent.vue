@@ -31,10 +31,16 @@
 
 <script>
 export default {
-  props: ["navItems", "category"],
+  props: ["category"],
   data() {
     return {
       isActive: false,
+      navItems: [
+        { cate: "salad", name: "サラダ" },
+        { cate: "meat", name: "お肉" },
+        { cate: "fried", name: "揚げ物" },
+        { cate: "dessert", name: "デザート" },
+      ],
     };
   },
 

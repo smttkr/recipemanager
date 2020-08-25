@@ -1,11 +1,11 @@
 <template>
   <table class="table ">
-    <tr v-for="user in users" :key="user.id" @click="confirm(user.name)">
+    <tr v-for="user in shopUsers" :key="user.id">
       <td class="img">
-        <img :src="user.src" alt="" />
+        <img :src="user.user.image" alt="" />
       </td>
-      <td class="name">{{ user.name }}</td>
-      <td class="day">{{ user.created }}</td>
+      <td class="name">{{ user.user.name }}</td>
+      <td class="day">{{ user.created_at.slice(0, 10) }}</td>
     </tr>
   </table>
 </template>
@@ -13,27 +13,20 @@
 <script>
 export default {
   props: {
-    users: {
+    shopUsers: {
       type: Array,
-    },
-  },
-
-  methods: {
-    confirm(name) {
-      confirm(name + "を削除しますか？");
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 tr {
   height: 4rem;
   transition: all 0.3s;
 }
 tr:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
+  cursor: default;
 }
 
 td img {

@@ -54,6 +54,16 @@ Vue.component(
   require("./components/top/WelcomeCarouselComponent.vue").default
 );
 
+Vue.component(
+  "icon-component",
+  require("./components/recipe/IconComponent.vue").default
+);
+
+Vue.component(
+  "post-comment-component",
+  require("./components/comment/PostCommentComponent.vue").default
+);
+
 // const app = new Vue({
 //   el: "#app",
 // });

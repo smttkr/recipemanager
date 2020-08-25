@@ -29,14 +29,20 @@ header .user {
   margin-top: 10px;
   font-size: 1.4rem;
 }
-header .user .dropdown-item {
+header .user li{
+  list-style: none;
+}
+header .user li a {
   color: aliceblue;
   padding: 0;
 }
-header .user .dropdown-item:hover {
+header .user li a:hover {
+  color: aliceblue;
   background-color: transparent;
   cursor: pointer;
   opacity: 0.7;
+  text-decoration: none;
+  
 }
 
 @media (max-width: 899px) {

@@ -1,28 +1,23 @@
 <template>
-  <div class="comment-box border-bottom py-2 px-0">
-    <i class="far fa-comment mx-5" @click="postShow = !postShow"></i>
-    <i class="far fa-folder-open" @click="openBookmark"></i>
-    <table class="table">
+  <div class="comment-box bg-white border-bottom p-0">
+    <table class="table mb-0">
       <tr class="p-2" v-for="comment in comments" :key="comment.id">
         <td class="user">
-          <img :src="comment.userImg" alt="" />
-          <p>{{ comment.userName }}</p>
+          <!-- <img :src="comment.shop_user.user.image" alt="" /> -->
+          <img :src="defaultImage" alt="" />
+          <!-- ユーザーの画像をデフォルトでエイリアンにするからいずれ消す  -->
+          <p class="mb-0">{{ comment.shop_user.user.name }}</p>
         </td>
-        <td class="comment-content">{{ comment.comment }}</td>
-        <td class="day">{{ comment.created }}</td>
+        <td class="comment-content">
+          {{ comment.comment }}
+        </td>
+        <td class="day">{{ comment.created_at.slice(0, 10) }}</td>
       </tr>
     </table>
-
-    <post-comment-component
-      :postShow="postShow"
-      v-on:close="postShow = false"
-    ></post-comment-component>
-    <bookmark-component :bookmark-show="bookmarkShow"></bookmark-component>
   </div>
 </template>
 
 <script>
-import PostCommentComponent from "./PostCommentComponent.vue";
 export default {
   props: {
     comments: {
@@ -31,53 +26,34 @@ export default {
   },
   data() {
     return {
-      postShow: false,
-      bookmarkShow: false,
+      defaultImage: "../images/user/alien.png",
     };
   },
-  methods: {
-    openBookmark() {
-      if (this.bookmarkShow === false) {
-        this.bookmarkShow = true;
-        setTimeout(this.closeBookmark, 4000);
-      } else {
-        this.bookmarkShow = false;
-      }
-    },
-    closeBookmark() {
-      this.bookmarkShow = false;
-    },
-  },
-  components: {
-    "post-comment-component": PostCommentComponent,
-  },
+
 };
 </script>
 
 <style scoped>
-.comment-box {
-  position: relative;
-}
-i::before {
-  font-size: 1.5rem;
-}
-i:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
+
 .comment table {
   table-layout: fixed;
+  height: 112px;
 }
+
 .user {
   width: 172px;
 }
 .comment-content {
-  overflow: auto;
-  vertical-align: middle;
+  overflow-y: auto;
+  padding: 0;
+  display: block;
+  height: 112px;
+  word-break: break-all;
 }
 .day {
   color: #6c757d;
-  width: 18%;
+  width: 17%;
+
   vertical-align: middle;
 }
 
@@ -88,10 +64,7 @@ i:hover {
   border-radius: 50%;
   box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.7);
 }
-.user p {
-  width: 60px;
-  text-align: center;
-}
+
 .bookmark-box {
   width: 130px;
   top: 0%;
@@ -106,13 +79,15 @@ i:hover {
     width: 40px;
     height: 40px;
   }
-  .user p {
-    width: 40px;
+  .comment-content {
+    height: 84px;
   }
-  .bookmark-box {
-    top: 22%;
-    width: 80px;
-    min-height: 60px;
+  .user p {
+    white-space: nowrap;
+    font-size: 100%;
+  }
+  .day {
+    font-size: 100%;
   }
 }
 </style>

@@ -9,12 +9,16 @@
       </div>
     </div>
     <div class="menu mt-1">
-      <button type="button" class="btn btn-outline-secondary btn-sm">
-        新規作成
-      </button>
-      <button type="button" class="btn btn-outline-secondary btn-sm ml-2">
-        ユーザー一覧
-      </button>
+      <a href="/recipes/create"
+        ><button type="button" class="btn btn-outline-secondary btn-sm">
+          新規作成
+        </button>
+      </a>
+      <a href="/shopusers">
+        <button type="button" class="btn btn-outline-secondary btn-sm ml-2">
+          ユーザー一覧
+        </button>
+      </a>
       <button
         type="button"
         class="btn btn-outline-secondary btn-sm ml-2"
@@ -72,7 +76,7 @@ export default {
     display: block;
   }
   .search-box {
-    width: 90%;
+    width: 85%;
   }
 
   .menu {

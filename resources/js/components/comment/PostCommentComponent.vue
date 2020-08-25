@@ -2,7 +2,8 @@
   <transition name="slide-y">
     <div class="new-comment-bg" v-if="postShow">
       <div class="new-comment-box">
-        <form action="">
+        <form action="/comments/" method="post" class="cf">
+          <input type="number" name="bookmark_id" :value="dishId" class="hidden" />
           <div class="form-group">
             <label>コメント</label>
             <i class="fas fa-times float-right p-1" @click="$emit('close')"></i>
@@ -33,6 +34,9 @@ export default {
     postShow: {
       type: Boolean,
     },
+    dishId: {
+      type: Number,
+    },
   },
 };
 </script>
@@ -60,13 +64,15 @@ i:hover {
   box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   width: 40%;
-  height: 250px;
   position: absolute;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+}
+.new-comment-box form {
+  width: 100%;
 }
 .new-comment-box .btn-box {
   float: right;
@@ -96,7 +102,6 @@ i:hover {
 @media (max-width: 899px) {
   .new-comment-box {
     width: 70%;
-    height: 190px;
   }
 }
 </style>

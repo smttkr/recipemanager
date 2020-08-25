@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
       $table->increments('id');
       $table->unsignedInteger('shop_user_id');
       $table->unsignedInteger('recipe_id');
-      $table->string("comment",200);
+      $table->text("comment");
       $table->timestamps();
 
       $table->foreign('shop_user_id')

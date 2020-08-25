@@ -33,7 +33,9 @@ dl,
 dd {
   margin: 0;
 }
-
+.c-d {
+  cursor: default;
+}
 html {
   scroll-behavior: smooth;
 }

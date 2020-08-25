@@ -10,9 +10,12 @@
 
 @section('content')
 <main>
-  <div class="user-box bg-light mt-4">
-    <user-list-component :users="users"></user-list-component>
-  </div>
+  <section>
+    <h1 class="hidde">SHOP_USER_INDEX</h1>
+    <div class="user-box bg-light mt-4">
+      <user-list-component :shop-users="{{ $shop_users }}"></user-list-component>
+    </div>
+  </section>
 </main>
 @endsection
 

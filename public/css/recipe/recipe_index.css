@@ -24,41 +24,11 @@ main {
   height: 267.5px;
   overflow-y: auto;
 }
-.news h3 {
+/* .news h3 {
   font-size: 1.5rem;
   letter-spacing: 2px;
   font-weight: 600;
-}
-
-section .container {
-  max-width: 100%;
-  padding: 0 30px;
-}
-
-.slide-x-enter-active {
-  animation: slide-x-in 0.6s;
-}
-.slide-x-leave-active {
-  animation: slide-x-in 0.6s reverse;
-}
-.slide-x-leave,
-.slide-x-leave-to {
-  display: none;
-}
-
-.slide-x-move {
-  transition: transform 0.6s;
-}
-
-@keyframes slide-x-in {
-  from {
-    transform: translateX(-600%);
-  }
-
-  to {
-    transform: translateX(0%);
-  }
-}
+} */
 
 @media (max-width: 899px) {
   .nav-news {

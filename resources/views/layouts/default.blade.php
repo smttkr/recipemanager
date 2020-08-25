@@ -21,14 +21,20 @@
 <body>
   <div id="app">
     <header class="cf">
-      <a href="">
-        <h1 class="logo">RecipeManager</h1></a>
+      <a href="{{ route('recipes.index') }}">
+        <h1 class="logo">{{ $shop->name }}</h1></a>
       <div class="user">
-        <span>{{ $user->name }}</span>
-        <a class="dropdown-item" href="{{ route('logout') }}"
-          onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-          ログアウト
-        </a>
+        <ul class="p-0 m-0">
+          <li>
+            <a href="">{{ $user->name }}</a>
+          </li>
+          <li>
+            <a class="logout" href="{{ route('logout') }}"
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              ログアウト
+            </a>
+          </li>
+        </ul>
       </div>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
@@ -42,5 +48,6 @@
   <script src=" {{ mix('js/app.js') }} "></script>
   @yield('script')
 </body>
+
 
 </html>

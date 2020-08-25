@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
       RecipesTableSeeder::class,
       BookmarksTableSeeder::class,
       CommentsTableSeeder::class,
+      NewsTableSeeder::class,
     ]);
   }
 }

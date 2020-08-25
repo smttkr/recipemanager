@@ -1,8 +1,8 @@
 <template>
-  <div class="dish-box">
-    <h2 class="title text-center">{{ dish.title }}</h2>
+  <div class="dish-box mt-3 p-4 bg-light">
+    <h2 class="title text-center">{{ dish.name }}</h2>
     <span>{{ dish.category }}</span>
-    <img :src="dish.src" alt="" />
+    <img :src="dish.image" alt="" />
     <div class="description bg-white mt-3 border rounded">
       <h3 class="border-bottom">説明</h3>
       <div>
