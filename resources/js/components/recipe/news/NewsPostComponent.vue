@@ -1,14 +1,22 @@
 <template>
   <transition name="slide-y">
-    <div class="zoom-topic-bg" v-if="popup">
-      <div class="zoom-topic">
+    <div class="news-post-bg" v-if="show">
+      <div class="news-post">
         <h3 class="border-bottom text-center w-100">NEWS</h3>
-        <div class="zoom-topic-content">{{ modalTopicContent }}</div>
-        <div class="zoom-topic-close">
-          <button class="btn btn-dark" @click="$emit('close-modal')">
-            OK
-          </button>
-        </div>
+
+        <form action="/news" method="POST">
+          <textarea name="mews_content" rows="7"></textarea>
+          <div class="news-post-close">
+            <button
+              type="button"
+              class="btn btn-dark"
+              @click="$emit('close-post')"
+            >
+              キャンセル
+            </button>
+            <button type="submit" class="btn btn-primary">送信</button>
+          </div>
+        </form>
       </div>
     </div>
   </transition>
@@ -16,15 +24,18 @@
 
 <script>
 export default {
-  props: ["popup", "modalTopicContent"],
+  props: {
+    show: {
+      type: Boolean,
+    },
+  },
 };
 </script>
 
-<style>
-.zoom-topic-bg {
+<style scoped>
+.news-post-bg {
   position: fixed;
   display: flex;
-  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
   left: 0;
@@ -32,37 +43,25 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.zoom-topic {
+.news-post {
   background-color: #fff;
   overflow: hidden;
   border-radius: 8px;
   position: absolute;
   width: 50%;
-  height: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
-.zoom-topic h3 {
-  height: 20%;
-  line-height: 60px;
+.news-post textarea {
+  width: 100%;
+  height: 80%;
+  border: 1px solid;
+  border-radius: 2px;
 }
-.zoom-topic-content {
-  height: 60%;
-}
-.zoom-topic-close {
-  height: 20%;
-  background-color: #ededed;
-  text-align: center;
-  padding: 10px;
-}
-.zoom-topic-close button {
-  letter-spacing: 2px;
-  padding: 4px 20px;
-  line-height: 30px;
-}
+
 .slide-y-enter-active {
   animation: slide-y-in 0.3s;
 }
@@ -76,6 +75,11 @@ export default {
 
   to {
     transform: translateY(0%);
+  }
+}
+@media (max-width: 899px) {
+  .news-post {
+    width: 90%;
   }
 }
 </style>

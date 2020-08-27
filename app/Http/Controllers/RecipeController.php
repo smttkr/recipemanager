@@ -10,23 +10,20 @@ use App\Models\ShopUser;
 use App\Models\Recipe;
 use App\Models\News;
 
+
 class RecipeController extends Controller
 {
 
   public function index()
   {
     //ホーム画面 全員
-    $user = Auth::user();
-    $shop = Shop::find($user->shopUser->id);
-    $news = News::where('shop_id', $shop->id)->get()->toJson();
-
-    $dishes = Recipe::where('shop_id', $shop->id)->get()->toJson();
+    $shop = Auth::user()->shopUser->shop;
+    $news = $shop->news->toJson();
+    $recipes = $shop->recipes->toJson();
 
     $params = [
-      'user' => $user,
-      'shop' => $shop,
       'news' => $news,
-      'dishes' => $dishes,
+      'recipes' => $recipes,
     ];
     return view('recipe.index', $params);
   }
@@ -34,14 +31,7 @@ class RecipeController extends Controller
   public function create()
   {
     //新規作成画面 オーナー
-    $user = Auth::user();
-    $shop = Shop::find($user->shopUser->id);
-
-    $params = [
-      'user' => $user,
-      'shop' => $shop
-    ];
-    return view('recipe.create', $params);
+    return view('recipe.create');
   }
 
   public function store(Request $request)
@@ -52,28 +42,23 @@ class RecipeController extends Controller
   public function show(Recipe $recipe)
   {
     //詳細 全員
-    $user = Auth::user();
-    $shop = Shop::find($user->shopUser->id);
-
-    $dish_id = $recipe->id;
-    $dish_name = $recipe->name;
-    $dish = $recipe->toJson();
-
-    if ($temp = $recipe->comments) {
+    $comments = $recipe->comments;
+    if (count($comments) > 0) {
       //コメントのコレクションに、ショップユーザー、ユーザーと連結させてユーザーの名前を取得
-      foreach ($temp as $obj) {
+      foreach ($comments as $obj) {
         $obj->shopUser->user;
       }
-      $comments = $temp->toJson();
+      $comments = $comments->toJson();
+    } else {
+      $comments = [];
     }
 
     $params = [
-      'user' => $user,
-      'shop' => $shop,
-      'dish' => $dish,
-      'dish_id' => $dish_id,
-      'dish_name' => $dish_name,
+      'recipe' => $recipe->toJson(),
+      'recipe_id' => $recipe->id,
+      'recipe_name' => $recipe->name,
       'comments' => $comments,
+      'recipe' => $recipe,
     ];
     return view('recipe.show', $params);
   }

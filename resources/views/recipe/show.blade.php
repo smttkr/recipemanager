@@ -5,20 +5,24 @@
 @endsection
 
 @section('title')
-{{ $dish_name }}
+{{ $recipe_name }}
 @endsection
 
 @section('content')
+
 <main class="show pb-5">
   <section>
     <h1 class="hidden">CONTENT_DETAIL</h1>
-    <content-detail-component :dish="{{ $dish }}"></content-detail-component>
+    <recipe-detail-component :recipe="{{ $recipe }}">
+    </recipe-detail-component>
   </section>
 
   <section>
     <h1 class="hidden">COMMENT_&_BOOKMARK</h1>
-    <icon-component :dish-id="{{ $dish_id }}"></icon-component>
+    <icon-component :recipe-id="{{ $recipe_id }}"></icon-component>
+    @if ($comments !==[])
     <comment-component :comments="{{ $comments }}"></comment-component>
+    @endif
   </section>
 </main>
 @endsection

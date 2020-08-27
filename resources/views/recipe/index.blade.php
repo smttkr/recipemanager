@@ -21,18 +21,23 @@ RecipeManager
 
       <section class="news">
         <h2 class="hidden">NEWS</h2>
-        <news-component :news="{{ $news }}" v-on:topic-click="topicModalOpen"></news-component>
+        <news-group-component :news="{{ $news }}" v-on:news-click="newsModalOpen" v-on:news-post-click="newsPostOpen">
+        </news-group-component>
       </section>
     </div>
   </section>
 
   <section>
     <h1 class="hidden">CONTENTS</h1>
-    <content-group-component :dishes="{{ $dishes }}" :category="category"></content-group-component>
+    <recipe-group-component :recipes="{{ $recipes }}" :category="category"></recipe-group-component>
   </section>
 
-  <topic-modal-component :popup="popup" :modal-topic-content="modalTopicContent" v-on:close-modal="topicModalClose">
-  </topic-modal-component>
+  <section>
+    <h1 class="hidden">POP_UP</h1>
+    <news-modal-component :show="newsPop" :news-modal-content="newsModalContent" v-on:close-modal="newsModalClose">
+    </news-modal-component>
+    <news-post-component :show="newsPostPop" v-on:close-post="newsPostClose"></news-post-component>
+  </section>
 </main>
 @endsection
 
@@ -42,23 +47,29 @@ RecipeManager
   el: "#app",
   data: {
     category: "",
-    popup: false,
-    modalTopicContent: "",
+    newsPop: false,
+    newsPostPop:false,
+    newsModalContent: "",
   },
   methods: {
     clear() {
       this.category = "";
     },
-    topicModalOpen(value) {
-      this.modalTopicContent = value;
-      this.popup = true;
+    newsModalOpen(value) {
+      this.newsModalContent = value;
+      this.newsPop = true;
     },
-    topicModalClose() {
-      this.popup = false;
-      this.modalTopicContent = "";
+    newsModalClose() {
+      this.newsPop = false;
+      this.newsModalContent = "";
     },
+    newsPostOpen(){
+      this.newsPostPop = true;
+    },
+    newsPostClose(){
+      this.newsPostPop = false;
+    }
   },
 });
 </script>
-{{-- <script src="{{ asset('js/recipe/recipe_index.js') }}"></script> --}}
 @endsection

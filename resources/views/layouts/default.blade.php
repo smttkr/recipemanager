@@ -22,11 +22,11 @@
   <div id="app">
     <header class="cf">
       <a href="{{ route('recipes.index') }}">
-        <h1 class="logo">{{ $shop->name }}</h1></a>
+        <h1 class="logo">{{ $shop_name }}</h1></a>
       <div class="user">
         <ul class="p-0 m-0">
           <li>
-            <a href="">{{ $user->name }}</a>
+            <a href="{{ route('users.show',$user_id) }}">{{ $user_name }}</a>
           </li>
           <li>
             <a class="logout" href="{{ route('logout') }}"

@@ -15,9 +15,7 @@ class ShopUserController extends Controller
   {
     //ショップのユーザーを全員表示 オーナーのみ
     $user = Auth::user();
-
-    $user = Auth::user();
-    $shop = Shop::find($user->shopUser->id);
+    $shop = $user->shopUser->shop;
 
     if ($shop_users = ShopUser::where('shop_id', $shop->id)->get()) {
       foreach ($shop_users as $obj) {
@@ -32,5 +30,11 @@ class ShopUserController extends Controller
       'shop_users' => $shop_users
     ];
     return view('user.index', $params);
+  }
+
+  public function destroy(ShopUser $shopuser)
+  {
+    $shopuser->delete();
+    return redirect()->back();
   }
 }

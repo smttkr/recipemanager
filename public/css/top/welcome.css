@@ -1,6 +1,5 @@
 html,
 #app {
-  /* height: 1500px; */
   min-height: 100vh;
   color: #43484d;
   font-family: "M PLUS Rounded 1c", sans-serif;
@@ -33,7 +32,7 @@ html,
 
 .content .top-box {
   height: 80vh;
-  background-image: url("../../images/top/restaurant.jpg");
+  background-image: url("http://homestead.recipemanager.test/images/top/restaurant.jpg");
   background-size: cover;
 }
 

@@ -11,8 +11,8 @@
 @section('content')
 <main>
   <section>
-    <h1 class="hidde">SHOP_USER_INDEX</h1>
-    <div class="user-box bg-light mt-4">
+    <h1 class="hidden">SHOP_USER_INDEX</h1>
+    <div class="users-box bg-light mt-4">
       <user-list-component :shop-users="{{ $shop_users }}"></user-list-component>
     </div>
   </section>
@@ -20,5 +20,9 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/user/user_index.js') }}"></script>
+<script>
+  new Vue({
+    el:"#app",
+  })
+</script>
 @endsection

@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      defaultImage: "../images/user/alien.png",
+      defaultImage: "http://homestead.recipemanager.test/images/user/alien.png",
     };
   },
 

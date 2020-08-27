@@ -15,4 +15,8 @@ class Shop extends Model
   {
     return $this->hasMany('App\Models\Recipe');
   }
+  public function news()
+  {
+    return $this->hasMany('App\Models\News');
+  }
 }

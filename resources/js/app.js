@@ -22,22 +22,22 @@ Vue.component(
 );
 
 Vue.component(
-  "news-component",
-  require("./components/recipe/NewsComponent.vue").default
+  "news-group-component",
+  require("./components/recipe/news/NewsGroupComponent.vue").default
 );
 Vue.component(
-  "topic-modal-component",
-  require("./components/recipe/TopicModalComponent.vue").default
-);
-
-Vue.component(
-  "content-group-component",
-  require("./components/recipe/ContentGroupComponent.vue").default
+  "news-modal-component",
+  require("./components/recipe/news/NewsModalComponent.vue").default
 );
 
 Vue.component(
-  "content-detail-component",
-  require("./components/recipe/ContentDetailComponent.vue").default
+  "recipe-group-component",
+  require("./components/recipe/RecipeGroupComponent.vue").default
+);
+
+Vue.component(
+  "recipe-detail-component",
+  require("./components/recipe/RecipeDetailComponent.vue").default
 );
 
 Vue.component(
@@ -60,8 +60,36 @@ Vue.component(
 );
 
 Vue.component(
-  "post-comment-component",
-  require("./components/comment/PostCommentComponent.vue").default
+  "comment-post-component",
+  require("./components/comment/CommentPostComponent.vue").default
+);
+
+Vue.component(
+  "news-post-component",
+  require("./components/recipe/news/NewsPostComponent.vue").default
+);
+
+Vue.component(
+  "recipe-edit-component",
+  require("./components/recipe/RecipeEditComponent.vue").default
+);
+Vue.component(
+  "recipe-create-component",
+  require("./components/recipe/RecipeEditComponent.vue").default
+);
+
+Vue.component(
+  "user-show-component",
+  require("./components/user/UserShowComponent.vue").default
+);
+
+Vue.component(
+  "profile-edit-component",
+  require("./components/user/ProfileEditComponent.vue").default
+);
+Vue.component(
+  "shop-user-delete-component",
+  require("./components/user/ShopUserDeleteComponent.vue").default
 );
 
 // const app = new Vue({

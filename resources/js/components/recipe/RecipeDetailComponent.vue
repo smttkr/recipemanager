@@ -1,12 +1,12 @@
 <template>
-  <div class="dish-box mt-3 p-4 bg-light">
-    <h2 class="title text-center">{{ dish.name }}</h2>
-    <span>{{ dish.category }}</span>
-    <img :src="dish.image" alt="" />
+  <div class="recipe-box mt-3 p-4 bg-light">
+    <h2 class="title text-center">{{ recipe.name }}</h2>
+    <span>{{ recipe.category }}</span>
+    <img :src="recipe.image" alt="" />
     <div class="description bg-white mt-3 border rounded">
       <h3 class="border-bottom">説明</h3>
       <div>
-        {{ dish.description }}
+        {{ recipe.description }}
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
 <script>
 export default {
   props: {
-    dish: {
+    recipe: {
       type: Object,
     },
   },

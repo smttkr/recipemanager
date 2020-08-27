@@ -2,7 +2,7 @@
   <table class="table ">
     <tr v-for="user in shopUsers" :key="user.id">
       <td class="img">
-        <img :src="user.user.image" alt="" />
+        <img :src="user.user.profile_image" alt="" />
       </td>
       <td class="name">{{ user.user.name }}</td>
       <td class="day">{{ user.created_at.slice(0, 10) }}</td>

@@ -1,15 +1,21 @@
 <template>
   <div class="bg-light">
-    <h3 class="border-bottom text-danger m-0 pb-1">NEWS!</h3>
+    <div class="news-header cf border-bottom m-0 pb-1">
+      <h3 class="text-danger d-inline-block">NEWS!</h3>
+      <i
+        class="fas fa-plus float-right d-inline-block"
+        @click="newsPostClick"
+      ></i>
+    </div>
     <table class="table">
       <tr
-        v-for="topic in news"
-        :key="topic.id"
-        @click="topicClick(topic.content)"
+        v-for="n in news"
+        :key="n.id"
+        @click="newsClick(n.content)"
       >
-        <td>{{ topic.created_at.slice(5,10) }}</td>
-        <td>{{ topic.category }}</td>
-        <td class="content">{{ topic.content | maxLengthValidator }}</td>
+        <td>{{ n.created_at.slice(5, 10) }}</td>
+        <td>{{ n.category }}</td>
+        <td class="content">{{ n.content | maxLengthValidator }}</td>
         <td>
           <button
             type="button"
@@ -32,8 +38,11 @@ export default {
     },
   },
   methods: {
-    topicClick(content) {
-      this.$emit("topic-click", content);
+    newsClick(content) {
+      this.$emit("news-click", content);
+    },
+    newsPostClick() {
+      this.$emit("news-post-click");
     },
   },
   filters: {
@@ -50,6 +59,22 @@ export default {
 </script>
 
 <style scoped>
+.news-header {
+  position: relative;
+}
+h3 {
+  cursor: default;
+}
+.news-header i::before {
+  position: absolute;
+  top: 20%;
+  right: 2%;
+  font-size: 1.5rem;
+}
+.news-header i:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
 table {
   table-layout: fixed;
 }
@@ -73,17 +98,6 @@ table td .ok {
   .news table {
     width: 90%;
     margin: 0 auto;
-  }
-  .zoom-topic {
-    width: 80%;
-    height: 200px;
-  }
-  .zoom-topic h3 {
-    line-height: 40px;
-  }
-  .zoom-topic-close button {
-    padding: 0px 10px;
-    line-height: 20px;
   }
 }
 </style>

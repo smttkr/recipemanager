@@ -2,20 +2,20 @@
   <div class="container content-box mt-5">
     <transition-group name="slide-x" tag="div" class="row">
       <div
-        class="dish col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
-        v-for="dish in matchDishes"
-        :key="dish.id"
+        class="recipe col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+        v-for="recipe in matchRecipes"
+        :key="recipe.id"
       >
-        <a :href="'recipes/' + dish.id">
+        <a :href="'recipes/' + recipe.id">
           <div
-            class="dish-box bg-light"
-            :class="matchLabelColor(dish.category)"
+            class="recipe-box bg-light"
+            :class="matchLabelColor(recipe.category)"
           >
-            <img :src="dish.image" alt="" />
+            <img :src="recipe.image" alt="" />
             <div class="p-2 text">
-              <h3 class="name mb-2">{{ dish.name }}</h3>
+              <h3 class="name mb-2">{{ recipe.name }}</h3>
               <div class="description">
-                {{ dish.description }}
+                {{ recipe.description }}
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
 <script>
 export default {
   props: {
-    dishes: {
+    recipes: {
       type: Array,
     },
     category: {
@@ -46,8 +46,8 @@ export default {
     };
   },
   computed: {
-    matchDishes() {
-      let result = this.dishes.slice();
+    matchRecipes() {
+      let result = this.recipes.slice();
       if (this.category.length > 0) {
         result = result.filter((d) => {
           return d.category.indexOf(this.category) > -1;
@@ -87,7 +87,7 @@ export default {
 a:hover {
   text-decoration: none;
 }
-.dish-box {
+.recipe-box {
   height: 300px;
   overflow: hidden;
   border-radius: 8px;
@@ -97,7 +97,7 @@ a:hover {
   transition: all 0.5s;
   position: relative;
 }
-.dish-box::before {
+.recipe-box::before {
   content: "";
   bottom: 0;
   right: 0;
@@ -118,22 +118,22 @@ a:hover {
   border-right-color: #c1efff;
 }
 
-.dish-box:hover {
+.recipe-box:hover {
   text-decoration: none;
   color: #43484d;
   opacity: 0.8;
   box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.9);
 }
-.dish-box h3 {
+.recipe-box h3 {
   font-size: 1.3rem;
 }
-.dish-box img {
+.recipe-box img {
   display: block;
   width: 100%;
   height: 40%;
 }
 
-.dish-box .description {
+.recipe-box .description {
   height: 165px;
 }
 
@@ -162,10 +162,10 @@ a:hover {
   }
 }
 @media (max-width: 899px) {
-  .dish-box {
+  .recipe-box {
     height: 300px;
   }
-  .dish-box img {
+  .recipe-box img {
     height: 55%;
   }
 }

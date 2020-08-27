@@ -3,22 +3,22 @@
     <i class="far fa-comment mx-5" @click="postShow = !postShow"></i>
 
     <form action="/bookmarks/" method="POST">
-      <input type="number" name="bookmark_id" :value="dishId" class="hidden" />
+      <input type="number" name="bookmark_id" :value="recipeId" class="hidden" />
       <button type="submit"><i class="far fa-folder-open"></i></button>
     </form>
 
-    <post-comment-component
+    <comment-post-component
       :postShow="postShow"
-      :dish-id="dishId"
+      :recipe-id="recipeId"
       v-on:close="postShow = false"
-    ></post-comment-component>
+    ></comment-post-component>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    dishId: {
+    recipeId: {
       type: Number,
     },
   },

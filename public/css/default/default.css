@@ -10,7 +10,7 @@ header {
   height: 200px;
   position: relative;
   padding: 15px 20px 10px 20px;
-  background-image: url("../../images/top/cook.jpg");
+  background-image: url("http://homestead.recipemanager.test/images/top/cook.jpg");
   background-size: cover;
 }
 
@@ -29,7 +29,7 @@ header .user {
   margin-top: 10px;
   font-size: 1.4rem;
 }
-header .user li{
+header .user li {
   list-style: none;
 }
 header .user li a {
@@ -42,7 +42,6 @@ header .user li a:hover {
   cursor: pointer;
   opacity: 0.7;
   text-decoration: none;
-  
 }
 
 @media (max-width: 899px) {

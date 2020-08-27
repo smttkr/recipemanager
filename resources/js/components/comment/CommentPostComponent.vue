@@ -3,11 +3,11 @@
     <div class="new-comment-bg" v-if="postShow">
       <div class="new-comment-box">
         <form action="/comments/" method="post" class="cf">
-          <input type="number" name="bookmark_id" :value="dishId" class="hidden" />
+          <input type="number" name="bookmark_id" :value="recipeId" class="hidden" />
           <div class="form-group">
             <label>コメント</label>
             <i class="fas fa-times float-right p-1" @click="$emit('close')"></i>
-            <textarea type="email" class="form-control" rows="6" />
+            <textarea type="text" class="form-control" rows="6" />
             <small class="form-text text-muted"></small>
             <div class="btn-box">
               <button
@@ -34,7 +34,7 @@ export default {
     postShow: {
       type: Boolean,
     },
-    dishId: {
+    recipeId: {
       type: Number,
     },
   },
