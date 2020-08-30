@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="search-box mt-3">
-      <div class="input-group">
-        <input type="text" class="form-control" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-primary">検索</button>
-        </span>
-      </div>
-    </div>
     <div class="menu mt-1">
       <a href="/recipes/create"
         ><button type="button" class="btn btn-outline-secondary btn-sm">
@@ -55,10 +47,6 @@ export default {
 </script>
 
 <style scoped>
-.search-box {
-  width: 30%;
-}
-
 .menu {
   font-size: 1.4rem;
   float: right;
@@ -74,9 +62,6 @@ export default {
 @media (max-width: 899px) {
   .logo {
     display: block;
-  }
-  .search-box {
-    width: 85%;
   }
 
   .menu {

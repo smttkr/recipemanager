@@ -23,7 +23,21 @@
       @if (Route::has('login'))
       <div class="top-right links">
         @auth
-        <a href="{{ route('recipes.index') }}">Home</a>
+        @if ($user->shopUser)
+        <a href="{{ route('recipes.index') }}">ホーム</a>
+        @else
+        <a href="{{ route('shopusers.create') }}">はじめる</a>
+        @endif
+        <a href="{{ route('users.show',$user->id) }}">{{ $user->name }}</a>
+        {{-- <a class="logout" href="{{ route('logout') }}"
+        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+        ログアウト
+        </a> --}}
+        <a v-on:click="logout" href="{{ route('logout') }}" class="logout">ログアウト</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+          <button ref="logout"></button>
+        </form>
         @else
         <a href="{{ route('login') }}">ログイン</a>
         @if (Route::has('register'))
@@ -61,11 +75,6 @@
           </div>
         </div>
       </section>
-      <div class="start-btn">
-        <a href="{{ route('register') }}">
-          <button class="btn">今すぐ始めてみる</button>
-        </a>
-      </div>
     </main>
     <footer>
       <small>Copyright © 2020 Takara Sumimoto All Rights Reserved.</small>

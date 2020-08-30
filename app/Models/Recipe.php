@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
 {
+  protected $fillable = ['shop_id', 'name', 'category', 'image', 'description'];
+
   public function comments()
   {
     return $this->hasMany('App\Models\Comment');
@@ -16,7 +18,3 @@ class Recipe extends Model
     return $this->hasMany('App\Models\Bookmark');
   }
 }
-
-
-
-  

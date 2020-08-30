@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('header-link')
+<a class="navbar-brand" href="{{ url('/') }}">
+  RecipeManager
+</a>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

@@ -10,41 +10,52 @@
 
 @section('content')
 <main>
-  <form action="" class="mx-auto mt-3 pb-5">
+
+
+  <form enctype="multipart/form-data" action="{{ route('recipes.store') }}" method="POST" class="mx-auto mt-3 pb-5">
+    @csrf
     <div class="img-form form-group mx-auto">
       <label for="input-file">画像</label>
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="input-file" />
-        <label class="custom-file-label" for="inputFile" data-browse="参照">ファイルを選択してください</label>
+        <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror"
+          id="image" />
+        <label v-if="file===null" class="custom-file-label" for="image" data-browse="参照">ファイルを選択</label>
+        <label v-else class="custom-file-label" for="image" data-browse="参照">@{{ file }}</label>
+        @error('image')
+        <small class="text-danger" role="alert">{{ $message }}</small>
+        @enderror
       </div>
     </div>
-    <div class="form-group title-form mx-auto">
-      <label for="title">料理名</label>
-      <input type="text" class="form-control" id="title" />
+    <div class="form-group name-form mx-auto">
+      <label for="name">料理名</label>
+      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
+        value="{{ old('name') }}" />
+      @error('name')
+      <small class="text-danger" role="alert">{{ $message }}</small>
+      @enderror
     </div>
-    <div class="form-check-group mt-3">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="category" id="salad" checked />
-        <label class="form-check-label" for="salad">サラダ</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="category" id="meat" />
-        <label class="form-check-label" for="meat">お肉</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="category" id="fried" />
-        <label class="form-check-label" for="fried">揚げ物</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="category" id="dessert" />
-        <label class="form-check-label" for="dessert">デザート</label>
-      </div>
+    <div class="form-group category-form mx-auto">
+      <label for="category">カテゴリ</label>
+      <select name="category" class="custom-select @error('category') is-invalid @enderror" id="category">
+        <option value="" class="hidden">選択してください</option>
+        <option value="salad">サラダ</option>
+        <option value="meat">お肉</option>
+        <option value="fried">揚げ物</option>
+        <option value="dessert">デザート</option>
+      </select>
+      @error('category')
+      <small class="text-danger" role="alert">{{ $message }}</small>
+      @enderror
     </div>
-    <div class="form-group mt-3">
-      <label for="content">内容</label>
-      <textarea id="content" class="form-control" rows="10"></textarea>
+    <div class="form-group description-form mt-3">
+      <label for="description">内容</label>
+      <textarea id="description" name="description" value="{{ old('description') }}"
+        class="form-control @error('description') is-invalid @enderror" rows="10"></textarea>
+      @error('description')
+      <small class="text-danger" role="alert">{{ $message }}</small>
+      @enderror
     </div>
-    <button type="submit" class="d-block mx-auto btn btn-danger">
+    <button type="submit" class="d-block mx-auto btn btn-primary">
       新規作成
     </button>
   </form>
@@ -52,5 +63,12 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/recipe/recipe_create.js') }}"></script>
+<script>
+  new Vue({
+    el: "#app",
+      data: {
+      file: null,
+    },
+  });
+</script>
 @endsection

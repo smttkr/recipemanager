@@ -9,7 +9,14 @@ RecipeManager
 @endsection
 
 @section('content')
-<main class="pb-5">
+<main class="pt-3">
+  <div class="search-box input-group mb-2">
+    <input type="text" class="form-control" placeholder="キーワードを入力">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button" id="button-addon2">検索</button>
+    </div>
+  </div>
+
   <section>
     <h1 class="hidden">CATEGORY_＆_NEWS</h1>
     <div class="grid nav-news mt-5">
@@ -34,10 +41,14 @@ RecipeManager
 
   <section>
     <h1 class="hidden">POP_UP</h1>
-    <news-modal-component :show="newsPop" :news-modal-content="newsModalContent" v-on:close-modal="newsModalClose">
+    <news-modal-component :show="newsPop" :news="news" v-on:close="newsModalClose" v-on:delete="submitDeletion">
     </news-modal-component>
-    <news-post-component :show="newsPostPop" v-on:close-post="newsPostClose"></news-post-component>
+    <news-post-component :show="newsPostPop" :csrf="csrf" v-on:close="newsPostClose"></news-post-component>
   </section>
+  <form :action="link" ref=newsDelete method="POST">
+    @csrf
+    @method("DELETE")
+  </form>
 </main>
 @endsection
 
@@ -46,28 +57,39 @@ RecipeManager
   new Vue({
   el: "#app",
   data: {
+    csrf: document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute("content"),
     category: "",
     newsPop: false,
     newsPostPop:false,
-    newsModalContent: "",
+    news:null,
+    link:null,
+  },
+  computed: {
   },
   methods: {
     clear() {
       this.category = "";
     },
     newsModalOpen(value) {
-      this.newsModalContent = value;
+      this.news = value;
+      this.link = "news/"+value.id;
       this.newsPop = true;
     },
     newsModalClose() {
       this.newsPop = false;
-      this.newsModalContent = "";
+      this.news = null;
+      this.link = null;
     },
     newsPostOpen(){
       this.newsPostPop = true;
     },
     newsPostClose(){
       this.newsPostPop = false;
+    },
+    submitDeletion(){
+      this.$refs.newsDelete.submit();
     }
   },
 });

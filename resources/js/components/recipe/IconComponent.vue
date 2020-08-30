@@ -1,29 +1,32 @@
 <template>
-  <div class="icon-box bg-white border-top">
-    <i class="far fa-comment mx-5" @click="postShow = !postShow"></i>
-
-    <form action="/bookmarks/" method="POST">
-      <input type="number" name="bookmark_id" :value="recipeId" class="hidden" />
-      <button type="submit"><i class="far fa-folder-open"></i></button>
-    </form>
-
-    <comment-post-component
-      :postShow="postShow"
-      :recipe-id="recipeId"
-      v-on:close="postShow = false"
-    ></comment-post-component>
+  <div class="icon-box bg-white border-top py-2">
+    <i @click="post" class="far fa-comment mx-5"></i>
+    <i @click="bookmark" class="far fa-folder-open"></i>
+    <i @click="edit" class="far fa-edit mx-5"></i>
+    <i @click="destroy" class="far fa-trash-alt"></i>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    recipeId: {
-      type: Number,
+    csrf: {
+      type: String,
     },
   },
-  data() {
-    return { postShow: false };
+  methods: {
+    post() {
+      this.$emit("post");
+    },
+    edit() {
+      this.$emit("edit");
+    },
+    bookmark() {
+      this.$emit("bookmark");
+    },
+    destroy() {
+      this.$emit("destroy");
+    },
   },
 };
 </script>
@@ -45,10 +48,11 @@ export default {
   cursor: pointer;
 }
 
-i::before {
+.icon-box i::before {
   font-size: 1.5rem;
+  color: black;
 }
-i:hover {
+.icon-box i:hover {
   cursor: pointer;
   opacity: 0.8;
 }

@@ -23,11 +23,11 @@ Vue.component(
 
 Vue.component(
   "news-group-component",
-  require("./components/recipe/news/NewsGroupComponent.vue").default
+  require("./components/news/NewsGroupComponent.vue").default
 );
 Vue.component(
   "news-modal-component",
-  require("./components/recipe/news/NewsModalComponent.vue").default
+  require("./components/news/NewsModalComponent.vue").default
 );
 
 Vue.component(
@@ -66,7 +66,7 @@ Vue.component(
 
 Vue.component(
   "news-post-component",
-  require("./components/recipe/news/NewsPostComponent.vue").default
+  require("./components/news/NewsPostComponent.vue").default
 );
 
 Vue.component(
@@ -90,6 +90,11 @@ Vue.component(
 Vue.component(
   "shop-user-delete-component",
   require("./components/user/ShopUserDeleteComponent.vue").default
+);
+
+Vue.component(
+  "recipe-update-component",
+  require("./components/recipe/update/RecipeUpdateComponent.vue").default
 );
 
 // const app = new Vue({

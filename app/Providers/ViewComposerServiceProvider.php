@@ -22,7 +22,6 @@ class ViewComposerServiceProvider extends ServiceProvider
   public function boot()
   {
 
-
     View::composer('layouts.default', function ($view) {
       $user = Auth::user();
       $shop = $user->shopUser->shop;

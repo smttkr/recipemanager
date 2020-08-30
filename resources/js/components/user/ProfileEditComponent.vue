@@ -46,6 +46,7 @@
         name="profile_image"
         class="form-control"
         :placeholder="nameNote"
+
       />
       <div class="btn-box text-center">
         <button
@@ -57,6 +58,16 @@
         </button>
       </div>
     </form>
+
+    <button>送信</button>
+
+  <form action="" class="hidden">
+      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="_method" value="DELETE" />
+      <button></button>
+    </form>
+
+
   </div>
 </template>
 

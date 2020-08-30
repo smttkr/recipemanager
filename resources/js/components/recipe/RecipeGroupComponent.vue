@@ -6,12 +6,18 @@
         v-for="recipe in matchRecipes"
         :key="recipe.id"
       >
-        <a :href="'recipes/' + recipe.id">
+        <a :href="'/recipes/' + recipe.id">
           <div
             class="recipe-box bg-light"
             :class="matchLabelColor(recipe.category)"
           >
-            <img :src="recipe.image" alt="" />
+            <img
+              :src="
+                'http://homestead.recipemanager.test/storage/images/dishes/' +
+                  recipe.image
+              "
+              alt=""
+            />
             <div class="p-2 text">
               <h3 class="name mb-2">{{ recipe.name }}</h3>
               <div class="description">
@@ -128,6 +134,7 @@ a:hover {
   font-size: 1.3rem;
 }
 .recipe-box img {
+  object-fit: cover;
   display: block;
   width: 100%;
   height: 40%;

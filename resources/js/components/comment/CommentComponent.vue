@@ -3,9 +3,7 @@
     <table class="table mb-0">
       <tr class="p-2" v-for="comment in comments" :key="comment.id">
         <td class="user">
-          <!-- <img :src="comment.shop_user.user.image" alt="" /> -->
-          <img :src="defaultImage" alt="" />
-          <!-- ユーザーの画像をデフォルトでエイリアンにするからいずれ消す  -->
+          <img :src="comment.shop_user.user.profile_image" alt="" />
           <p class="mb-0">{{ comment.shop_user.user.name }}</p>
         </td>
         <td class="comment-content">
@@ -24,17 +22,10 @@ export default {
       type: Array,
     },
   },
-  data() {
-    return {
-      defaultImage: "http://homestead.recipemanager.test/images/user/alien.png",
-    };
-  },
-
 };
 </script>
 
 <style scoped>
-
 .comment table {
   table-layout: fixed;
   height: 112px;

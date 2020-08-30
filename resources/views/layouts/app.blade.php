@@ -1,13 +1,11 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ja">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
-  <!-- Styles -->
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
   <link
     href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
@@ -21,30 +19,29 @@
       font-family: "Noto Sans JP", sans-serif;
     }
 
-    main {
-      margin: 10% 0
+    a:hover {
+      text-decoration: none !important;
     }
   </style>
-  @yield('style')
 </head>
 
 <body>
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
       <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-          RecipeManager
-        </a>
+        {{-- ショップに属しているかどうかで、リンク先を変える --}}
+        @yield('header-link')
         {{-- unknown --}}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <span class="navbar-toggler-icon"></span>
+        </button> --}}
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
+
             @guest
             <li class="nav-item">
               <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>

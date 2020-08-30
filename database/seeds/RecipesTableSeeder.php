@@ -16,28 +16,28 @@ class RecipesTableSeeder extends Seeder
       'shop_id' => 1,
       'category' => 'meat',
       'name' => 'ビーフステーキ',
-      'image' => 'http://homestead.recipemanager.test/images/dishes/beefsteak.jpg',
+      'image' => 'beefsteak.jpg',
       'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     ]);
     Recipe::create([
       'shop_id' => 1,
       'category' => 'dessert',
       'name' => 'チョコレートケーキ',
-      'image' => 'http://homestead.recipemanager.test/images/dishes/chocolatecake.jpg',
+      'image' => 'chocolatecake.jpg',
       'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     ]);
     Recipe::create([
       'shop_id' => 1,
       'category' => 'salad',
       'name' => 'グリーンサラダ',
-      'image' => 'http://homestead.recipemanager.test/images/dishes/greensalad.jpg',
+      'image' => 'greensalad.jpg',
       'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     ]);
     Recipe::create([
       'shop_id' => 1,
       'category' => 'fried',
       'name' => 'フライドポテト',
-      'image' => 'http://homestead.recipemanager.test/images/dishes/firedpotato.jpg',
+      'image' => 'firedpotato.jpg',
       'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     ]);
   }

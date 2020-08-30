@@ -1,12 +1,11 @@
 <template>
   <transition name="slide-y">
-    <div class="new-comment-bg" v-if="postShow">
+    <div v-if="postShow" @click.self="$emit('close')" class="new-comment-bg">
       <div class="new-comment-box">
         <form action="/comments/" method="post" class="cf">
           <input type="number" name="bookmark_id" :value="recipeId" class="hidden" />
           <div class="form-group">
             <label>コメント</label>
-            <i class="fas fa-times float-right p-1" @click="$emit('close')"></i>
             <textarea type="text" class="form-control" rows="6" />
             <small class="form-text text-muted"></small>
             <div class="btn-box">
@@ -42,12 +41,7 @@ export default {
 </script>
 
 <style scoped>
-i {
-  cursor: pointer;
-}
-i:hover {
-  opacity: 0.8;
-}
+
 .new-comment-bg {
   position: fixed;
   display: flex;

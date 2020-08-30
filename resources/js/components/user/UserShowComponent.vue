@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="row info-box bg-light">
+    <div v-if="user.shop_user" class="row info-box bg-light">
       <div class="shop col-sm border">
         {{ user.shop_user.shop.name }}
       </div>
@@ -49,10 +49,13 @@ export default {
   },
   methods: {
     editClick(val) {
-      this.$emit("edit-click", { link: this.user.shop_user.id, which: val });
+      this.$emit("edit-click", { link: this.user.id, which: val });
     },
     deleteClick() {
-      this.$emit("delete-click", this.user.shop_user.id);
+      this.$emit("delete-click", {
+        link: this.user.shop_user.id,
+        shopName: this.user.shop_user.shop.name,
+      });
     },
   },
 };
@@ -126,7 +129,6 @@ export default {
 }
 
 @media (max-width: 899px) {
-
   .info-box div {
     font-size: 1.2rem;
     padding: 15px 0;

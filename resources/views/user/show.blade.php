@@ -1,23 +1,36 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('title')
 {{ $user->name }}
 @endsection
 
+@section('header-link')
+@if($user->shopUser)
+<a class="navbar-brand" href="{{ route('recipes.index') }}">
+  {{ $user->shopUser->shop->name }}へ
+</a>
+@else
+<a class="navbar-brand" href="{{ url('/') }}">
+  RecipeManager
+</a>
+@endif
+@endsection
+
+
 @section('content')
-<main>
-  <section>
+<div>
+  <div>
     <img src="" alt="">
-    <h1 class="hidden">MYSELF_SHOW</h1>
     <user-show-component :user="{{ $user }}" v-on:edit-click="editPop" v-on:delete-click="deletePop">
     </user-show-component>
-  </section>
+  </div>
 
   <profile-edit-component :show="editShow" :which-show="whichShow" :csrf="csrf" :link="editLink" v-on:close="close">
   </profile-edit-component>
-  <shop-user-delete-component :show="deleteShow" :csrf="csrf" :link="deleteLink" v-on:close="close">
+  <shop-user-delete-component :show="deleteShow" :shop-name="shopName" :csrf="csrf" :link="deleteLink"
+    v-on:close="close">
   </shop-user-delete-component>
-</main>
+</div>
 
 @endsection
 
@@ -43,15 +56,20 @@ new Vue({
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content"),
     whichShow: "",
-    deleteShow: false,
-    deleteLink: "",
     editShow: false,
     editLink: "",
+    shopName:"",
+    deleteShow: false,
+    deleteLink: "",
+  },
+  computed:{
+  //渡すデータはここでまとめてOjectにして渡す
   },
   methods: {
     deletePop(value) {
       this.deleteShow = true;
-      this.deleteLink = "/shopusers/" + value;
+      this.deleteLink = "/shopusers/" + value.link;
+      this.shopName = value.shopName;
     },
     close() {
       Object.assign(this.$data, reset());

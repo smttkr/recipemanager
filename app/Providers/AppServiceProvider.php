@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\Myself;
+// use App\Services\Myself;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,9 +24,9 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    app()->singleton('App\Services\Myself', function ($app) {
-      $myself = new Myself();
-      return $myself;
-    });
+    // app()->singleton('App\Services\Myself', function ($app) {
+    //   $myself = new Myself();
+    //   return $myself;
+    // });
   }
 }

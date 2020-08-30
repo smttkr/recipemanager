@@ -4,8 +4,10 @@
 新規登録
 @endsection
 
-@section('style')
-{{-- <link rel="stylesheet" href="style.css"> --}}
+@section('header-link')
+<a class="navbar-brand" href="{{ url('/') }}">
+  RecipeManager
+</a>
 @endsection
 
 

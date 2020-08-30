@@ -1,9 +1,12 @@
 main {
   min-height: 660px;
 }
-
-.test {
-  color: red;
+main .search-box {
+  width: 50%;
+  margin: 0 auto;
+}
+main .input-group .input-group-append .btn {
+  z-index: 0;
 }
 .grid {
   display: grid;
@@ -27,6 +30,10 @@ main {
 }
 
 @media (max-width: 899px) {
+  main .search-box {
+    width: 80%;
+    margin: 0 auto;
+  }
   .nav-news {
     width: 90%;
   }

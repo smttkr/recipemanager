@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
   {
     Schema::create('users', function (Blueprint $table) {
       $table->increments('id');
-      $table->string("profile_image")->default("http://homestead.recipemanager.test/images/user/alien.png");
+      $table->string("profile_image")->default("alien.png");
       $table->string('name');
       $table->string('email')->unique();
       $table->timestamp('email_verified_at')->nullable();

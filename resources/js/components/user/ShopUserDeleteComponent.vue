@@ -1,9 +1,10 @@
 <template>
-  <div v-if="show" @click="close" class="delete-modal-bg">
+  <div v-if="show" @click.self="close" class="delete-modal-bg">
     <form :action="link" method="POST" class="delete-form">
       <input type="hidden" name="_token" :value="csrf" />
       <input type="hidden" name="_method" value="DELETE" />
       <button type="submit" class="btn btn-lg btn-danger">
+        {{ shopName }}を <br />
         本当に退会しますか？
       </button>
     </form>
@@ -15,6 +16,9 @@ export default {
   props: {
     show: {
       type: Boolean,
+    },
+    shopName: {
+      type: String,
     },
     link: {
       type: String,

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopUser extends Model
 {
+  protected $fillable = ['shop_id', 'user_id', 'position'];
+
   public function comments()
   {
     return $this->hasMany('App\Models\Comment');

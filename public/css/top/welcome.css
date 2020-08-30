@@ -13,11 +13,12 @@ html,
 }
 
 .links > a {
+  display: inline-block;
   color: black;
   border: 1px solid;
   border-radius: 100vh;
   padding: 0 25px;
-  font-size: 1.1rem;
+  font-size: 100%;
   font-weight: 400;
   letter-spacing: 0.1rem;
   text-decoration: none;
@@ -32,7 +33,7 @@ html,
 
 .content .top-box {
   height: 80vh;
-  background-image: url("http://homestead.recipemanager.test/images/top/restaurant.jpg");
+  background-image: url("http://homestead.recipemanager.test/storage/images/top/restaurant.jpg");
   background-size: cover;
 }
 
@@ -40,7 +41,7 @@ html,
   color: aliceblue;
   overflow: hidden;
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
@@ -67,23 +68,6 @@ html,
   margin-top: 100px;
 }
 
-.start-btn {
-  text-align: center;
-  margin-top: 30px;
-}
-.start-btn button {
-  width: 25%;
-  height: 70px;
-  color: aliceblue;
-  background-color: #1f6ed4;
-  letter-spacing: 2px;
-  font-size: 1.3rem;
-}
-.start-btn button:hover {
-  color: aliceblue;
-  opacity: 0.7;
-}
-
 footer {
   margin-top: 150px;
   padding: 10px 0;
@@ -96,16 +80,8 @@ footer small {
   text-align: center;
 }
 
-@media (max-width: 899px) {
-  .start-btn button {
-    width: 32%;
-    height: 60px;
-    font-size: 1rem;
-  }
-}
 @media (max-width: 575px) {
-  .start-btn button {
-    width: 70%;
-    height: 50px;
+  .links > a {
+    padding: 0 10px;
   }
 }

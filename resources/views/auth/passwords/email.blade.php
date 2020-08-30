@@ -4,6 +4,12 @@
     パスワードリセット
 @endsection
 
+@section('header-link')
+<a class="navbar-brand" href="{{ url('/') }}">
+  RecipeManager
+</a>
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
@@ -28,8 +34,8 @@
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                 @error('email')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                <span class="text-danger" role="alert">
+                 {{ $message }}
                 </span>
                 @enderror
               </div>

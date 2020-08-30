@@ -5,12 +5,15 @@
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-family: "Noto Sans JP", sans-serif;
 }
+a:hover {
+  text-decoration: none !important;
+}
 
 header {
-  height: 200px;
+  /* height: 200px */
   position: relative;
   padding: 15px 20px 10px 20px;
-  background-image: url("http://homestead.recipemanager.test/images/top/cook.jpg");
+  background-image: url("http://homestead.recipemanager.test/storage/images/top/cook.jpg");
   background-size: cover;
 }
 
