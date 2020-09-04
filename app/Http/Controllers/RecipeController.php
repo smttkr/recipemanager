@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
-use App\Http\Requests\RecipeRequest;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\RecipeCreateRequest;
+use App\Http\Requests\RecipeUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Recipe;
 
@@ -22,52 +24,51 @@ class RecipeController extends Controller
     });
   }
 
-
-
   public function index()
   {
     //ホーム画面 全員
     $shop = $this->shop;
     $news = $shop->news;
-    if (count($news) > 0) {
-      $news = $news->sortByDesc('id')->values()->collect()->toJson();
-    }
+    $recipes = $shop->recipes;
 
+    if (count($shop->news) > 0) {
+      $news = $shop->getDisplayNews();
+    }
+    if (count($recipes) > 0) {
+      $recipes = $shop->getAllRecipes();
+    }
     $params = [
-      'news' => $news,
-      'recipes' => $shop->recipes->toJson(),
+      "news" => $news,
+      "recipes" => $recipes,
     ];
-    return view('recipe.index', $params);
+    return view("recipe.index", $params);
   }
 
 
 
   public function create()
   {
-    //新規作成画面 オーナー
-    return view('recipe.create');
+    //新規作成画面
+    Gate::authorize("isOwner");
+    return view("recipe.create");
   }
 
 
-
-  public function store(RecipeRequest $request)
+  public function store(RecipeCreateRequest $request)
   {
-    //作成 オーナー
+    //作成 オーナーGate
+    Gate::authorize("isOwner");
     $shop = $this->shop;
-    if ($request->file('image')->isValid()) {
-      $path = $request->file('image')->store('public/images/dishes');
-      $image = basename($path);
+    $image = basename($request->file("image")->store("public/images/dishes"));
 
-      Recipe::create([
-        'shop_id' => $shop->id,
-        'name' => $request->name,
-        'category' => $request->category,
-        'image' => $image,
-        'description' => $request->description,
-      ]);
-    } else {
-      return redirect()->back()->withErrors(['image', '画像のアップロードに失敗しました'])->withInput();
-    }
+    Recipe::create([
+      "shop_id" => $shop->id,
+      "name" => $request->name,
+      "category" => $request->category,
+      "image" => $image,
+      "description" => $request->description,
+    ]);
+    return redirect(RouteServiceProvider::HOME);
   }
 
 
@@ -75,44 +76,66 @@ class RecipeController extends Controller
   public function show(Recipe $recipe)
   {
     //詳細 全員
-    //ユーザーが持つショップIDとレシピの持つショップIDが違うなら戻す
-    if ($this->shop->id !== $recipe->shop_id) {
-      return redirect()->back();
-    }
+    $this->authorize("view", $recipe);
 
-    $comments = $recipe->comments;
-    if (count($comments) > 0) {
-      //コメントのコレクションに、ショップユーザー、ユーザーと連結させてユーザーの名前を取得
-      foreach ($comments as $obj) {
-        $obj->shopUser->user;
-      }
-      $comments = $comments->toJson();
-    } else {
-      $comments = [];
-    }
-
+    $comments = $recipe->getAllComments();
     $params = [
-      'recipe' => $recipe->toJson(),
-      'recipe_id' => $recipe->id,
-      'recipe_name' => $recipe->name,
-      'comments' => $comments,
-      'recipe' => $recipe,
+      "user" => $this->user,
+      "recipe" => $recipe,
+      "recipe_id" => $recipe->id,
+      "recipe_name" => $recipe->name,
+      "comments" => $comments,
     ];
-    return view('recipe.show', $params);
+    return view("recipe.show", $params);
   }
 
 
 
-  public function update(Request $request, $id)
+  public function edit(Recipe $recipe)
   {
-    //詳細から編集 オーナーのみ
+    $this->authorize("view", $recipe);
+    Gate::authorize("isOwner");
+
+    $params = [
+      "recipe" => $recipe
+    ];
+    return view("recipe.edit", $params);
+  }
+
+
+  public function update(RecipeUpdateRequest $request, Recipe $recipe)
+  {
+    //詳細から編集 オーナーGate
+    Gate::authorize("isOwner");
+    $this->authorize("update", $recipe);
+
+    if ($request->image) {
+      $image = basename($request->file("image")->store("public/images/dishes"));
+      $form = [
+        "name" => $request->name,
+        "category" => $request->category,
+        "image" => $image,
+        "description" => $request->description,
+      ];
+    } else {
+      $form = [
+        "name" => $request->name,
+        "category" => $request->category,
+        "description" => $request->description,
+      ];
+    }
+    $recipe->fill($form)->save();
+    return redirect(RouteServiceProvider::HOME);
   }
 
 
 
   public function destroy(Recipe $recipe)
   {
-    //詳細から削除 オーナーのみ
+    //詳細から削除 オーナーGate
+    $this->authorize("delete", $recipe);
+    Gate::authorize("isOwner");
+
     $recipe->delete();
     return redirect(RouteServiceProvider::HOME);
   }

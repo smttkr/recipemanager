@@ -1,31 +1,34 @@
 <template>
-  <transition name="slide-y">
-    <div class="news-modal-bg" v-if="show" @click.self="$emit('close')">
-      <div class="news-modal">
-        <h3 class="border-bottom text-center w-100">NEWS</h3>
-        <div class="news-modal-content p-2">{{ news.content }}</div>
-        <div class="news-modal-footer cf">
-          <button class="btn btn-dark" @click="$emit('close')">
-            OK
-          </button>
-          <i @click="$emit('delete')" class="far fa-trash-alt"></i>
+  <div>
+    <transition name="slide-y">
+      <div class="news-modal-bg" v-if="show" @click.self="$emit('close')">
+        <div class="news-modal">
+          <h3 class="border-bottom text-center w-100">NEWS</h3>
+          <div class="news-modal-content p-2">{{ news.content }}</div>
+          <div class="news-modal-footer cf">
+            <button class="btn btn-outline-dark" @click="$emit('close')">
+              OK
+            </button>
+            <i v-if="isOwner" @click="deleteNews" class="far fa-trash-alt"></i>
+          </div>
         </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+    <form :action="'/news/' + news.id" ref="newsDeletion" method="POST">
+      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="_method" value="DELETE" />
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
-  props: {
-    show: {
-      type: Boolean,
-    },
-    csrf: {
-      type: String,
-    },
-    news: {
-      type: Object,
+  props: ["show", "isOwner", "csrf", "news"],
+  methods: {
+    deleteNews() {
+      if (confirm("このニュースを削除しますか？") === true) {
+        this.$refs.newsDeletion.submit();
+      }
     },
   },
 };
@@ -42,6 +45,7 @@ export default {
   top: 0;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 .news-modal {
   background-color: #fff;

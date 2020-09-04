@@ -1,31 +1,67 @@
 <template>
-  <div class="icon-box bg-white border-top py-2">
-    <i @click="post" class="far fa-comment mx-5"></i>
-    <i @click="bookmark" class="far fa-folder-open"></i>
-    <i @click="edit" class="far fa-edit mx-5"></i>
-    <i @click="destroy" class="far fa-trash-alt"></i>
+  <div>
+    <div class="icon-box bg-white border-top py-2">
+      <i v-on:click="togglePostShow" class="far fa-comment mx-5"></i>
+      <i v-on:click="addBookmark" class="far fa-folder-open"></i>
+      <i v-on:click="jumpEdit(recipeId)" class="far fa-edit mx-5"></i>
+      <i v-on:click="confirmRecipeDeletion" class="far fa-trash-alt"></i>
+    </div>
+
+    <comment-post-component
+      :post-show="postShow"
+      :recipe-id="recipeId"
+      :csrf="csrf"
+      v-on:close="postShow = false"
+    >
+    </comment-post-component>
+
+    <form
+      ref="bookmarkAddition"
+      action="/bookmarks/"
+      method="POST"
+      class="hidden"
+    >
+      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="recipe_id" :value="recipeId" />
+    </form>
+
+    <form
+      ref="recipeDeletion"
+      :action="'/recipes/' + recipeId"
+      method="POST"
+      class="hidden"
+    >
+      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="_method" value="DELETE" />
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    csrf: {
-      type: String,
-    },
+  props: ["recipeId", "csrf"],
+  data() {
+    return {
+      postShow: false,
+    };
   },
   methods: {
-    post() {
-      this.$emit("post");
+    togglePostShow() {
+      this.postShow = !this.postShow;
     },
-    edit() {
-      this.$emit("edit");
+    addBookmark(id) {
+      this.$refs.bookmarkAddition.submit();
     },
-    bookmark() {
-      this.$emit("bookmark");
+    jumpEdit(id) {
+      location.href = "/recipes/" + id + "/edit";
     },
-    destroy() {
-      this.$emit("destroy");
+    confirmRecipeDeletion(id) {
+      if (confirm("この料理を削除しますか？") === true) {
+        this.submitRecipeDeletion();
+      }
+    },
+    submitRecipeDeletion() {
+      this.$refs.recipeDeletion.submit();
     },
   },
 };
@@ -49,12 +85,16 @@ export default {
 }
 
 .icon-box i::before {
+  vertical-align: middle;
   font-size: 1.5rem;
   color: black;
 }
 .icon-box i:hover {
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.5;
+}
+.icon-box i a {
+  display: inline;
 }
 @media (max-width: 899px) {
 }

@@ -13,11 +13,10 @@ class CreateNewsTable extends Migration
    */
   public function up()
   {
-    Schema::create('news', function (Blueprint $table) {
-      $table->increments('id');
-      $table->unsignedInteger('shop_id');
-      $table->enum('category', ['salad', 'meat', 'fried', 'dessert', 'other']);
-      $table->text('content');
+    Schema::create("news", function (Blueprint $table) {
+      $table->increments("id");
+      $table->unsignedInteger("shop_id");
+      $table->text("content");
       $table->timestamps();
     });
   }
@@ -29,6 +28,6 @@ class CreateNewsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('news');
+    Schema::dropIfExists("news");
   }
 }

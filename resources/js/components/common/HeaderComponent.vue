@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="menu mt-1">
-      <a href="/recipes/create"
+      <a v-if="isOwner" href="/recipes/create"
         ><button type="button" class="btn btn-outline-secondary btn-sm">
           新規作成
         </button>
       </a>
-      <a href="/shopusers">
+      <a v-if="isOwner" href="/shopusers">
         <button type="button" class="btn btn-outline-secondary btn-sm ml-2">
           ユーザー一覧
         </button>
@@ -18,15 +18,23 @@
       >
         ブックマーク
       </button>
-      <bookmark-component :bookmarkShow="bookmarkShow"></bookmark-component>
+      <bookmark-component
+        :bookmarkShow="bookmarkShow"
+        :bookmarks="bookmarks"
+        :csrf="csrf"
+      ></bookmark-component>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["bookmarks","isOwner"],
   data() {
     return {
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       bookmarkShow: false,
     };
   },
@@ -54,24 +62,11 @@ export default {
 .menu button {
   color: aliceblue;
 }
-.bookmark-box {
-  width: 180px;
-  top: 95%;
-  right: 5px;
-}
 @media (max-width: 899px) {
-  .logo {
-    display: block;
-  }
-
   .menu {
     margin-top: 10px;
     float: none;
     text-align: center;
-  }
-  header .bookmark-box {
-    width: 100px;
-    min-height: 100px;
   }
 }
 </style>

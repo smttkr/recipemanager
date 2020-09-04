@@ -4,6 +4,7 @@ html,
   color: #43484d;
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-family: "Noto Sans JP", sans-serif;
+  overflow-x: hidden;
 }
 
 .top-right {
@@ -14,6 +15,7 @@ html,
 
 .links > a {
   display: inline-block;
+  cursor: pointer;
   color: black;
   border: 1px solid;
   border-radius: 100vh;
@@ -80,8 +82,27 @@ footer small {
   text-align: center;
 }
 
-@media (max-width: 575px) {
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+  .content .top-box {
+    height: 400px;
+  }
+  .content .top-box .title {
+    top: 40%;
+  }
+}
+@media (max-width: 575.5px) {
   .links > a {
     padding: 0 10px;
+  }
+  .content .top-box {
+    height: 200px;
+  }
+  .content .top-box .title {
+    top: 20%;
+  }
+  .content .top-box .title ul {
+    display: none;
   }
 }

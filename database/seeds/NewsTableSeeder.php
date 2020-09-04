@@ -13,14 +13,13 @@ class NewsTableSeeder extends Seeder
   public function run()
   {
     News::create([
-      'shop_id' => 1,
-      'category' => 'salad',
-      'content' => 'hello this is test news hello this is test news hello this is test news hello this is test news'
+      "shop_id" => 1,
+      "content" => "hello this is test news hello this is test news hello this is test news hello this is test news"
     ]);
     News::create([
-      'shop_id' => 1,
-      'category' => 'other',
-      'content' => 'hello this is test2 news hello this is test2 news hello this is test2 news hello this is test2 news'
+      "shop_id" => 1,
+      "content" => "hello this is test2 news hello this is test2 news hello this is test2 news hello this is test2 news",
+      "created_at" => "2020-08-31"
     ]);
   }
 }

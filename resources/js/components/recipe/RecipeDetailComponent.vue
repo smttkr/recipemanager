@@ -1,7 +1,7 @@
 <template>
   <div class="recipe-box mt-3 p-4 bg-light">
     <h2 class="title text-center">{{ recipe.name }}</h2>
-    <span>{{ recipe.category }}</span>
+    <span class="category" :id="recipe.category">{{ recipe.category }}</span>
     <img
       :src="
         'http://homestead.recipemanager.test/storage/images/dishes/' +
@@ -9,11 +9,9 @@
       "
       alt=""
     />
-    <div class="description bg-white mt-3 border rounded">
+    <div class="description-box bg-white mt-3 border rounded">
       <h3 class="border-bottom">説明</h3>
-      <div>
-        {{ recipe.description }}
-      </div>
+      <div class="description">{{ recipe.description }}</div>
     </div>
   </div>
 </template>
@@ -25,47 +23,66 @@ export default {
       type: Object,
     },
   },
+  data() {
+    return {
+      category: ["salad", "meat", "fried", "dessert"],
+    };
+  },
 };
 </script>
 
 <style scoped>
 h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
-h3 {
+.category {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  color: darkgray;
   font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 3px;
 }
-.title::before,
-.title::after {
-  content: "";
-  display: inline-block;
-  width: 100px;
-  border: 2px solid;
-  margin: 0 6px;
-  vertical-align: 50%;
+#salad {
+  background-color: #76c04760;
+}
+#meat {
+  background-color: #ffc0cb60;
+}
+#fried {
+  background-color: #fff10050;
+}
+#dessert {
+  background-color: #c1efff80;
 }
 img {
   display: block;
   margin: 0 auto;
   margin-top: 10px;
-  width: 60%;
+  max-height: 500px;
+  width: auto;
 }
-.description {
-  width: 80%;
+.description-box {
+  width: 90%;
   margin: 0 auto;
-  height: 400px;
+  min-height: 400px;
+}
+.description-box h3 {
+  font-size: 1.3rem;
+}
+.description{
+  padding: 5px 10px 5px;
+  letter-spacing: 0.5px;
+  overflow-y: auto;
+}
+.description-box .description {
+  white-space: pre-wrap;
 }
 @media (max-width: 899px) {
-  img {
+  .category {
     width: 100%;
-  }
-  .title::before,
-  .title::after {
-    width: 50px;
-    margin: 0 3px;
-  }
-  .description {
-    height: 300px;
   }
 }
 </style>

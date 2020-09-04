@@ -18,11 +18,7 @@
 
 <script>
 export default {
-  props: {
-    shopUsers: {
-      type: Array,
-    },
-  },
+  props: ["shopUsers"],
 };
 </script>
 
@@ -44,12 +40,12 @@ td img {
 }
 tr .name {
   font-size: 1.2rem;
-  width: 60%;
+  width: 50%;
   vertical-align: middle;
 }
 tr .day {
   color: #6c757d;
-  width: 25%;
+  width: 30%;
   vertical-align: middle;
 }
 @media (max-width: 899px) {

@@ -65,6 +65,13 @@ export default {
   overflow: hidden;
   border-radius: 4px;
   width: 75%;
+  cursor: default;
+}
+
+.nav-box h3 {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  background-color: #31487d;
 }
 .nav-box .active {
   cursor: pointer;
@@ -73,11 +80,6 @@ export default {
   opacity: 0.9;
 }
 
-.nav-box h3 {
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  background-color: #31487d;
-}
 .nav-box h3 i::before {
   font-size: 1.5rem;
 }

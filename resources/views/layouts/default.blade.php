@@ -21,26 +21,30 @@
 <body>
   <div id="app">
     <header class="cf">
-      <a href="{{ route('recipes.index') }}">
-        <h1 class="logo">{{ $shop_name }}</h1></a>
-      <div class="user">
-        <ul class="p-0 m-0">
-          <li>
-            <a href="{{ route('users.show',$user_id) }}">{{ $user_name }}</a>
-          </li>
-          <li>
-            <a class="logout" href="{{ route('logout') }}"
-              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-              ログアウト
-            </a>
-          </li>
-        </ul>
+      <div class="cf">
+        <div>
+          <a href="{{ route('recipes.index') }}">
+            <h1 class="logo">{{ $shop_name }}</h1></a>
+        </div>
+        <div class="user">
+          <ul class="p-0 m-0">
+            <li>
+              <a href="{{ route('users.show',$user_id) }}">{{ $user_name }}</a>
+            </li>
+            <li>
+              <a class="logout" href="{{ route('logout') }}"
+                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                ログアウト
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
       </form>
 
-      <header-component></header-component>
+      <header-component :bookmarks="{{ $bookmarks }}" @can("isOwner") :is-owner="true" @endcan></header-component>
     </header>
 
     @yield('content')

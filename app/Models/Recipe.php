@@ -17,4 +17,15 @@ class Recipe extends Model
   {
     return $this->hasMany('App\Models\Bookmark');
   }
+
+  public function getAllComments()
+  {
+    $comments = $this->comments;
+    if (count($comments) > 0) {
+      foreach ($comments as $obj) {
+        $obj->shopUser->user;
+      }
+    }
+    return $comments;
+  }
 }

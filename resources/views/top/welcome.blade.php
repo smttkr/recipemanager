@@ -29,15 +29,7 @@
         <a href="{{ route('shopusers.create') }}">はじめる</a>
         @endif
         <a href="{{ route('users.show',$user->id) }}">{{ $user->name }}</a>
-        {{-- <a class="logout" href="{{ route('logout') }}"
-        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-        ログアウト
-        </a> --}}
-        <a v-on:click="logout" href="{{ route('logout') }}" class="logout">ログアウト</a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-          <button ref="logout"></button>
-        </form>
+        <a v-on:click.prevent="logout" class="logout">ログアウト</a>
         @else
         <a href="{{ route('login') }}">ログイン</a>
         @if (Route::has('register'))
@@ -71,7 +63,7 @@
         <div class="detail">
           <div class="container">
             <welcome-points-component></welcome-points-component>
-            <welcome-carousel-component :images="images"></welcome-carousel-component>
+            <welcome-carousel-component></welcome-carousel-component>
           </div>
         </div>
       </section>
@@ -79,10 +71,21 @@
     <footer>
       <small>Copyright © 2020 Takara Sumimoto All Rights Reserved.</small>
     </footer>
+    <form ref="logout" action="{{ route('logout') }}" method="POST" class="hidden">
+      @csrf
+    </form>
   </div>
 
   <script src=" {{ mix('js/app.js') }} "></script>
-  <script src="{{ asset("js/top/welcome.js") }}">
+  <script>
+    new Vue({
+      el: "#app",
+      methods: {
+        logout() {
+        this.$refs.logout.submit();
+        },
+      },
+    });
   </script>
 </body>
 

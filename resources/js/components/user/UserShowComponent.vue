@@ -1,40 +1,5 @@
 <template>
-  <div class="user-box bg-light container">
-    <div class="profile-box">
-      <div class="image-box">
-        <img
-          @click="editClick('image')"
-          :src="
-            'http://homestead.recipemanager.test/storage/images/profile_images/' +
-              user.profile_image
-          "
-          alt=""
-        />
-      </div>
-      <div class="name-box">
-        <p @click="editClick('name')" class="name">{{ user.name }}</p>
-      </div>
-    </div>
-
-    <div v-if="user.shop_user" class="row info-box bg-light">
-      <div class="shop col-sm border">
-        {{ user.shop_user.shop.name }}
-      </div>
-      <div class="position col-sm border">
-        {{ user.shop_user.position }}
-      </div>
-
-      <div class="col-12">
-        <button
-          @click="deleteClick"
-          type="button"
-          class="btn btn-lg btn-outline-dark"
-        >
-          退会する
-        </button>
-      </div>
-    </div>
-  </div>
+  
 </template>
 
 <script>

@@ -1,22 +1,43 @@
 <template>
   <transition name="slide-y">
-    <div v-if="postShow" @click.self="$emit('close')" class="new-comment-bg">
+    <div v-if="postShow" @click.self="close" class="new-comment-bg">
       <div class="new-comment-box">
-        <form action="/comments/" method="post" class="cf">
-          <input type="number" name="bookmark_id" :value="recipeId" class="hidden" />
-          <div class="form-group">
+        <form ref="newCommentForm" action="/comments/" method="POST" class="cf">
+          <input type="hidden" name="_token" :value="csrf" />
+          <input
+            type="number"
+            name="recipe_id"
+            :value="recipeId"
+            class="hidden"
+          />
+          <div class="form-group mb-2">
             <label>コメント</label>
-            <textarea type="text" class="form-control" rows="6" />
+            <div v-show="error">
+              <small class="text-danger">{{ error }}</small>
+            </div>
+            <textarea
+              type="text"
+              name="comment"
+              class="form-control"
+              rows="6"
+              v-model="comment"
+              autofocus
+              placeholder="コメントを入力してください。300文字以内"
+            />
             <small class="form-text text-muted"></small>
-            <div class="btn-box">
+            <div class="btn-box ml-2">
               <button
                 type="button"
-                class="cancel btn btn-outline-dark mt-1"
+                class="btn btn-outline-dark mt-1"
                 @click="$emit('close')"
               >
                 キャンセル
               </button>
-              <button type="submit" class="btn btn-primary mt-1 mx-2">
+              <button
+                @click.stop="validate"
+                type="button"
+                class="btn btn-primary mt-1 mx-2"
+              >
                 送信
               </button>
             </div>
@@ -29,19 +50,41 @@
 
 <script>
 export default {
-  props: {
-    postShow: {
-      type: Boolean,
+  props: ["postShow", "recipeId", "csrf"],
+  data() {
+    return {
+      comment: "",
+      error: "",
+    };
+  },
+  methods: {
+    close() {
+      this.error = "";
+      this.$emit("close");
     },
-    recipeId: {
-      type: Number,
+    validate() {
+      let com = this.comment;
+      let er = "";
+      if (com.length < 1) {
+        er = "未入力です";
+      }
+      if (com.length > 300) {
+        er = "300文字を超えています";
+      }
+      if (er.length > 0) {
+        this.error = er;
+      } else {
+        this.submitNewComment();
+      }
+    },
+    submitNewComment() {
+      this.$refs.newCommentForm.submit();
     },
   },
 };
 </script>
 
 <style scoped>
-
 .new-comment-bg {
   position: fixed;
   display: flex;
@@ -67,14 +110,6 @@ export default {
 }
 .new-comment-box form {
   width: 100%;
-}
-.new-comment-box .btn-box {
-  float: right;
-}
-.new-comment-box .btn-box .cancel:hover {
-  color: #343a40;
-  background: #fff;
-  opacity: 0.8;
 }
 
 .slide-y-enter-active {

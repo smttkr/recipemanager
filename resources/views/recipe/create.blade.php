@@ -10,26 +10,22 @@
 
 @section('content')
 <main>
-
-
   <form enctype="multipart/form-data" action="{{ route('recipes.store') }}" method="POST" class="mx-auto mt-3 pb-5">
     @csrf
     <div class="img-form form-group mx-auto">
-      <label for="input-file">画像</label>
-      <div class="custom-file">
-        <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror"
-          id="image" />
-        <label v-if="file===null" class="custom-file-label" for="image" data-browse="参照">ファイルを選択</label>
-        <label v-else class="custom-file-label" for="image" data-browse="参照">@{{ file }}</label>
-        @error('image')
-        <small class="text-danger" role="alert">{{ $message }}</small>
-        @enderror
+      <label for="img">画像</label>
+      <img v-show="imageData" :src="imageData" alt="" class="preview" />
+      <div>
+        <input v-on:change="onFileChange" type="file" name="image" autocomplete="off" accept="image/*" />
       </div>
+      @error('image')
+      <small class="text-danger" role="alert">{{ $message }}</small>
+      @enderror
     </div>
     <div class="form-group name-form mx-auto">
       <label for="name">料理名</label>
       <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-        value="{{ old('name') }}" />
+        value="{{ old('name') }}" placeholder="20文字以内" />
       @error('name')
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
@@ -48,9 +44,9 @@
       @enderror
     </div>
     <div class="form-group description-form mt-3">
-      <label for="description">内容</label>
+      <label for="description">説明</label>
       <textarea id="description" name="description" value="{{ old('description') }}"
-        class="form-control @error('description') is-invalid @enderror" rows="10"></textarea>
+        class="form-control @error('description') is-invalid @enderror" rows="20" placeholder="2000文字以内"></textarea>
       @error('description')
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
@@ -66,8 +62,21 @@
 <script>
   new Vue({
     el: "#app",
-      data: {
-      file: null,
+    data:{
+      imageData: "",
+    },
+    methods: {
+      onFileChange(e) {
+        let files = e.target.files;
+        if (files.length > 0) {
+          let file = files[0];
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageData = e.target.result;
+          };
+        reader.readAsDataURL(file);
+        }
+      },
     },
   });
 </script>

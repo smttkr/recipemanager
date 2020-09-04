@@ -5,8 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>@yield('title')</title>
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+  @yield('style')
+  <title>@yield('title')</title>
   <link
     href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
     rel="stylesheet" />

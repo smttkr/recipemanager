@@ -13,10 +13,16 @@ class ShopsTableSeeder extends Seeder
   public function run()
   {
     Shop::create([
-      'name' => 'レストランA',
-      'auth_id' => 'rstrnta123',
-      'created_at' => now(),
-      'updated_at' => now()
+      "name" => "レストランA",
+      "auth_id" => "rstrnta123",
+      "created_at" => now(),
+      "updated_at" => now()
+    ]);
+    Shop::create([
+      "name" => "レストランB",
+      "auth_id" => "rstrnta321",
+      "created_at" => now(),
+      "updated_at" => now()
     ]);
   }
 }

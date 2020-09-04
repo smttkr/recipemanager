@@ -12,8 +12,8 @@ Vue.component(
 );
 
 Vue.component(
-  "user-list-component",
-  require("./components/user/UserListComponent.vue").default
+  "shop-user-group-component",
+  require("./components/shopuser/ShopUserGroupComponent.vue").default
 );
 
 Vue.component(
@@ -41,8 +41,8 @@ Vue.component(
 );
 
 Vue.component(
-  "comment-component",
-  require("./components/comment/CommentComponent.vue").default
+  "comment-group-component",
+  require("./components/comment/CommentGroupComponent.vue").default
 );
 
 Vue.component(
@@ -70,15 +70,6 @@ Vue.component(
 );
 
 Vue.component(
-  "recipe-edit-component",
-  require("./components/recipe/RecipeEditComponent.vue").default
-);
-Vue.component(
-  "recipe-create-component",
-  require("./components/recipe/RecipeEditComponent.vue").default
-);
-
-Vue.component(
   "user-show-component",
   require("./components/user/UserShowComponent.vue").default
 );
@@ -86,15 +77,6 @@ Vue.component(
 Vue.component(
   "profile-edit-component",
   require("./components/user/ProfileEditComponent.vue").default
-);
-Vue.component(
-  "shop-user-delete-component",
-  require("./components/user/ShopUserDeleteComponent.vue").default
-);
-
-Vue.component(
-  "recipe-update-component",
-  require("./components/recipe/update/RecipeUpdateComponent.vue").default
 );
 
 // const app = new Vue({

@@ -15,9 +15,8 @@ class UserController extends Controller
   public function show(User $user)
   {
     // 自分のプロフィール表示
-    if ($user->shopUser) {
-      $user->shopUser->shop;
-    }
+    $this->authorize("view", $user);
+    if ($user->shopUser) $user->shopUser->shop;
 
     $params = [
       'user' => $user,
@@ -29,23 +28,21 @@ class UserController extends Controller
 
   public function update(UserUpdateRequest $request, User $user)
   {
+    $this->authorize("update", $user);
     //$signに  "name" と "profile_image" のどちらかが入って飛んでくる
-    $sign = $request->sign;
 
-    if ($sign === 'name') {
+    if ($request->type === 'name') {
       $user->name = $request->name;
       $user->save();
       return redirect()->back();
     } //画像
-    else if ($sign === 'profile_image') {
-      if ($request->file('profile_image')->isValid()) {
-        $path = $request->file('profile_image')->store('public/images/profile_images');
-      }
-      $user->profile_image = basename($path);
+    else if ($request->type === 'image') {
+      $user->profile_image = basename($request->file('profile_image')->store('public/images/profile_images'));
       $user->save();
       return redirect()->back();
     } else {
-      return view('top.welcome');
+      // typeが間違っているのでエラー画面か、エラー表示
+      return abort(404);
     }
   }
 }

@@ -13,19 +13,20 @@ class ShopUsersTableSeeder extends Seeder
   public function run()
   {
     ShopUser::create([
-      'shop_id' => 1,
-      'user_id' => 1,
-      'position' => 'owner',
-      'created_at' => now(),
-      'updated_at' => now()
+      "shop_id" => 1,
+      "user_id" => 1,
+      "position" => "owner",
     ]);
 
     ShopUser::create([
-      'shop_id' => 1,
-      'user_id' => 2,
-      'position' => 'staff',
-      'created_at' => now(),
-      'updated_at' => now()
+      "shop_id" => 1,
+      "user_id" => 2,
+      "position" => "staff",
+    ]);
+    ShopUser::create([
+      "shop_id" => 2,
+      "user_id" => 3,
+      "position" => "owner",
     ]);
   }
 }

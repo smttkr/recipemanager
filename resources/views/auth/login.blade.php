@@ -82,8 +82,5 @@ RecipeManager
   </div>
 </div>
 
-@section('script')
-{{-- <script src=""></script> --}}
-@endsection
 
 @endsection

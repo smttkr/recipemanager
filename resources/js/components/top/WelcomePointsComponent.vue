@@ -33,8 +33,8 @@ export default {};
 
 <style>
 .point-list {
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 !important;
 }
 .point {
   text-align: center;

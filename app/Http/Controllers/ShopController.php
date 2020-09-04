@@ -4,46 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateShopRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shop;
 
 class ShopController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware(function ($request, $next) {
+      $this->user = Auth::user();
+      if ($this->user->shopUser) {
+        return redirect(RouteServiceProvider::HOME);
+      }
+      return $next($request);
+    });
+  }
 
   public function create()
   {
-    $user = Auth::user();
-    // 既にshop_idを持っているならホームへ
-    if ($user->shopUser) {
-      return redirect(RouteServiceProvider::HOME);
-    }
-    return view('shop.create', ['user' => $user]);
+    $user = $this->user;
+    return view("shop.create", ["user" => $user]);
   }
 
 
-  public function store(Request $request)
+  public function store(CreateShopRequest $request)
   {
-    $request->validate([
-      'name' => 'required|string|max:10',
-      'shop_auth_id' => 'required|string|alpha_num|between:6,10|unique'
+    $shop = Shop::create([
+      "name" => $request->shop_name,
+      "auth_id" => $request->shop_auth_id,
     ]);
-
-    Shop::create([
-      'name' => $request->name,
-      'auth_id' => $request->shop_auth_id,
-    ]);
+    $shop->makeOwner($this->user->id);
     return redirect(RouteServiceProvider::HOME);
-  }
-
-
-  public function update(Request $request, $id)
-  {
-    //
-  }
-
-
-  public function destroy($id)
-  {
-    //
   }
 }

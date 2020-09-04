@@ -28,19 +28,23 @@
         </a>
       </div>
     </transition-group>
+    <div class="more-box">
+      <transition name="fade">
+        <button
+          v-show="recipes.length > loadNum"
+          @click="loadMore"
+          class="btn btn-lg btn-dark"
+        >
+          MORE
+        </button>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    recipes: {
-      type: Array,
-    },
-    category: {
-      type: String,
-    },
-  },
+  props: ["recipes", "category", "keyword"],
   data() {
     return {
       labelColors: [
@@ -49,20 +53,41 @@ export default {
         { category: "fried", class: "fried-label" },
         { category: "dessert", class: "dessert-label" },
       ],
+      loadNum: 18,
     };
   },
   computed: {
     matchRecipes() {
       let result = this.recipes.slice();
       if (this.category.length > 0) {
-        result = result.filter((d) => {
-          return d.category.indexOf(this.category) > -1;
+        result = result.filter((r) => {
+          return r.category.indexOf(this.category) > -1;
         });
+      }
+      if (this.keyword.length > 0) {
+        result = result.filter((r) => {
+          return r.name.indexOf(this.keyword) > -1;
+        });
+      }
+      if (result.length > this.loadNum) {
+        result = result.slice(0, this.loadNum);
+      } else {
+        this.loadNum = this.recipes.length;
       }
       return result;
     },
   },
   methods: {
+    loadMore() {
+      if (this.recipes.length > this.loadNum + 3) {
+        this.loadNum += 3;
+      } else {
+        this.loadNum = this.recipes.length;
+      }
+    },
+    resetLoadNum() {
+      this.loadNum = 18;
+    },
     matchLabelColor(value) {
       let result = [];
       result = this.labelColors.slice();
@@ -72,16 +97,6 @@ export default {
       return result[0].class;
     },
   },
-  filters: {
-    maxLengthValidator(value) {
-      var max = 60;
-      var ommision = "...";
-      if (value.length > max) {
-        return value.substring(0, max) + ommision;
-      }
-      return value;
-    },
-  },
 };
 </script>
 
@@ -89,6 +104,7 @@ export default {
 .container {
   max-width: 100%;
   padding: 0 30px;
+  position: relative;
 }
 a:hover {
   text-decoration: none;
@@ -157,6 +173,26 @@ a:hover {
 
 .slide-x-move {
   transition: transform 0.6s;
+}
+
+.more-box {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+}
+.more-box button {
+  display: block;
+  margin: 0 auto;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s;
 }
 
 @keyframes slide-x-in {

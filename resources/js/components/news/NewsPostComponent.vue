@@ -1,26 +1,17 @@
 <template>
   <transition name="slide-y">
-    <div class="news-post-bg" @click.self="close" v-if="show">
+    <div class="news-post-bg" v-if="show" @click.self="close">
       <div class="news-post py-2 px-1">
         <h3 class="text-center w-100">NEWS</h3>
 
-        <form ref="form" action="/news/" method="POST">
+        <form ref="newsPosts" action="/news/" method="POST">
           <input type="hidden" name="_token" :value="csrf" />
-          <small class="text-danger ">{{ errors.category }}</small>
-          <select v-model="category" class="custom-select" name="category">
-            <option>選択してください</option>
-            <option value="salad">サラダ</option>
-            <option value="meat">お肉</option>
-            <option value="fried">揚げ物</option>
-            <option value="dessert">デザート</option>
-            <option value="other">その他</option>
-          </select>
-          <small class="text-danger ">{{ errors.content }}</small>
+          <small class="text-danger ">{{ errors }}</small>
           <textarea
             v-model.trim="content"
             name="content"
             rows="7"
-            placeholder="内容を入力してください"
+            placeholder="内容を入力してください。300文字以内"
           ></textarea>
           <div class="news-post-close">
             <button
@@ -30,7 +21,11 @@
             >
               キャンセル
             </button>
-            <button @click="validate" type="button" class="btn btn-primary">
+            <button
+              @click="validateNewsPosts"
+              type="button"
+              class="btn btn-primary"
+            >
               送信
             </button>
           </div>
@@ -42,59 +37,37 @@
 
 <script>
 export default {
-  props: {
-    show: {
-      type: Boolean,
-    },
-    csrf: {
-      type: String,
-    },
-  },
+  props: ["show", "csrf"],
   data() {
     return {
-      category: "選択してください",
       content: "",
-      errors: {
-        category: null,
-        content: null,
-      },
+      errors: "",
     };
   },
   methods: {
     close() {
       this.$emit("close");
-      this.errors = {
-        category: null,
-        content: null,
-      };
+      this.er = "";
     },
-    validate() {
-      let ca = this.category;
+    validateNewsPosts() {
       let co = this.content;
       //コピーしておいて、エラーがあれば写す
-      var errors = { ...this.errors };
-      if (
-        (ca === "salad") |
-        (ca === "meat") |
-        (ca === "fried") |
-        (ca === "dessert") |
-        (ca === "other")
-      ) {
-        errors.category = null;
-      } else {
-        errors.category = "選択されていません";
+      var er = "";
+      if (co.length < 1) {
+        er = "未入力です";
+      } else if (co.length > 300) {
+        er = "300文字以内で入力してください";
       }
-      co.length > 0 ? (errors.content = null) : (errors.content = "未入力です");
 
       // エラーがなければSubmit あれば、エラーを写す
-      if (errors.category === null && errors.content === null) {
-        this.submits();
+      if (er.length < 1) {
+        this.submitNews();
       } else {
-        this.errors = errors;
+        this.errors = er;
       }
     },
-    submits() {
-      this.$refs.form.submit();
+    submitNews() {
+      this.$refs.newsPosts.submit();
     },
   },
 };
@@ -104,13 +77,13 @@ export default {
 .news-post-bg {
   position: fixed;
   display: flex;
-  /* background: rgba(0, 0, 0, 0.8); */
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 .news-post {
   background-color: #fff;

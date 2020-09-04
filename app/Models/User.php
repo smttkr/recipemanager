@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -25,4 +26,5 @@ class User extends Authenticatable
   {
     return $this->hasOne('App\Models\ShopUser');
   }
+
 }
