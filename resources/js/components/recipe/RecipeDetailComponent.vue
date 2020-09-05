@@ -4,7 +4,7 @@
     <span class="category" :id="recipe.category">{{ recipe.category }}</span>
     <img
       :src="
-        'http://homestead.recipemanager.test/storage/images/dishes/' +
+        '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/dishes/' +
           recipe.image
       "
       alt=""

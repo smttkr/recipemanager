@@ -4,7 +4,7 @@
       <td class="img">
         <img
           :src="
-            'http://homestead.recipemanager.test/storage/images/profile_images/' +
+            '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/profile_images/' +
               user.user.profile_image
           "
           alt=""

@@ -39,15 +39,15 @@ export default {
       images: [
         {
           src:
-            "http://homestead.recipemanager.test/storage/images/top/home.png",
+            "/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/home.png",
         },
         {
           src:
-            "http://homestead.recipemanager.test/storage/images/top/show.png",
+            "/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/show.png",
         },
         {
           src:
-            "http://homestead.recipemanager.test/storage/images/top/news.png",
+            "/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/news.png",
         },
         // { src: "" },
         // { src: "" },

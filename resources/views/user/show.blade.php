@@ -28,7 +28,7 @@
     <div class="profile-box">
       <div class="image-box">
         <img v-on:click="edit('image')"
-          src="{{ 'http://homestead.recipemanager.test/storage/images/profile_images/'.$user->profile_image }}"
+          src="{{ '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/profile_images/'.$user->profile_image }}"
           alt="" />
       </div>
       <div class="name-box">

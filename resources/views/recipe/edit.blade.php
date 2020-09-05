@@ -17,8 +17,8 @@
     <div class="img-form form-group mx-auto">
       <label for="img">画像</label>
       <img v-show="imageData" :src="imageData" alt="">
-      <img v-show="!imageData" src="{{ 'http://homestead.recipemanager.test/storage/images/dishes/'.$recipe->image }}"
-        alt="">
+      <img v-show="!imageData"
+        src="{{ '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/dishes/'.$recipe->image }}" alt="">
       <div>
         <input v-on:change="onFileChange" type="file" name="image" autocomplete="off" accept="image/*" />
       </div>
