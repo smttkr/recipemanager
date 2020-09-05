@@ -1,12 +1,10 @@
 <template>
-  <div>
+  <div class="news-box">
     <div class="news-header cf border-bottom m-0 pb-1">
       <h3 class="text-danger d-inline-block">NEWS!</h3>
-      <i
-        v-if="isOwner"
-        @click="togglePostShow"
-        class="fas fa-plus float-right d-inline-block"
-      ></i>
+      <button v-if="isOwner" @click="togglePostShow" class="btn-clear">
+        <i class="fas fa-plus"></i>
+      </button>
     </div>
 
     <table v-if="news.length > 0" class="table">
@@ -63,21 +61,28 @@ export default {
 </script>
 
 <style scoped>
+.news-box {
+  overflow: hidden;
+}
 .news-header {
   position: relative;
 }
 h3 {
   cursor: default;
 }
-.news-header i::before {
+.news-header button {
+  display: inline-block;
+  padding: 0;
   position: absolute;
   top: 20%;
   right: 2%;
-  font-size: 1.5rem;
 }
-.news-header i:hover {
+.news-header button:hover {
   cursor: pointer;
   opacity: 0.7;
+}
+.news-header i::before {
+  font-size: 1.5rem;
 }
 table {
   table-layout: fixed;

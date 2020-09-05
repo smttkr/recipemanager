@@ -13,9 +13,7 @@
         <input type="hidden" name="_method" value="PUT" />
         <input type="hidden" name="type" value="name" />
         <label>ニックネーム</label><br />
-        <small v-show="errorMessage.length > 0" class="text-danger">{{
-          errorMessage[0]
-        }}</small>
+        <small class="text-danger">{{ errors }}</small>
         <input
           type="text"
           name="name"
@@ -36,6 +34,7 @@
           <button
             @click="validate('name', $event)"
             type="button"
+            :disabled="processing"
             class="btn btn-primary my-1"
           >
             送信
@@ -57,8 +56,8 @@
         <input type="hidden" name="type" value="image" />
         <img v-show="imageData" :src="imageData" alt="" class="preview" />
         <label>プロフィール画像</label>
-        <small v-show="errorMessage" class="text-danger">
-          {{ errorMessage }}
+        <small class="text-danger">
+          {{ errors }}
         </small>
         <input
           @change="onFileChange"
@@ -79,6 +78,7 @@
           </button>
           <button
             @click="validate('image', $event)"
+            :disabled="processing"
             type="button"
             class="btn btn-primary my-1"
           >
@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       name: "",
-      errorMessage: "",
+      errors: "",
       imageData: "",
     };
   },
@@ -113,6 +113,7 @@ export default {
       }
     },
     validate(type) {
+      this.startProcessing();
       let error = "";
       if (type === "name") {
         let n = this.name;
@@ -132,7 +133,8 @@ export default {
       }
 
       if (error.length > 0) {
-        this.errorMessage = error;
+        this.errors = error;
+        endProcessing();
       } else {
         this.submitUpdate(type);
       }
@@ -143,10 +145,11 @@ export default {
       } else if (type === "image") {
         this.$refs.imageEdit.submit();
       }
+      this.close();
     },
     close() {
       this.$emit("close");
-      this.errorMessage = "";
+      this.errors = "";
       this.imageData = "";
     },
   },

@@ -14,15 +14,12 @@
             placeholder="内容を入力してください。300文字以内"
           ></textarea>
           <div class="news-post-close">
-            <button
-              type="button"
-              class="btn btn-dark mx-2"
-              @click="$emit('close')"
-            >
+            <button type="button" class="btn btn-dark mx-2" @click.stop="close">
               キャンセル
             </button>
             <button
-              @click="validateNewsPosts"
+              :disabled="processing"
+              @click.stop="validateNewsPosts"
               type="button"
               class="btn btn-primary"
             >
@@ -46,10 +43,11 @@ export default {
   },
   methods: {
     close() {
+      this.errors = "";
       this.$emit("close");
-      this.er = "";
     },
     validateNewsPosts() {
+      this.startProcessing();
       let co = this.content;
       //コピーしておいて、エラーがあれば写す
       var er = "";
@@ -62,8 +60,10 @@ export default {
       // エラーがなければSubmit あれば、エラーを写す
       if (er.length < 1) {
         this.submitNews();
+        this.close();
       } else {
         this.errors = er;
+        this.endProcessing();
       }
     },
     submitNews() {

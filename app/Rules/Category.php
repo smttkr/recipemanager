@@ -25,7 +25,7 @@ class Category implements Rule
    */
   public function passes($attribute, $value)
   {
-    return ($value === "salad" | $value === 'meat' | $value === 'fried' | $value === 'dessert');
+    return ($value === "salad" || $value === "meat" || $value === "fried" || $value === "dessert");
   }
 
   /**
@@ -35,6 +35,6 @@ class Category implements Rule
    */
   public function message()
   {
-    return 'カテゴリを正しく選択されていません';
+    return "カテゴリを正しく選択されていません";
   }
 }

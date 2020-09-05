@@ -1,10 +1,30 @@
 <template>
   <div>
     <div class="icon-box bg-white border-top py-2">
-      <i v-on:click="togglePostShow" class="far fa-comment mx-5"></i>
-      <i v-on:click="addBookmark" class="far fa-folder-open"></i>
-      <i v-on:click="jumpEdit(recipeId)" class="far fa-edit mx-5"></i>
-      <i v-on:click="confirmRecipeDeletion" class="far fa-trash-alt"></i>
+      <button
+        @click="togglePostShow"
+        :disabled="processing"
+        class="btn-clear mx-5"
+      >
+        <i class="far fa-comment"></i>
+      </button>
+      <button @click="addBookmark" :disabled="processing" class="btn-clear">
+        <i class="far fa-folder-open"></i>
+      </button>
+      <button
+        @click="jumpEdit(recipeId)"
+        :disabled="processing"
+        class="btn-clear mx-5"
+      >
+        <i class="far fa-edit"></i>
+      </button>
+      <button
+        @click="confirmRecipeDeletion"
+        :disabled="processing"
+        class="btn-clear"
+      >
+        <i class="far fa-trash-alt"></i>
+      </button>
     </div>
 
     <comment-post-component
@@ -50,13 +70,16 @@ export default {
       this.postShow = !this.postShow;
     },
     addBookmark(id) {
+      this.startProcessing();
       this.$refs.bookmarkAddition.submit();
     },
     jumpEdit(id) {
+      this.startProcessing();
       location.href = "/recipes/" + id + "/edit";
     },
     confirmRecipeDeletion(id) {
       if (confirm("この料理を削除しますか？") === true) {
+        this.startProcessing();
         this.submitRecipeDeletion();
       }
     },
@@ -71,31 +94,20 @@ export default {
 .icon-box {
   position: relative;
 }
-.icon-box form {
+.icon-box button {
   display: inline-block;
+  padding: 0;
 }
-.icon-box form button {
-  border: none;
-  background-color: transparent;
-}
-.icon-box form button:focus {
-  outline: 0;
-  background-color: transparent;
+.icon-box button:hover {
   cursor: pointer;
+  opacity: 0.6;
 }
 
 .icon-box i::before {
   vertical-align: middle;
   font-size: 1.5rem;
-  color: black;
 }
-.icon-box i:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-.icon-box i a {
-  display: inline;
-}
+
 @media (max-width: 899px) {
 }
 </style>

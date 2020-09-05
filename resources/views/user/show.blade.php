@@ -45,7 +45,7 @@
       </div>
 
       <div class="col-12">
-        <button v-on:click="cofirmDeletion" type="button" class="btn btn-lg btn-outline-danger">
+        <button v-on:click="cofirmDeletion" :disabled="processing" type="button" class="btn btn-lg btn-outline-danger">
           退会する
         </button>
       </div>
@@ -90,7 +90,8 @@
     },
     cofirmDeletion(){
       if((confirm("本当に退会しますか？")) === true){
-      this.submitDeletion();
+        this.startProcessing();
+        this.submitDeletion();
       }
     },
     submitDeletion(){

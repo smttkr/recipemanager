@@ -79,6 +79,18 @@ Vue.component(
   require("./components/user/ProfileEditComponent.vue").default
 );
 
-// const app = new Vue({
-//   el: "#app",
-// });
+Vue.mixin({
+  data() {
+    return {
+      processing: false,
+    };
+  },
+  methods: {
+    startProcessing() {
+      this.processing = true;
+    },
+    endProcessing() {
+      this.processing = false;
+    },
+  },
+});

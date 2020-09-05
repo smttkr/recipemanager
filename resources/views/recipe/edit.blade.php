@@ -10,8 +10,8 @@
 
 @section('content')
 <main>
-  <form enctype="multipart/form-data" action="{{ route('recipes.update',$recipe->id) }}" method="POST"
-    class="mx-auto mt-3 pb-5">
+  <form enctype="multipart/form-data" ref="recipeUpdates" action="{{ route('recipes.update',$recipe->id) }}"
+    method="POST" class="mx-auto mt-3 pb-5">
     @csrf
     @method("PUT")
     <div class="img-form form-group mx-auto">
@@ -55,7 +55,7 @@
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
-    <button type="submit" class="d-block mx-auto btn btn-primary">
+    <button v-on:click="submitUpdates" type="button" :disabled="processing" class="d-block mx-auto btn btn-primary">
       編集
     </button>
   </form>
@@ -90,6 +90,10 @@
       },
       clear(){
         this.imageData = "";
+      },
+      submitUpdates(){
+        this.startProcessing();
+        this.$refs.recipeUpdates.submit();
       }
     },
   });

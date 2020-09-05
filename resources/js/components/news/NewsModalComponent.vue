@@ -9,7 +9,14 @@
             <button class="btn btn-outline-dark" @click="$emit('close')">
               OK
             </button>
-            <i v-if="isOwner" @click="deleteNews" class="far fa-trash-alt"></i>
+            <button
+              v-if="isOwner"
+              @click="deleteNews"
+              :disabled="processing"
+              class="submit-btn btn-clear"
+            >
+              <i class="far fa-trash-alt"> </i>
+            </button>
           </div>
         </div>
       </div>
@@ -27,6 +34,7 @@ export default {
   methods: {
     deleteNews() {
       if (confirm("このニュースを削除しますか？") === true) {
+        this.startProcessing();
         this.$refs.newsDeletion.submit();
       }
     },
@@ -81,13 +89,19 @@ export default {
   padding: 4px 20px;
   line-height: 30px;
 }
-
-.news-modal-footer i::before {
-  font-size: 2rem;
+.news-modal-footer .submit-btn {
+  display: inline-block;
+  padding: 0;
   position: absolute;
   top: 15%;
   right: 5%;
   cursor: pointer;
+}
+.news-modal-footer .submit-btn:hover {
+  opacity: 0.7;
+}
+.news-modal-footer i::before {
+  font-size: 2rem;
 }
 .slide-y-enter-active {
   animation: slide-y-in 0.3s;

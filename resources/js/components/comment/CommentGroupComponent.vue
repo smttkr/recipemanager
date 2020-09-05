@@ -53,9 +53,14 @@ export default {
       let form = document.querySelector(".comment-box form#form");
 
       if (this.userId === comment.shop_user.user.id) {
-        if (confirm("コメントを削除しますか？") === true) {
-          form.action = "/comments/" + comment.id;
-          this.submitDeletion();
+        if (this.processing === false) {
+          this.startProcessing();
+          if (confirm("コメントを削除しますか？") === true) {
+            form.action = "/comments/" + comment.id;
+            this.submitDeletion();
+          } else {
+            this.endProcessing();
+          }
         }
       }
     },

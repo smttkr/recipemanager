@@ -10,7 +10,8 @@
 
 @section('content')
 <main>
-  <form enctype="multipart/form-data" action="{{ route('recipes.store') }}" method="POST" class="mx-auto mt-3 pb-5">
+  <form enctype="multipart/form-data" ref="newRecipeAddition" action="{{ route('recipes.store') }}" method="POST"
+    class="mx-auto mt-3 pb-5">
     @csrf
     <div class="img-form form-group mx-auto">
       <label for="img">画像</label>
@@ -34,10 +35,10 @@
       <label for="category">カテゴリ</label>
       <select name="category" class="custom-select @error('category') is-invalid @enderror" id="category">
         <option value="" class="hidden">選択してください</option>
-        <option value="salad">サラダ</option>
-        <option value="meat">お肉</option>
-        <option value="fried">揚げ物</option>
-        <option value="dessert">デザート</option>
+        <option value="salad" @if(old("category")==="sslad" )selected @endif>サラダ</option>
+        <option value="meat" @if(old("category")==="meat" )selected @endif>お肉</option>
+        <option value="fried" @if(old("category")==="fried" )selected @endif>揚げ物</option>
+        <option value="dessert" @if(old("category")==="dessert" )selected @endif>デザート</option>
       </select>
       @error('category')
       <small class="text-danger" role="alert">{{ $message }}</small>
@@ -45,13 +46,13 @@
     </div>
     <div class="form-group description-form mt-3">
       <label for="description">説明</label>
-      <textarea id="description" name="description" value="{{ old('description') }}"
-        class="form-control @error('description') is-invalid @enderror" rows="20" placeholder="2000文字以内"></textarea>
+      <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror"
+        rows="20" placeholder="2000文字以内">{{ old("description") }}</textarea>
       @error('description')
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
-    <button type="submit" class="d-block mx-auto btn btn-primary">
+    <button v-on:click.prevent="submitAddition" :disabled="processing" class="d-block mx-auto btn btn-primary">
       新規作成
     </button>
   </form>
@@ -77,6 +78,10 @@
         reader.readAsDataURL(file);
         }
       },
+      submitAddition(){
+        this.startProcessing()
+        this.$refs.newRecipeAddition.submit();
+      }
     },
   });
 </script>

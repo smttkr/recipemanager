@@ -34,7 +34,9 @@ class AuthServiceProvider extends ServiceProvider
 
     //オーナーかどうか
     Gate::define("isOwner", function ($user) {
-      return $user->shopUser->position === "owner";
+      return $user->shopUser->position === "owner"
+        ? Response::allow()
+        : Response::deny("権限がありません");
     });
   }
 }

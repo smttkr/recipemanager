@@ -9,6 +9,11 @@
 a:hover {
   text-decoration: none !important;
 }
+.btn-clear {
+  border: none;
+  outline: none !important;
+  background: transparent;
+}
 
 header {
   position: relative;

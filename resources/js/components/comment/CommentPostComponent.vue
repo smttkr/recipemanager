@@ -35,6 +35,7 @@
               </button>
               <button
                 @click.stop="validate"
+                :disabled="processing"
                 type="button"
                 class="btn btn-primary mt-1 mx-2"
               >
@@ -63,6 +64,7 @@ export default {
       this.$emit("close");
     },
     validate() {
+      this.startProcessing();
       let com = this.comment;
       let er = "";
       if (com.length < 1) {
@@ -73,12 +75,14 @@ export default {
       }
       if (er.length > 0) {
         this.error = er;
+        this.endProcessing;
       } else {
         this.submitNewComment();
       }
     },
     submitNewComment() {
       this.$refs.newCommentForm.submit();
+      this.close();
     },
   },
 };
@@ -94,6 +98,7 @@ export default {
   top: 0;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 .new-comment-box {
   overflow: hidden;
