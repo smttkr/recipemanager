@@ -2,7 +2,7 @@
   <transition name="slide-y">
     <div v-if="postShow" @click.self="close" class="new-comment-bg">
       <div class="new-comment-box">
-        <form ref="newCommentForm" action="/comments/" method="POST" class="cf">
+        <form ref="newCommentForm" action="/comments" method="POST" class="cf">
           <input type="hidden" name="_token" :value="csrf" />
           <input type="hidden" name="_method" value="POST" />
           <input

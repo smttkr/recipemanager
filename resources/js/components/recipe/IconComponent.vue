@@ -12,6 +12,7 @@
         <i class="far fa-folder-open"></i>
       </button>
       <button
+        v-if="isOwner"
         @click="jumpEdit(recipeId)"
         :disabled="processing"
         class="btn-clear mx-5"
@@ -19,6 +20,7 @@
         <i class="far fa-edit"></i>
       </button>
       <button
+        v-if="isOwner"
         @click="confirmRecipeDeletion"
         :disabled="processing"
         class="btn-clear"
@@ -37,7 +39,7 @@
 
     <form
       ref="bookmarkAddition"
-      action="/bookmarks/"
+      action="/bookmarks"
       method="POST"
       class="hidden"
     >
@@ -59,7 +61,7 @@
 
 <script>
 export default {
-  props: ["recipeId", "csrf"],
+  props: ["recipeId", "csrf", "isOwner"],
   data() {
     return {
       postShow: false,

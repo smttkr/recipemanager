@@ -18,7 +18,7 @@
 
   <section>
     <h1 class="hidden">ICON_MENU_&_COMMENTS</h1>
-    <icon-component :csrf="csrf" :recipe-id="{{ $recipe_id }}"></icon-component>
+    <icon-component :csrf="csrf" :recipe-id="{{ $recipe_id }}" @can("isOwner") :is-owner="true" @endcan></icon-component>
 
     <comment-group-component :comments="{{ $comments }}" :user-id="{{ $user->id }}" :csrf="csrf">
     </comment-group-component>

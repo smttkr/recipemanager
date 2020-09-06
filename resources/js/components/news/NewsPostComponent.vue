@@ -4,7 +4,7 @@
       <div class="news-post py-2 px-1">
         <h3 class="text-center w-100">NEWS</h3>
 
-        <form ref="newsPosts" action="/news/" method="POST">
+        <form ref="newsPosts" action="/news" method="POST">
           <input type="hidden" name="_token" :value="csrf" />
           <input type="hidden" name="_method" value="POST" />
           <small class="text-danger ">{{ errors }}</small>
