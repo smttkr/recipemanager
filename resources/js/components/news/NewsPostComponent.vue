@@ -6,6 +6,7 @@
 
         <form ref="newsPosts" action="/news/" method="POST">
           <input type="hidden" name="_token" :value="csrf" />
+          <input type="hidden" name="_method" value="POST" />
           <small class="text-danger ">{{ errors }}</small>
           <textarea
             v-model.trim="content"

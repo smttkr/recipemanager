@@ -4,6 +4,7 @@
       <div class="new-comment-box">
         <form ref="newCommentForm" action="/comments/" method="POST" class="cf">
           <input type="hidden" name="_token" :value="csrf" />
+          <input type="hidden" name="_method" value="POST" />
           <input
             type="number"
             name="recipe_id"
