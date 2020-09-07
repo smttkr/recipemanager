@@ -35,7 +35,7 @@ html,
 
 .content .top-box {
   height: 80vh;
-  background-image: url("/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/restaurant.jpg");
+  background-image: url("http://xs055583.xsrv.jp/storage/images/top/restaurant.jpg");
   background-size: cover;
 }
 

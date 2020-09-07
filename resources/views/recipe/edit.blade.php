@@ -18,7 +18,7 @@
       <label for="img">画像</label>
       <img v-show="imageData" :src="imageData" alt="">
       <img v-show="!imageData"
-        src="{{ '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/dishes/'.$recipe->image }}" alt="">
+        src="{{ 'http://xs055583.xsrv.jp/storage/images/dishes/'.$recipe->image }}" alt="">
       <div>
         <input v-on:change="onFileChange" type="file" name="image" autocomplete="off" accept="image/*" />
       </div>

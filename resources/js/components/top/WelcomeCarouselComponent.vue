@@ -39,15 +39,15 @@ export default {
       images: [
         {
           src:
-            "/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/home.png",
+            "http://xs055583.xsrv.jp/storage/images/top/home.png",
         },
         {
           src:
-            "/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/show.png",
+            "http://xs055583.xsrv.jp/storage/images/top/show.png",
         },
         {
           src:
-            "/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/top/news.png",
+            "http://xs055583.xsrv.jp/storage/images/top/news.png",
         },
         // { src: "" },
         // { src: "" },

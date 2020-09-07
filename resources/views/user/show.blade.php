@@ -28,8 +28,7 @@
     <div class="profile-box">
       <div class="image-box">
         <img v-on:click="edit('image')"
-          src="{{ '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/profile_images/'.$user->profile_image }}"
-          alt="" />
+          src="{{ 'http://xs055583.xsrv.jp/storage/images/profile_images/'.$user->profile_image }}" alt="" />
       </div>
       <div class="name-box">
         <p v-on:click="edit('name')" class="name">{{ $user->name }}</p>

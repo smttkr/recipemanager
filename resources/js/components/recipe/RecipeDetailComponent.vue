@@ -4,7 +4,7 @@
     <span class="category" :id="recipe.category">{{ recipe.category }}</span>
     <img
       :src="
-        '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/dishes/' +
+        'http://xs055583.xsrv.jp/storage/images/dishes/' +
           recipe.image
       "
       alt=""

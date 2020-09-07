@@ -4,7 +4,7 @@
       <td class="img">
         <img
           :src="
-            '/home/xs055583/xs055583.xsrv.jp/public_html/storage/images/profile_images/' +
+            'http://xs055583.xsrv.jp/storage/images/profile_images/' +
               user.user.profile_image
           "
           alt=""
