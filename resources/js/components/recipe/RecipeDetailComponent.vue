@@ -1,12 +1,10 @@
 <template>
   <div class="recipe-box mt-3 p-4 bg-light">
+    <h1>hello</h1>
     <h2 class="title text-center">{{ recipe.name }}</h2>
     <span class="category" :id="recipe.category">{{ recipe.category }}</span>
     <img
-      :src="
-        'http://xs055583.xsrv.jp/storage/images/dishes/' +
-          recipe.image
-      "
+      :src="'http://xs055583.xsrv.jp/storage/images/dishes/' + recipe.image"
       alt=""
     />
     <div class="description-box bg-white mt-3 border rounded">
@@ -72,7 +70,7 @@ img {
 .description-box h3 {
   font-size: 1.3rem;
 }
-.description{
+.description {
   padding: 5px 10px 5px;
   letter-spacing: 0.5px;
   overflow-y: auto;

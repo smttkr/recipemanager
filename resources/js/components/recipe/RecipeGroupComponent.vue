@@ -13,8 +13,7 @@
           >
             <img
               :src="
-                'http://xs055583.xsrv.jp/storage/images/dishes/' +
-                  recipe.image
+                'http://xs055583.xsrv.jp/storage/images/dishes/' + recipe.image
               "
               alt=""
             />
