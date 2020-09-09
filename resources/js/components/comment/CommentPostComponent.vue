@@ -1,6 +1,6 @@
 <template>
   <transition name="slide-y">
-    <div v-if="postShow" @click.self="close" class="new-comment-bg">
+    <div v-if="show" @click.self="close" class="new-comment-bg">
       <div class="new-comment-box">
         <form ref="newCommentForm" action="/comments" method="POST" class="cf">
           <input type="hidden" name="_token" :value="csrf" />
@@ -22,7 +22,7 @@
               class="form-control"
               rows="6"
               v-model="comment"
-              autofocus
+              id="content"
               placeholder="コメントを入力してください。300文字以内"
             />
             <small class="form-text text-muted"></small>
@@ -52,12 +52,19 @@
 
 <script>
 export default {
-  props: ["postShow", "recipeId", "csrf"],
+  props: ["show", "recipeId", "csrf"],
   data() {
     return {
       comment: "",
       error: "",
     };
+  },
+  watch: {
+    show(newValue) {
+      if (newValue === true) {
+        Vue.nextTick().then(() => document.getElementById("content").focus());
+      }
+    },
   },
   methods: {
     close() {

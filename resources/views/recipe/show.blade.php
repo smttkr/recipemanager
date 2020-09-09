@@ -1,9 +1,5 @@
 @extends("layouts.default")
 
-@section("style")
-<link rel="stylesheet" href="{{ asset('css/recipe/recipe_show.css') }}">
-@endsection
-
 @section("title")
 {{ $recipe_name }}
 @endsection
@@ -18,9 +14,12 @@
 
   <section>
     <h1 class="hidden">ICON_MENU_&_COMMENTS</h1>
-    <icon-component :csrf="csrf" :recipe-id="{{ $recipe_id }}" @can("isOwner") :is-owner="true" @endcan></icon-component>
+    <icon-component :csrf="csrf" :recipe-id="{{ $recipe_id }}" @can("isOwner") :is-owner="true" @endcan
+      @if($does_bookmark=$user->doesBookmark($recipe_id))
+      :does-bookmark="{{ $does_bookmark }}" @endif>
+    </icon-component>
 
-    <comment-group-component :comments="{{ $comments }}" :user-id="{{ $user->id }}" :csrf="csrf">
+    <comment-group-component :comments="{{ $comments }}" :user-id="{{ $user->id }}" :is-owner="true" :csrf="csrf">
     </comment-group-component>
   </section>
 </main>

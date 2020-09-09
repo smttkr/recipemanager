@@ -1,6 +1,5 @@
 <template>
   <div class="recipe-box mt-3 p-4 bg-light">
-    <h1>hello</h1>
     <h2 class="title text-center">{{ recipe.name }}</h2>
     <span class="category" :id="recipe.category">{{ recipe.category }}</span>
     <img
@@ -30,6 +29,10 @@ export default {
 </script>
 
 <style scoped>
+.recipe-box {
+  width: 80%;
+  margin: 0 auto;
+}
 h2 {
   font-size: 2rem;
 }
@@ -73,12 +76,15 @@ img {
 .description {
   padding: 5px 10px 5px;
   letter-spacing: 0.5px;
-  overflow-y: auto;
 }
+
 .description-box .description {
   white-space: pre-wrap;
 }
-@media (max-width: 899px) {
+@media (max-width: 575.5px) {
+  .recipe-box {
+    width: 100%;
+  }
   .category {
     width: 100%;
   }

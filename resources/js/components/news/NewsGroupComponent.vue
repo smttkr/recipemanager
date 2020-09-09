@@ -1,21 +1,26 @@
 <template>
   <div class="news-box">
     <div class="news-header cf border-bottom m-0 pb-1">
-      <h3 class="text-danger d-inline-block">NEWS!</h3>
+      <h3 class="text-danger d-inline-block pl-2">NEWS!</h3>
       <button v-if="isOwner" @click="togglePostShow" class="btn-clear">
         <i class="fas fa-plus"></i>
       </button>
     </div>
-
-    <table v-if="news.length > 0" class="table">
-      <tr v-for="n in news" :key="n.id" @click="openModalShow(n)">
-        <td class="day text-center">{{ n.created_at.slice(5, 10) }}</td>
-        <td class="content">{{ n.content }}</td>
-      </tr>
-    </table>
-
-    <div v-else>
-      ニュースがありません
+    <div class="news-body">
+      <table v-if="news.length > 0">
+        <tr
+          v-for="n in news"
+          :key="n.id"
+          @click="openModalShow(n)"
+          class="border-top border-bottom"
+        >
+          <td class="day text-center">{{ n.created_at.slice(5, 10) }}</td>
+          <td class="content">{{ n.content }}</td>
+        </tr>
+      </table>
+      <div v-else>
+        ニュースがありません
+      </div>
     </div>
 
     <news-modal-component
@@ -61,8 +66,8 @@ export default {
 </script>
 
 <style scoped>
-.news-box {
-  overflow: hidden;
+.news-box{
+  height: 100%;
 }
 .news-header {
   position: relative;
@@ -84,36 +89,40 @@ h3 {
 .news-header i::before {
   font-size: 1.5rem;
 }
-table {
-  table-layout: fixed;
+.news-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 200px;
 }
-table tr {
+.news-body::-webkit-scrollbar {
+  width: 5px;
+}
+.news-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+.news-body table {
+  table-layout: fixed;
+  width: 100%;
+}
+.news-body table tr {
   cursor: pointer;
 }
-table tr:hover {
+.news-body table tr:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
-table td {
-  font-size: 0.8rem;
+.news-body table td {
+  font-size: 0.9rem;
 }
-table .day {
+.news-body table .day {
   font-weight: 500;
   letter-spacing: 1px;
 }
-table .content {
+.news-body table .content {
   width: 80%;
+  padding: 5px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-table td .ok {
-  font-size: 0.8rem;
-}
-
-@media (max-width: 899px) {
-  .news table {
-    width: 90%;
-    margin: 0 auto;
-  }
 }
 </style>

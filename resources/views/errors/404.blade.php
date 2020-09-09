@@ -3,7 +3,7 @@
 @section("style")
 
 @endsection
-<link rel="stylesheet" href="{{ asset("/css/errors/404.css") }}">
+<link rel="stylesheet" href="{{ asset("/css/errors/error.css") }}">
 @section("title")
 404 エラー
 @endsection

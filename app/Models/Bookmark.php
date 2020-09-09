@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Recipe;
 
 class Bookmark extends Model
 {
@@ -11,6 +12,6 @@ class Bookmark extends Model
 
   public function recipe()
   {
-    return $this->BelongsTo("App\Models\Recipe");
+    return $this->BelongsTo(Recipe::class);
   }
 }

@@ -77,10 +77,11 @@ class RecipeController extends Controller
   {
     //詳細 全員
     $this->authorize("view", $recipe);
+    $user = $this->user;
 
     $comments = $recipe->getAllComments();
     $params = [
-      "user" => $this->user,
+      "user" => $user,
       "recipe" => $recipe,
       "recipe_id" => $recipe->id,
       "recipe_name" => $recipe->name,
@@ -95,9 +96,10 @@ class RecipeController extends Controller
   {
     $this->authorize("view", $recipe);
     Gate::authorize("isOwner");
-
+$response = "dd";
     $params = [
-      "recipe" => $recipe
+      "recipe" => $recipe,
+      "response" => $response,
     ];
     return view("recipe.edit", $params);
   }

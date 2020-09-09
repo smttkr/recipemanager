@@ -6,13 +6,13 @@
 
         <form ref="newsPosts" action="/news" method="POST">
           <input type="hidden" name="_token" :value="csrf" />
-          <input type="hidden" name="_method" value="POST" />
           <small class="text-danger ">{{ errors }}</small>
           <textarea
             v-model.trim="content"
             name="content"
             rows="7"
             placeholder="内容を入力してください。300文字以内"
+            id="content"
           ></textarea>
           <div class="news-post-close">
             <button type="button" class="btn btn-dark mx-2" @click.stop="close">
@@ -41,6 +41,13 @@ export default {
       content: "",
       errors: "",
     };
+  },
+  watch: {
+    show(newValue) {
+      if (newValue === true) {
+        Vue.nextTick().then(() => document.getElementById("content").focus());
+      }
+    },
   },
   methods: {
     close() {

@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Comment;
+use App\Models\Bookmark;
+
 
 class Recipe extends Model
 {
@@ -10,12 +13,12 @@ class Recipe extends Model
 
   public function comments()
   {
-    return $this->hasMany('App\Models\Comment');
+    return $this->hasMany(Comment::class);
   }
 
   public function bookmarks()
   {
-    return $this->hasMany('App\Models\Bookmark');
+    return $this->hasMany(Bookmark::class);
   }
 
   public function getAllComments()

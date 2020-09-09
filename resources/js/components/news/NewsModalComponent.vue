@@ -3,7 +3,7 @@
     <transition name="slide-y">
       <div class="news-modal-bg" v-if="show" @click.self="$emit('close')">
         <div class="news-modal">
-          <h3 class="border-bottom text-center w-100">NEWS</h3>
+          <h3 class="border-bottom text-center w-100 m-0">NEWS</h3>
           <div class="news-modal-content p-2">{{ news.content }}</div>
           <div class="news-modal-footer cf">
             <button class="btn btn-outline-dark" @click="$emit('close')">
@@ -60,8 +60,8 @@ export default {
   overflow: hidden;
   border-radius: 8px;
   position: absolute;
-  width: 50%;
-  height: 300px;
+  width: 60%;
+  height: 350px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -75,6 +75,15 @@ export default {
 .news-modal-content {
   height: 60%;
   overflow-y: auto;
+  white-space: pre-wrap;
+}
+.news-modal-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.news-modal-content::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
 }
 .news-modal-footer {
   height: 20%;

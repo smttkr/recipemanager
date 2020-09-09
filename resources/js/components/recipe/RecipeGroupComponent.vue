@@ -55,19 +55,29 @@ export default {
       loadNum: 18,
     };
   },
+  watch: {
+    keyword(newValue) {
+      if (newValue.length < 1) {
+        this.resetLoadNum();
+      }
+    },
+  },
   computed: {
     matchRecipes() {
       let result = this.recipes.slice();
+      // カテゴリ検索
       if (this.category.length > 0) {
         result = result.filter((r) => {
           return r.category.indexOf(this.category) > -1;
         });
       }
+      // キーワード検索
       if (this.keyword.length > 0) {
         result = result.filter((r) => {
           return r.name.indexOf(this.keyword) > -1;
         });
       }
+      //最終
       if (result.length > this.loadNum) {
         result = result.slice(0, this.loadNum);
       } else {

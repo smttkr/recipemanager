@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use App\Models\ShopUser;
+use App\Models\Recipe;
+use App\Models\News;
 
 class Shop extends Model
 {
@@ -11,16 +14,16 @@ class Shop extends Model
 
   public function shopUsers()
   {
-    return $this->hasMany('App\Models\ShopUser');
+    return $this->hasMany(ShopUser::class);
   }
 
   public function recipes()
   {
-    return $this->hasMany('App\Models\Recipe');
+    return $this->hasMany(Recipe::class);
   }
   public function news()
   {
-    return $this->hasMany('App\Models\News');
+    return $this->hasMany(News::class);
   }
 
 

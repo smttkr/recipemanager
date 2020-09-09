@@ -7,12 +7,13 @@
       @before-leave="beforeLeave"
       @leave="leave"
     >
-      <div class="bookmark-box" v-if="bookmarkShow">
+      <div class="bookmark-box border" v-if="bookmarkShow">
         <ul v-if="bookmarks.length > 0">
-          <li v-for="bookmark in bookmarks" :key="bookmark.id">
-            <a @click.prevent="deleteBookmark(bookmark)" class="delete"
-              >[削除]</a
-            >
+          <li
+            v-for="bookmark in bookmarks"
+            :key="bookmark.id"
+            class="border-bottom"
+          >
             <a :href="'/recipes/' + bookmark.recipe.id">
               {{ bookmark.recipe.name }}
             </a>
@@ -21,16 +22,6 @@
         <p v-else>ブックマークがありません</p>
       </div>
     </transition>
-    <form
-      action=""
-      method="POST"
-      ref="delete"
-      id="bookmark-delete-form"
-      class="hidden"
-    >
-      <input type="hidden" name="_token" :value="csrf" />
-      <input type="hidden" name="_method" value="DELETE" />
-    </form>
   </div>
 </template>
 
@@ -60,16 +51,6 @@ export default {
     leave: function(el) {
       el.style.height = "0";
     },
-    deleteBookmark(bookmark) {
-      let form = document.querySelector("form#bookmark-delete-form");
-      if (
-        confirm(bookmark.recipe.name + "のブックマークを削除しますか？") ===
-        true
-      ) {
-        form.action = "/bookmarks/" + bookmark.id;
-        this.$refs.delete.submit();
-      }
-    },
   },
 };
 </script>
@@ -95,12 +76,14 @@ export default {
   font-size: 1rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 5px 0;
 }
 .bookmark-box li a {
-  font-size: 0.6rem;
+  display: block;
+  font-size: 0.8rem;
 }
 .bookmark-box p {
-  font-size: 0.6rem;
+  font-size: 1rem;
 }
 .bookmark-box .delete {
   cursor: pointer;
@@ -113,7 +96,7 @@ export default {
 @media (max-width: 899px) {
   .bookmark-box li,
   .bookmark-box p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   .bookmark-box {
     width: 45%;

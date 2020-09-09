@@ -7,7 +7,6 @@ main .search-box {
   margin: 0 auto;
 }
 
-
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -25,8 +24,7 @@ main .search-box {
   margin: 0 auto;
 }
 .news {
-  max-height: 267.5px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 @media (max-width: 899px) {

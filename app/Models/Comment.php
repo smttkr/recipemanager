@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ShopUser;
 
 class Comment extends Model
 {
@@ -10,6 +11,6 @@ class Comment extends Model
 
   public function shopUser()
   {
-    return $this->belongsTo('App\Models\ShopUser');
+    return $this->belongsTo(ShopUser::class);
   }
 }

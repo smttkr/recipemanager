@@ -26,7 +26,7 @@
     <div class="form-group name-form mx-auto">
       <label for="name">料理名</label>
       <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-        value="{{ old('name') }}" placeholder="20文字以内" />
+        value="{{ old('name') }}" placeholder="20文字以内" autofocus />
       @error('name')
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror

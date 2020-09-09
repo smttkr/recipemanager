@@ -16,7 +16,6 @@ class UsersTableSeeder extends Seeder
       'name' => 'オーナーA',
       'email' => 'owner-a@test.com',
       'password' => Hash::make('ownerowner'),
-      // 'remember_token' => str_random(10),
       'created_at'     => now(),
       'updated_at'     => now()
     ]);
@@ -25,7 +24,6 @@ class UsersTableSeeder extends Seeder
       'name' => 'スタッフA',
       'email' => 'staff@test.com',
       'password' => Hash::make('staffstaff'),
-      // 'remember_token' => str_random(10),
       'created_at'     => now(),
       'updated_at'     => now()
     ]);

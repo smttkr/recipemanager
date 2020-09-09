@@ -1,14 +1,11 @@
 <template>
-  <div
-    v-if="comments.length > 0"
-    class="comment-box bg-white border-bottom p-0"
-  >
-    <table class="table mb-0">
+  <div v-if="comments.length > 0" class="comment-box p-0 bg-white">
+    <transition-group tag="table" name="fade" class="table mb-0 border-bottom">
       <tr
         class="p-2"
-        v-for="comment in comments"
+        v-for="comment in displayComments"
         :key="comment.id"
-        :class="{ mine: userId === comment.shop_user.user.id }"
+        :class="{ mine: admin(comment) }"
       >
         <td class="user">
           <img
@@ -20,14 +17,20 @@
           />
           <p class="mb-0">{{ comment.shop_user.user.name }}</p>
         </td>
-        <td @click="confirmDelete(comment)" class="comment-content">
-          {{ comment.comment }}
+        <td @click="confirmDelete(comment)" class="comment-content-td">
+          <div class="comment-content">
+            <!-- ここの空白をなくす -->{{ comment.comment }}
+          </div>
           <span class="day">{{ comment.created_at.slice(0, 10) }}</span>
         </td>
       </tr>
-    </table>
+    </transition-group>
 
-    <form ref="commentDelete" action="" method="POST" id="form">
+    <div v-if="comments.length > loadNum" class="load-more">
+      <a @click.prevent.once="showThread" href="">スレッドを表示</a>
+    </div>
+
+    <form ref="commentDeletion" action="" method="POST" id="commentDeletion">
       <input type="hidden" name="_token" :value="csrf" />
       <input type="hidden" name="_method" value="DELETE" />
     </form>
@@ -36,23 +39,34 @@
 
 <script>
 export default {
-  props: {
-    comments: {
-      type: Array,
-    },
-    userId: {
-      type: Number,
-    },
-    csrf: {
-      type: String,
+  props: ["comments", "userId", "isOwner", "csrf"],
+
+  data() {
+    return {
+      loadNum: 3,
+    };
+  },
+  computed: {
+    displayComments() {
+      let result = this.comments.slice();
+      if (result.length > 3) {
+        result = result.slice(0, this.loadNum);
+      }
+      return result;
     },
   },
-
   methods: {
+    admin(comment) {
+      if (comment.shop_user.user.id || this.isOwner === true) {
+        return true;
+      }
+    },
+    showThread() {
+      this.loadNum = this.comments.length;
+    },
     confirmDelete(comment) {
-      let form = document.querySelector(".comment-box form#form");
-
-      if (this.userId === comment.shop_user.user.id) {
+      let form = document.getElementById("#form");
+      if (this.userId === comment.shop_user.user.id || this.isOwner === true) {
         if (this.processing === false) {
           this.startProcessing();
           if (confirm("コメントを削除しますか？") === true) {
@@ -65,16 +79,21 @@ export default {
       }
     },
     submitDeletion() {
-      this.$refs.commentDelete.submit();
+      this.$refs.commentDeletion.submit();
     },
   },
 };
 </script>
 
 <style scoped>
+.comment-box {
+  width: 80%;
+  margin: 0 auto;
+}
 table {
   table-layout: fixed;
 }
+
 .comment-box .mine {
   cursor: pointer;
   transition: all 0.2s;
@@ -87,11 +106,32 @@ table {
   width: 172px;
   overflow: hidden;
 }
-.comment-content {
-  padding: 5px 5px 25px 5px;
+.user p {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.comment-content-td {
+  padding: 5px 10px 25px 5px;
   position: relative;
 }
-.comment-content span {
+.comment-content {
+  max-height: 100px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.comment-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.comment-content::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.comment-content-td span {
   display: inline-block;
   width: 100%;
   text-align: right;
@@ -119,10 +159,31 @@ table {
   top: 0%;
   left: 10%;
 }
+.load-more a {
+  display: block;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.load-more a:hover {
+  color: #3490dc;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 10s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 
 @media (max-width: 899px) {
   .user {
     width: 90px;
+  }
+  .user p {
+    font-size: 0.75rem;
   }
   .user img {
     width: 50px;
@@ -131,11 +192,16 @@ table {
   .comment-content {
     height: 84px;
   }
-  .user p {
-    white-space: nowrap;
-  }
   .day {
     font-size: 100%;
+  }
+}
+@media (max-width: 575.5px) {
+  .comment-box {
+    width: 100%;
+  }
+  .comment-content {
+    font-size: 0.9rem;
   }
 }
 </style>

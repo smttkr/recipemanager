@@ -11,7 +11,7 @@ RecipeManager
 @section('content')
 <main class="pt-3">
   <div class="search-box input-group mb-2">
-    <input v-model="keyword" type="text" class="form-control" placeholder="キーワードを入力">
+    <input v-model.trim="keyword" type="text" class="form-control" placeholder="キーワードを入力">
   </div>
   <section>
     <h1 class="hidden">CATEGORY_＆_NEWS</h1>
@@ -19,7 +19,7 @@ RecipeManager
 
       <section class="nav">
         <h2 class="hidden">CATEGORY</h2>
-        <nav-component v-model="category" v-on:select-out="clear"></nav-component>
+        <nav-component v-model="category" v-on:select-out="clearCategory"></nav-component>
       </section>
 
       <section class="news bg-light">
@@ -32,7 +32,7 @@ RecipeManager
 
   <section>
     <h1 class="hidden">CONTENTS</h1>
-    <recipe-group-component ref="newsGroup" :recipes="{{ $recipes }}" :category="category" :keyword="keyword">
+    <recipe-group-component ref="recipeGroup" :recipes="{{ $recipes }}" :category="category" :keyword="keyword">
     </recipe-group-component>
   </section>
 </main>
@@ -52,9 +52,12 @@ RecipeManager
   computed: {
   },
   methods: {
-    clear() {
+    clearCategory() {
       this.category = "";
-      this.$refs.newsGroup.resetLoadNum();
+      this.clearLoadNum();
+    },
+    clearLoadNum(){
+        this.$refs.recipeGroup.resetLoadNum();
     },
   },
 });

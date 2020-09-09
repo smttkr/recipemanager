@@ -24,7 +24,8 @@ class UserPolicy
   {
     return $auth_user->id === $user->id
       ? Response::allow()
-      : Response::deny("自分以外のアカウントは表示できません");
+      : abort("403", "hello vue.js");
+      // : Response::deny("自分以外のアカウントは表示できません");
   }
 
   public function update($auth_user, User $user)

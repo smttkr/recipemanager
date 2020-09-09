@@ -1,7 +1,7 @@
 <template>
   <div class="nav-box bg-light mx-auto">
     <div v-bind:class="{ active: isActive }" @click="selectOut">
-      <h3 class="w-100 text-center text-light">
+      <h3 class="w-100 text-center text-light p-1">
         Category
         <i v-if="isActive" class="ml-2 fas fa-toggle-on"></i>
         <i v-else class="ml-2 fas fa-toggle-off"></i>

@@ -8,8 +8,21 @@
       >
         <i class="far fa-comment"></i>
       </button>
-      <button @click="addBookmark" :disabled="processing" class="btn-clear">
+      <button
+        v-if="!doesBookmark"
+        @click="addBookmark"
+        :disabled="processing"
+        class="btn-clear"
+      >
         <i class="far fa-folder-open"></i>
+      </button>
+      <button
+        v-else
+        @click="deleteBookmark(doesBookmark)"
+        :disabled="processing"
+        class="btn-clear"
+      >
+        <i class="far fa-folder-open does-bookmark"></i>
       </button>
       <button
         v-if="isOwner"
@@ -30,7 +43,7 @@
     </div>
 
     <comment-post-component
-      :post-show="postShow"
+      :show="postShow"
       :recipe-id="recipeId"
       :csrf="csrf"
       v-on:close="postShow = false"
@@ -48,6 +61,17 @@
     </form>
 
     <form
+      action=""
+      ref="bookmarkdeletion"
+      method="POST"
+      class="hidden"
+      id="bookmarkdeletion"
+    >
+      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="_method" value="DELETE" />
+    </form>
+
+    <form
       ref="recipeDeletion"
       :action="'/recipes/' + recipeId"
       method="POST"
@@ -61,7 +85,7 @@
 
 <script>
 export default {
-  props: ["recipeId", "csrf", "isOwner"],
+  props: ["recipeId", "csrf", "doesBookmark", "isOwner"],
   data() {
     return {
       postShow: false,
@@ -71,9 +95,17 @@ export default {
     togglePostShow() {
       this.postShow = !this.postShow;
     },
+
     addBookmark(id) {
       this.startProcessing();
       this.$refs.bookmarkAddition.submit();
+    },
+    deleteBookmark(bookmark) {
+      let form = document.getElementById("bookmarkDeletion");
+      if (confirm("この料理をブックマークを削除しますか？") === true) {
+        form.action = "/bookmarks/" + bookmark.id;
+        this.$refs.bookmarkdeletion.submit();
+      }
     },
     jumpEdit(id) {
       this.startProcessing();
@@ -94,6 +126,8 @@ export default {
 
 <style scoped>
 .icon-box {
+  width: 80%;
+  margin: 0 auto;
   position: relative;
 }
 .icon-box button {
@@ -109,7 +143,13 @@ export default {
   vertical-align: middle;
   font-size: 1.5rem;
 }
+.icon-box .does-bookmark::before {
+  color: cornflowerblue;
+}
 
-@media (max-width: 899px) {
+@media (max-width: 575.5px) {
+  .icon-box {
+    width: 100%;
+  }
 }
 </style>

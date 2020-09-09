@@ -17,8 +17,7 @@
     <div class="img-form form-group mx-auto">
       <label for="img">画像</label>
       <img v-show="imageData" :src="imageData" alt="">
-      <img v-show="!imageData"
-        src="{{ 'http://xs055583.xsrv.jp/storage/images/dishes/'.$recipe->image }}" alt="">
+      <img v-show="!imageData" src="{{ 'http://xs055583.xsrv.jp/storage/images/dishes/'.$recipe->image }}" alt="">
       <div>
         <input v-on:change="onFileChange" type="file" name="image" autocomplete="off" accept="image/*" />
       </div>
@@ -90,6 +89,7 @@
       },
       clear(){
         this.imageData = "";
+        this.$refs.recipeUpdates.reset();
       },
       submitUpdates(){
         this.startProcessing();

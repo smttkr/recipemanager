@@ -42,7 +42,7 @@ export default {
     openBookmark() {
       if (this.bookmarkShow === false) {
         this.bookmarkShow = true;
-        setTimeout(this.closeBookmark, 4000);
+        setTimeout(this.closeBookmark, 6000);
       } else {
         this.bookmarkShow = false;
       }

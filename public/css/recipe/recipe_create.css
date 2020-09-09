@@ -4,9 +4,6 @@ form {
 form .name-form {
   width: 50%;
 }
-form textarea {
-  white-space: pre-wrap;
-}
 form .img-form {
   width: 50%;
 }
