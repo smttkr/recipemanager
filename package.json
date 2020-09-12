@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "vue-img-inputer": "^2.1.6",
+        "vue-loading-template": "^1.3.2",
         "vuejs-dialog": "^1.4.2"
     }
 }

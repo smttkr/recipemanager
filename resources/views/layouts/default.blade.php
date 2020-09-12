@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
   <link rel="stylesheet" href="{{ asset('css/default/default.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/default/confirm.css') }}">
   <link
     href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
     rel="stylesheet" />
@@ -46,10 +47,12 @@
 
       <header-component :bookmarks="{{ $bookmarks }}" @can("isOwner") :is-owner="true" @endcan></header-component>
     </header>
-
+    <loading-component></loading-component>
     @yield('content')
   </div>
   <script src=" {{ mix('js/app.js') }} "></script>
+  <script>
+  </script>
   @yield('script')
 </body>
 

@@ -26,6 +26,6 @@ class CommentPolicy
   {
     return $user->shopUser->id === $comment->shop_user_id || Gate::authorize("isOwner")
       ? Response::allow()
-      : Response::deny("自分以外データは操作できません");
+      : Response::deny("自分以外のコメントは操作できません");
   }
 }

@@ -1,36 +1,41 @@
 <template>
-  <transition name="slide-y">
-    <div class="news-post-bg" v-if="show" @click.self="close">
-      <div class="news-post py-2 px-1">
-        <h3 class="text-center w-100">NEWS</h3>
+  <div>
+    <transition name="slide-y">
+      <div class="news-post-bg" v-if="show" @click.self="close">
+        <div class="news-post py-2 px-1">
+          <h3 class="text-center w-100">NEWS</h3>
 
-        <form ref="newsPosts" action="/news" method="POST">
-          <input type="hidden" name="_token" :value="csrf" />
-          <small class="text-danger ">{{ errors }}</small>
-          <textarea
-            v-model.trim="content"
-            name="content"
-            rows="7"
-            placeholder="内容を入力してください。300文字以内"
-            id="content"
-          ></textarea>
-          <div class="news-post-close">
-            <button type="button" class="btn btn-dark mx-2" @click.stop="close">
-              キャンセル
-            </button>
-            <button
-              :disabled="processing"
-              @click.stop="validateNewsPosts"
-              type="button"
-              class="btn btn-primary"
-            >
-              送信
-            </button>
-          </div>
-        </form>
+          <form ref="newsPosts" action="/news" method="POST">
+            <input type="hidden" name="_token" :value="csrf" />
+            <small class="text-danger ">{{ errors }}</small>
+            <textarea
+              v-model.trim="content"
+              name="content"
+              rows="7"
+              placeholder="内容を入力してください。300文字以内"
+              ref="contentTextarea"
+            ></textarea>
+            <div class="news-post-close">
+              <button
+                type="button"
+                class="btn btn-outline-dark mx-2"
+                @click.stop="close"
+              >
+                キャンセル
+              </button>
+              <button
+                @click.stop="validateNewsPosts"
+                type="button"
+                class="btn btn-primary"
+              >
+                送信
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -45,7 +50,7 @@ export default {
   watch: {
     show(newValue) {
       if (newValue === true) {
-        Vue.nextTick().then(() => document.getElementById("content").focus());
+        Vue.nextTick().then(() => this.$refs.contentTextarea.focus());
       }
     },
   },
@@ -55,7 +60,6 @@ export default {
       this.$emit("close");
     },
     validateNewsPosts() {
-      this.startProcessing();
       let co = this.content;
       //コピーしておいて、エラーがあれば写す
       var er = "";
@@ -71,7 +75,6 @@ export default {
         this.close();
       } else {
         this.errors = er;
-        this.endProcessing();
       }
     },
     submitNews() {
@@ -85,6 +88,7 @@ export default {
 .news-post-bg {
   position: fixed;
   display: flex;
+  background-color: rgba(0,0,0,0.7);
   width: 100%;
   height: 100%;
   left: 0;
@@ -95,7 +99,6 @@ export default {
 }
 .news-post {
   background-color: #fff;
-  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.7);
   overflow: hidden;
   border-radius: 8px;
   position: absolute;

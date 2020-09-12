@@ -12,10 +12,13 @@ class CommentsTableSeeder extends Seeder
    */
   public function run()
   {
-    Comment::create([
-      'recipe_id' => 1,
-      'shop_user_id' => 2,
-      'comment' => 'hello test comment.'
-    ]);
+
+    for ($i = 1; $i < 801; $i++) {
+      Comment::create([
+        "recipe_id" => mt_rand(1, 80),
+        "shop_user_id" => ($i % 29) + 1,
+        "comment" => "hello test comment" . $i
+      ]);
+    }
   }
 }

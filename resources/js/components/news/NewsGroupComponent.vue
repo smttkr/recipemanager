@@ -18,6 +18,7 @@
           <td class="content">{{ n.content }}</td>
         </tr>
       </table>
+
       <div v-else>
         ニュースがありません
       </div>
@@ -36,6 +37,7 @@
       :csrf="csrf"
       @close="togglePostShow"
     ></news-post-component>
+
   </div>
 </template>
 
@@ -66,7 +68,7 @@ export default {
 </script>
 
 <style scoped>
-.news-box{
+.news-box {
   height: 100%;
 }
 .news-header {
@@ -120,7 +122,8 @@ h3 {
 }
 .news-body table .content {
   width: 80%;
-  padding: 5px 0;
+
+  padding: 8px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

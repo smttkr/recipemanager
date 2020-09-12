@@ -25,6 +25,6 @@ class BookmarkPolicy
   {
     return $user->shopUser->id === $bookmark->shop_user_id
       ? Response::allow()
-      : Response::deny("自分以外のデータは操作できません");
+      : Response::deny("自分以外のブックマークは操作できません");
   }
 }

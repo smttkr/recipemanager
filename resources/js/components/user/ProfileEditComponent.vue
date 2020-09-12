@@ -1,104 +1,119 @@
 <template>
-  <transition name="slide-y">
-    <div v-if="show" @click.self="close" class="edit-modal-bg">
-      <form
-        v-if="editType === 'name'"
-        key="name"
-        ref="nameEdit"
-        :action="'/users/' + userId"
-        method="POST"
-        class="edit-form"
-      >
-        <input type="hidden" name="_token" :value="csrf" />
-        <input type="hidden" name="_method" value="PUT" />
-        <input type="hidden" name="type" value="name" />
-        <label>ニックネーム</label><br />
-        <small class="text-danger">{{ errors }}</small>
-        <input
-          type="text"
-          name="name"
-          class="form-control"
-          v-model.trim="name"
-          autofocus
-          autocomplete="off"
-          placeholder="6文字以内"
-        />
-        <div class="btn-box my-1">
-          <button
-            type="button"
-            @click="close"
-            class="btn btn-outline-dark mx-2"
-          >
-            キャンセル
-          </button>
-          <button
-            @click="validate('name', $event)"
-            type="button"
-            :disabled="processing"
-            class="btn btn-primary my-1"
-          >
-            送信
-          </button>
-        </div>
-      </form>
+  <div>
+    <transition name="slide-y">
+      <div v-if="show" @click.self="close" class="edit-modal-bg">
+        <form
+          v-if="editType === 'name'"
+          key="name"
+          ref="nameEdit"
+          :action="'/users/' + user.id"
+          method="POST"
+          class="edit-form"
+        >
+          <input type="hidden" name="_token" :value="csrf" />
+          <input type="hidden" name="_method" value="PUT" />
+          <input type="hidden" name="type" value="name" />
+          <label>ニックネーム</label><br />
+          <small class="text-danger">{{ errors }}</small>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            v-model.trim="name"
+            autocomplete="off"
+            placeholder="6文字以内"
+          />
+          <div class="btn-box my-1">
+            <button
+              type="button"
+              @click="close"
+              class="btn btn-outline-dark mx-2"
+            >
+              キャンセル
+            </button>
+            <button
+              @click="validate('name', $event)"
+              type="button"
+              class="btn btn-primary my-1"
+            >
+              送信
+            </button>
+          </div>
+        </form>
 
-      <form
-        enctype="multipart/form-data"
-        v-if="editType === 'image'"
-        key="image"
-        ref="imageEdit"
-        :action="'/users/' + userId"
-        method="POST"
-        class="edit-form"
-      >
-        <input type="hidden" name="_token" :value="csrf" />
-        <input type="hidden" name="_method" value="PUT" />
-        <input type="hidden" name="type" value="image" />
-        <img v-show="imageData" :src="imageData" alt="" class="preview" />
-        <label>プロフィール画像</label>
-        <small class="text-danger">
-          {{ errors }}
-        </small>
-        <input
-          @change="onFileChange"
-          type="file"
-          name="profile_image"
-          class="form-control"
-          autofocus
-          autocomplete="off"
-          accept="image/*"
-        />
-        <div class="btn-box my-1">
-          <button
-            type="button"
-            @click="close"
-            class="btn btn-outline-dark mx-2"
-          >
-            キャンセル
-          </button>
-          <button
-            @click="validate('image', $event)"
-            :disabled="processing"
-            type="button"
-            class="btn btn-primary my-1"
-          >
-            送信
-          </button>
-        </div>
-      </form>
-    </div>
-  </transition>
+        <form
+          enctype="multipart/form-data"
+          v-if="editType === 'image'"
+          key="image"
+          ref="imageEdit"
+          :action="'/users/' + user.id"
+          method="POST"
+          class="edit-form"
+        >
+          <input type="hidden" name="_token" :value="csrf" />
+          <input type="hidden" name="_method" value="PUT" />
+          <input type="hidden" name="type" value="image" />
+          <img
+            v-show="imageData"
+            :src="imageData"
+            @error="onError"
+            class="preview"
+          />
+          <img
+            v-show="!imageData"
+            :src="
+              'http://xs055583.xsrv.jp/storage/images/profile_images/' +
+                user.profile_image
+            "
+            class="preview"
+          />
+          <label>プロフィール画像</label>
+          <small class="text-danger">
+            {{ errors }}
+          </small>
+          <input
+            @change="onFileChange"
+            type="file"
+            name="profile_image"
+            class="form-control p-1"
+            autofocus
+            autocomplete="off"
+            accept="image/*"
+          />
+          <div class="btn-box my-1">
+            <button
+              type="button"
+              @click="close"
+              class="btn btn-outline-dark mx-2"
+            >
+              キャンセル
+            </button>
+            <button
+              @click="validate('image', $event)"
+              type="button"
+              class="btn btn-primary my-1"
+            >
+              送信
+            </button>
+          </div>
+        </form>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["show", "userId", "editType", "csrf"],
+  props: ["show", "user", "editType", "csrf"],
   data() {
     return {
       name: "",
       errors: "",
       imageData: "",
     };
+  },
+  created() {
+    this.name = this.user.name;
   },
   methods: {
     onFileChange(e) {
@@ -113,7 +128,6 @@ export default {
       }
     },
     validate(type) {
-      this.startProcessing();
       let error = "";
       if (type === "name") {
         let n = this.name;
@@ -134,7 +148,6 @@ export default {
 
       if (error.length > 0) {
         this.errors = error;
-        endProcessing();
       } else {
         this.submitUpdate(type);
       }
@@ -160,7 +173,7 @@ export default {
 .edit-modal-bg {
   position: fixed;
   display: flex;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
   left: 0;
@@ -170,6 +183,7 @@ export default {
 }
 .edit-form {
   display: block;
+  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.6);
   min-width: 250px;
   width: 35%;
   background-color: white;
@@ -186,8 +200,8 @@ form .preview {
   display: block;
   margin: 0 auto;
   object-fit: cover;
-  width: 200px;
-  height: 200px;
+  width: 170px;
+  height: 170px;
 }
 
 .slide-y-enter-active {

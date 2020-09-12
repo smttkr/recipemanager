@@ -11,7 +11,7 @@ RecipeManager
 @section('content')
 <main class="pt-3">
   <div class="search-box input-group mb-2">
-    <input v-model.trim="keyword" type="text" class="form-control" placeholder="キーワードを入力">
+    <input v-model.trim="keyword" type="text" class="form-control" placeholder="キーワードを入力して検索">
   </div>
   <section>
     <h1 class="hidden">CATEGORY_＆_NEWS</h1>

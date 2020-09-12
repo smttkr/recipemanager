@@ -1,6 +1,6 @@
 <template>
-  <div v-if="comments.length > 0" class="comment-box p-0 bg-white">
-    <transition-group tag="table" name="fade" class="table mb-0 border-bottom">
+  <div v-if="comments.length > 0" class="comment-box" id="commentBox">
+    <table class="table mb-0 border-bottom bg-white">
       <tr
         class="p-2"
         v-for="comment in displayComments"
@@ -14,33 +14,34 @@
                 comment.shop_user.user.profile_image
             "
             alt=""
+            @error="onError"
           />
           <p class="mb-0">{{ comment.shop_user.user.name }}</p>
         </td>
-        <td @click="confirmDelete(comment)" class="comment-content-td">
+        <td @click="confirmDeletion(comment)" class="comment-content-td">
           <div class="comment-content">
             <!-- ここの空白をなくす -->{{ comment.comment }}
           </div>
           <span class="day">{{ comment.created_at.slice(0, 10) }}</span>
         </td>
       </tr>
-    </transition-group>
+    </table>
 
-    <div v-if="comments.length > loadNum" class="load-more">
-      <a @click.prevent.once="showThread" href="">スレッドを表示</a>
+    <div v-if="comments.length > loadNum" class="load-more bg-white">
+      <a @click.prevent.once="showThread" href="">スレッドを全て表示</a>
     </div>
 
     <form ref="commentDeletion" action="" method="POST" id="commentDeletion">
       <input type="hidden" name="_token" :value="csrf" />
       <input type="hidden" name="_method" value="DELETE" />
     </form>
+    <!-- <button @click="onAlert">btn</button> -->
   </div>
 </template>
 
 <script>
 export default {
   props: ["comments", "userId", "isOwner", "csrf"],
-
   data() {
     return {
       loadNum: 3,
@@ -57,25 +58,35 @@ export default {
   },
   methods: {
     admin(comment) {
-      if (comment.shop_user.user.id || this.isOwner === true) {
+      if (comment.shop_user.user.id === this.userId || this.isOwner === true) {
         return true;
       }
     },
     showThread() {
       this.loadNum = this.comments.length;
     },
-    confirmDelete(comment) {
-      let form = document.getElementById("#form");
+    confirmDeletion(comment) {
       if (this.userId === comment.shop_user.user.id || this.isOwner === true) {
-        if (this.processing === false) {
-          this.startProcessing();
-          if (confirm("コメントを削除しますか？") === true) {
+        let that = this;
+        let form = document.getElementById("commentDeletion");
+        this.$dialog
+          .confirm(
+            {
+              title: "確認",
+              body: "コメントを削除してもよろしいですか？",
+            },
+            {
+              okText: "はい",
+              cancelText: "キャンセル",
+            }
+          )
+          .then(function() {
             form.action = "/comments/" + comment.id;
-            this.submitDeletion();
-          } else {
-            this.endProcessing();
-          }
-        }
+            that.submitDeletion();
+          })
+          .catch(function() {
+            //
+          });
       }
     },
     submitDeletion() {
@@ -93,6 +104,9 @@ export default {
 table {
   table-layout: fixed;
 }
+table tr {
+  cursor: default;
+}
 
 .comment-box .mine {
   cursor: pointer;
@@ -109,6 +123,7 @@ table {
 .user p {
   font-size: 0.9rem;
   white-space: nowrap;
+  cursor: default;
 }
 .comment-content-td {
   padding: 5px 10px 25px 5px;

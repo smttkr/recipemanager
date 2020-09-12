@@ -12,7 +12,6 @@
             <button
               v-if="isOwner"
               @click="deleteNews"
-              :disabled="processing"
               class="submit-btn btn-clear"
             >
               <i class="far fa-trash-alt"> </i>
@@ -33,10 +32,22 @@ export default {
   props: ["show", "isOwner", "csrf", "news"],
   methods: {
     deleteNews() {
-      if (confirm("このニュースを削除しますか？") === true) {
-        this.startProcessing();
-        this.$refs.newsDeletion.submit();
-      }
+      let that = this;
+      that.$dialog
+        .confirm(
+          {
+            title: "確認",
+            body: "ニュースを削除してもよろしいですか？",
+          },
+          {
+            okText: "はい",
+            cancelText: "キャンセル",
+          }
+        )
+        .then(function() {
+          that.show = false;
+          that.$refs.newsDeletion.submit();
+        });
     },
   },
 };
@@ -46,7 +57,6 @@ export default {
 .news-modal-bg {
   position: fixed;
   display: flex;
-  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
   left: 0;
@@ -56,6 +66,7 @@ export default {
   z-index: 2;
 }
 .news-modal {
+  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.6);
   background-color: #fff;
   overflow: hidden;
   border-radius: 8px;

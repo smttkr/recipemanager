@@ -49,7 +49,7 @@ export default {
       el.style.height = el.scrollHeight + "px";
     },
     leave: function(el) {
-      el.style.height = "0";
+      el.style.height = "0px";
     },
   },
 };

@@ -96,7 +96,7 @@ class RecipeController extends Controller
   {
     $this->authorize("view", $recipe);
     Gate::authorize("isOwner");
-$response = "dd";
+    $response = "dd";
     $params = [
       "recipe" => $recipe,
       "response" => $response,
@@ -127,7 +127,7 @@ $response = "dd";
       ];
     }
     $recipe->fill($form)->save();
-    return redirect(RouteServiceProvider::HOME);
+    return redirect()->route("recipes.show", $recipe->id);
   }
 
 

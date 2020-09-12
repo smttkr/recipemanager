@@ -19,7 +19,7 @@
       <img v-show="imageData" :src="imageData" alt="">
       <img v-show="!imageData" src="{{ 'http://xs055583.xsrv.jp/storage/images/dishes/'.$recipe->image }}" alt="">
       <div>
-        <input v-on:change="onFileChange" type="file" name="image" autocomplete="off" accept="image/*" />
+        <input v-on:change="onFileChange" ref="image" type="file" name="image" autocomplete="off" accept="image/*" />
       </div>
       <button v-show="imageData" v-on:click.prevent="clear" class="btn btn-sm btn-success mt-2">画像を元に戻す</button>
       @error('image')
@@ -54,11 +54,10 @@
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
-    <button v-on:click="submitUpdates" type="button" :disabled="processing" class="d-block mx-auto btn btn-primary">
+    <button v-on:click="submitUpdates" type="button" class="d-block w-25 mx-auto mt-5 btn btn-lg btn-primary">
       編集
     </button>
   </form>
-
 </main>
 @endsection
 
@@ -89,12 +88,12 @@
       },
       clear(){
         this.imageData = "";
-        this.$refs.recipeUpdates.reset();
+        this.$refs.image.value = "";
       },
       submitUpdates(){
-        this.startProcessing();
         this.$refs.recipeUpdates.submit();
-      }
+
+      },
     },
   });
 </script>

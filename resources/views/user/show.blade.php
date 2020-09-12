@@ -12,7 +12,7 @@
 @section("header-link")
 @if($user->shopUser)
 <a class="navbar-brand" href="{{ route("recipes.index") }}">
-  {{ $user->shopUser->shop->name }}へ
+  {{ $user->shopUser->shop->name }}
 </a>
 @else
 <a class="navbar-brand" href="{{ url("/") }}">
@@ -23,12 +23,13 @@
 
 
 @section("content")
-<main>
+<div>
   <div class="user-box bg-light container">
     <div class="profile-box">
       <div class="image-box">
         <img v-on:click="edit('image')"
-          src="{{ 'http://xs055583.xsrv.jp/storage/images/profile_images/'.$user->profile_image }}" alt="" />
+          src="{{ 'http://xs055583.xsrv.jp/storage/images/profile_images/'.$user->profile_image }}" alt=""
+          v-on:error="onError" />
       </div>
       <div class="name-box">
         <p v-on:click="edit('name')" class="name">{{ $user->name }}</p>
@@ -44,24 +45,23 @@
       </div>
 
       <div class="col-12">
-        <button v-on:click="cofirmDeletion" :disabled="processing" type="button" class="btn btn-lg btn-outline-danger">
+        <button v-on:click="cofirmDeletion" type="button" class="btn btn-lg btn-outline-danger">
           退会する
         </button>
       </div>
     </div>
     @endif
   </div>
-  <profile-edit-component :show="editShow" :user-id="{{ $user->id }}" :edit-type="editType" :csrf="csrf"
+  <profile-edit-component :show="editShow" :user="{{ $user }}" :edit-type="editType" :csrf="csrf"
     v-on:close="close">
   </profile-edit-component>
-
   @if ($user->shopUser)
   <form ref="shopUserDeletion" action="{{ route("shopusers.destroy",$user->shopUser->id) }}" method="POST">
     @csrf
     @method("DELETE")
   </form>
   @endif
-</main>
+</div>
 
 
 @endsection
@@ -72,7 +72,7 @@
   el: "#app",
   data: {
     csrf: document
-    .querySelector('meta[name="csrf-token"]')
+    .querySelector("meta[name='csrf-token']")
     .getAttribute("content"),
     editType: "",
     editShow: false,
@@ -85,18 +85,28 @@
 
     close() {
       this.editShow=false;
-      this.editType=""
+      this.editType="";
     },
     cofirmDeletion(){
-      if((confirm("本当に退会しますか？")) === true){
-        this.startProcessing();
-        this.submitDeletion();
-      }
+      let that = this;
+      this.$dialog
+        .confirm(
+          {
+            title: "確認",
+            body: "本当に退会してもよろしいですか？",
+          },
+          {
+            okText: "はい",
+            cancelText: "キャンセル",
+          }
+        )
+        .then(function() {
+          that.submitDeletion();
+        })
     },
     submitDeletion(){
       this.$refs.shopUserDeletion.submit();
     },
-
   },
 });
 </script>

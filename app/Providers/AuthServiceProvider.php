@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
     Gate::define("isOwner", function ($user) {
       return $user->shopUser->position === "owner"
         ? Response::allow()
-        : Response::deny("権限がありません");
+        : Response::deny("オーナーのみの権限となります");
     });
   }
 }

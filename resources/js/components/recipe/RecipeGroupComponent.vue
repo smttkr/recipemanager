@@ -2,7 +2,7 @@
   <div class="container content-box mt-5">
     <transition-group name="slide-x" tag="div" class="row">
       <div
-        class="recipe col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+        class="recipe col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-5"
         v-for="recipe in matchRecipes"
         :key="recipe.id"
       >
@@ -16,6 +16,7 @@
                 'http://xs055583.xsrv.jp/storage/images/dishes/' + recipe.image
               "
               alt=""
+              @error="onError"
             />
             <div class="p-2 text">
               <h3 class="name mb-2">{{ recipe.name }}</h3>
@@ -32,7 +33,7 @@
         <button
           v-show="recipes.length > loadNum"
           @click="loadMore"
-          class="btn btn-lg btn-dark"
+          class="more-btn"
         >
           MORE
         </button>
@@ -56,10 +57,11 @@ export default {
     };
   },
   watch: {
-    keyword(newValue) {
-      if (newValue.length < 1) {
-        this.resetLoadNum();
-      }
+    keyword() {
+      this.resetLoadNum();
+    },
+    category() {
+      this.resetLoadNum();
     },
   },
   computed: {
@@ -80,8 +82,10 @@ export default {
       //最終
       if (result.length > this.loadNum) {
         result = result.slice(0, this.loadNum);
+        console.log(result.length);
       } else {
         this.loadNum = this.recipes.length;
+        console.log(result.length);
       }
       return result;
     },
@@ -124,7 +128,7 @@ a:hover {
   border-radius: 8px;
   text-decoration: none;
   color: #43484d;
-  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.5);
   transition: all 0.5s;
   position: relative;
 }
@@ -152,7 +156,7 @@ a:hover {
 .recipe-box:hover {
   text-decoration: none;
   color: #43484d;
-  opacity: 0.8;
+  opacity: 0.6;
   box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.9);
 }
 .recipe-box h3 {
@@ -193,6 +197,42 @@ a:hover {
 .more-box button {
   display: block;
   margin: 0 auto;
+}
+.more-btn{
+  background:#1F6ED4;
+  color:#fff;
+  border:none;
+  position:relative;
+  width: 200px;
+  height: 50px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.more-btn:hover{
+  background:#e4e7f5;
+  color:#1F6ED4;
+}
+.more-btn:before,.more-btn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1F6ED4;
+  transition:400ms ease all;
+}
+.more-btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.more-btn:hover:before,.more-btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
 }
 .fade-enter,
 .fade-leave-to {

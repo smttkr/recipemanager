@@ -12,47 +12,36 @@ class RecipesTableSeeder extends Seeder
    */
   public function run()
   {
-    for ($i = 0; $i < 30; $i++) {
+    for ($i = 1; $i < 81; $i++) {
       $category = ["salad", "meat", "fried", "dessert"];
       $images = ["greensalad.jpg", "beefsteak.jpg", "firedpotato.jpg", "chocolatecake.jpg"];
+      $n = mt_rand(0, 3);
 
       Recipe::create([
         "shop_id" => 1,
-        "category" => $category[$i % 4],
+        "category" => $category[$n],
         "name" => "サンプル" . $i,
-        "image" => $images[$i % 4],
-        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        "image" => $images[$n],
+        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         "created_at" => "2019-01-01 ",
-        "updated_at" => date("2020/01/02 01:01:$i")
+        "updated_at" => date("2020/01/02 01:01:01", strtotime("+" . $i . "day"))
       ]);
     }
-    // Recipe::create([
-    //   "shop_id" => 1,
-    //   "category" => "meat",
-    //   "name" => "ビーフステーキ",
-    //   "image" => "beefsteak.jpg",
-    //   "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    // ]);
-    // Recipe::create([
-    //   "shop_id" => 1,
-    //   "category" => "dessert",
-    //   "name" => "チョコレートケーキ",
-    //   "image" => "chocolatecake.jpg",
-    //   "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    // ]);
-    // Recipe::create([
-    //   "shop_id" => 1,
-    //   "category" => "salad",
-    //   "name" => "グリーンサラダ",
-    //   "image" => "greensalad.jpg",
-    //   "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    // ]);
-    // Recipe::create([
-    //   "shop_id" => 1,
-    //   "category" => "fried",
-    //   "name" => "フライドポテト",
-    //   "image" => "firedpotato.jpg",
-    //   "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    // ]);
+
+
+    for ($i = 0; $i < 30; $i++) {
+      $category = ["salad", "meat", "fried", "dessert"];
+      $images = ["greensalad.jpg", "beefsteak.jpg", "firedpotato.jpg", "chocolatecake.jpg"];
+      $n = mt_rand(0, 3);
+      Recipe::create([
+        "shop_id" => 2,
+        "category" => $category[$n],
+        "name" => "サンプル" . $i,
+        "image" => $images[$n],
+        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "created_at" => "2019-01-02 ",
+        "updated_at" => date("2020/01/03 01:01:$i")
+      ]);
+    }
   }
 }

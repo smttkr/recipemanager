@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -24,14 +25,13 @@ class UserPolicy
   {
     return $auth_user->id === $user->id
       ? Response::allow()
-      : abort("403", "hello vue.js");
-      // : Response::deny("自分以外のアカウントは表示できません");
+      : Response::deny("自分以外のアカウントは表示できません");
   }
 
   public function update($auth_user, User $user)
   {
     return $auth_user->id === $user->id
       ? Response::allow()
-      : Response::deny("自分以外のデータは操作できません");
+      : Response::deny("自分以外のアカウントは操作できません");
   }
 }

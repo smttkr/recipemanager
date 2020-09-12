@@ -1,17 +1,13 @@
 <template>
   <div>
     <div class="icon-box bg-white border-top py-2">
-      <button
-        @click="togglePostShow"
-        :disabled="processing"
-        class="btn-clear mx-5"
-      >
+      <button @click="postShow" class="btn-clear mx-5">
         <i class="far fa-comment"></i>
       </button>
       <button
         v-if="!doesBookmark"
         @click="addBookmark"
-        :disabled="processing"
+
         class="btn-clear"
       >
         <i class="far fa-folder-open"></i>
@@ -19,7 +15,6 @@
       <button
         v-else
         @click="deleteBookmark(doesBookmark)"
-        :disabled="processing"
         class="btn-clear"
       >
         <i class="far fa-folder-open does-bookmark"></i>
@@ -27,28 +22,15 @@
       <button
         v-if="isOwner"
         @click="jumpEdit(recipeId)"
-        :disabled="processing"
+
         class="btn-clear mx-5"
       >
         <i class="far fa-edit"></i>
       </button>
-      <button
-        v-if="isOwner"
-        @click="confirmRecipeDeletion"
-        :disabled="processing"
-        class="btn-clear"
-      >
+      <button v-if="isOwner" @click="confirmRecipeDeletion" class="btn-clear">
         <i class="far fa-trash-alt"></i>
       </button>
     </div>
-
-    <comment-post-component
-      :show="postShow"
-      :recipe-id="recipeId"
-      :csrf="csrf"
-      v-on:close="postShow = false"
-    >
-    </comment-post-component>
 
     <form
       ref="bookmarkAddition"
@@ -62,10 +44,10 @@
 
     <form
       action=""
-      ref="bookmarkdeletion"
+      ref="bookmarkDeletion"
       method="POST"
       class="hidden"
-      id="bookmarkdeletion"
+      id="bookmarkDeletion"
     >
       <input type="hidden" name="_token" :value="csrf" />
       <input type="hidden" name="_method" value="DELETE" />
@@ -86,39 +68,52 @@
 <script>
 export default {
   props: ["recipeId", "csrf", "doesBookmark", "isOwner"],
-  data() {
-    return {
-      postShow: false,
-    };
-  },
   methods: {
-    togglePostShow() {
-      this.postShow = !this.postShow;
+    postShow() {
+      this.$emit("post-show");
     },
 
     addBookmark(id) {
-      this.startProcessing();
       this.$refs.bookmarkAddition.submit();
     },
     deleteBookmark(bookmark) {
+      let that = this;
       let form = document.getElementById("bookmarkDeletion");
-      if (confirm("この料理をブックマークを削除しますか？") === true) {
-        form.action = "/bookmarks/" + bookmark.id;
-        this.$refs.bookmarkdeletion.submit();
-      }
+      that.$dialog
+        .confirm(
+          {
+            title: "確認",
+            body: "ブックマークを解除してもよろしいですか？",
+          },
+          {
+            okText: "はい",
+            cancelText: "キャンセル",
+          }
+        )
+        .then(function() {
+          form.action = "/bookmarks/" + bookmark.id;
+          that.$refs.bookmarkDeletion.submit();
+        });
     },
     jumpEdit(id) {
-      this.startProcessing();
       location.href = "/recipes/" + id + "/edit";
     },
     confirmRecipeDeletion(id) {
-      if (confirm("この料理を削除しますか？") === true) {
-        this.startProcessing();
-        this.submitRecipeDeletion();
-      }
-    },
-    submitRecipeDeletion() {
-      this.$refs.recipeDeletion.submit();
+      let that = this;
+      that.$dialog
+        .confirm(
+          {
+            title: "確認",
+            body: "レシピを削除してもよろしいですか？",
+          },
+          {
+            okText: "はい",
+            cancelText: "キャンセル",
+          }
+        )
+        .then(function() {
+          that.$refs.recipeDeletion.submit();
+        });
     },
   },
 };

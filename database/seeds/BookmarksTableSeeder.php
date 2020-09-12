@@ -12,17 +12,11 @@ class BookmarksTableSeeder extends Seeder
    */
   public function run()
   {
-    Bookmark::create([
-      'shop_user_id' => 2,
-      'recipe_id' => 1,
-    ]);
-    Bookmark::create([
-      'shop_user_id' => 2,
-      'recipe_id' => 2,
-    ]);
-    Bookmark::create([
-      'shop_user_id' => 2,
-      'recipe_id' => 3,
-    ]);
+    for ($i = 1; $i < 31; $i++) {
+      Bookmark::create([
+        "shop_user_id" => mt_rand(1, 2),
+        "recipe_id" => $i,
+      ]);
+    }
   }
 }

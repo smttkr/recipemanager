@@ -52,7 +52,7 @@
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
-    <button v-on:click.prevent="submitAddition" :disabled="processing" class="d-block mx-auto btn btn-primary">
+    <button v-on:click.prevent="submitAddition" class="d-block w-25 mx-auto mt-5 btn btn-lg btn-primary">
       新規作成
     </button>
   </form>
@@ -79,9 +79,8 @@
         }
       },
       submitAddition(){
-        this.startProcessing()
         this.$refs.newRecipeAddition.submit();
-      }
+      },
     },
   });
 </script>

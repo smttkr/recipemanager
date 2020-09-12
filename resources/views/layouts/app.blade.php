@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/default/confirm.css') }}">
   @yield('style')
   <title>@yield('title')</title>
   <link
@@ -56,8 +57,8 @@
     <main class="py-4">
       @yield('content')
     </main>
+    <loading-component></loading-component>
   </div>
-  <!-- Scripts -->
   <script src="{{ mix('js/app.js') }}"></script>
   @yield('script')
 </body>
