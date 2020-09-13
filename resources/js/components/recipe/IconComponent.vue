@@ -78,7 +78,7 @@ export default {
     },
     deleteBookmark(bookmark) {
       let that = this;
-      let form = document.getElementById("bookmarkDeletion");
+      let form = this.$refs.bookmarkDeletion;
       that.$dialog
         .confirm(
           {

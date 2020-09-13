@@ -13,7 +13,7 @@
   <section>
     <h1 class="hidden">SHOP_USER_INDEX</h1>
     <div class="users-box bg-light mt-4">
-      <shop-user-group-component :shop-users="{{ $shop_users }}"></shop-user-group-component>
+      <shop-user-group-component :csrf="csrf" :shop-users="{{ $shop_users }}" :user-id="{{ $user_id }}"></shop-user-group-component>
     </div>
   </section>
 </main>
@@ -23,6 +23,11 @@
 <script>
   new Vue({
     el:"#app",
+    data:{
+      csrf: document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute("content"),
+    }
   })
 </script>
 @endsection

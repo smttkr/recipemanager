@@ -1,27 +1,31 @@
 <template>
   <div class="news-box">
     <div class="news-header cf border-bottom m-0 pb-1">
-      <h3 class="text-danger d-inline-block pl-2">NEWS!</h3>
-      <button v-if="isOwner" @click="togglePostShow" class="btn-clear">
+      <h3 class="news-heading pl-2 mb-0 mr-5">NEWS!</h3>
+      <a v-show="thisMonth" @click="backNews" class="last-month">back</a>
+      <a v-show="lastMonth" @click="nextNews" class="next-month">next</a>
+      <button v-if="isOwner" @click="togglePostShow" class="btn-clear post-btn">
         <i class="fas fa-plus"></i>
       </button>
     </div>
     <div class="news-body">
-      <table v-if="news.length > 0">
-        <tr
-          v-for="n in news"
-          :key="n.id"
-          @click="openModalShow(n)"
-          class="border-top border-bottom"
-        >
-          <td class="day text-center">{{ n.created_at.slice(5, 10) }}</td>
-          <td class="content">{{ n.content }}</td>
-        </tr>
-      </table>
+      <transition :name="style" mode="out-in">
+        <table v-if="displayNews.length > 0">
+          <tr
+            v-for="n in displayNews"
+            :key="n.id"
+            @click="openModalShow(n)"
+            class="border-top border-bottom"
+          >
+            <td class="day text-center">{{ n.created_at.slice(5, 10) }}</td>
+            <td class="content">{{ n.content }}</td>
+          </tr>
+        </table>
 
-      <div v-else>
-        ニュースがありません
-      </div>
+        <div v-else class="no-news">
+          No News
+        </div>
+      </transition>
     </div>
 
     <news-modal-component
@@ -37,21 +41,42 @@
       :csrf="csrf"
       @close="togglePostShow"
     ></news-post-component>
-
   </div>
 </template>
 
 <script>
 export default {
-  props: ["news", "csrf", "isOwner"],
+  props: ["thisMonthNews", "lastMonthNews", "csrf", "isOwner"],
   data() {
     return {
       modalShow: false,
       postShow: false,
       selectedNews: "",
+      thisMonth: true,
+      lastMonth: false,
+      style: "",
     };
   },
+  computed: {
+    displayNews() {
+      if (this.thisMonth) {
+        return this.thisMonthNews;
+      } else if (this.lastMonth) {
+        return this.lastMonthNews;
+      }
+    },
+  },
   methods: {
+    backNews() {
+      this.thisMonth = false;
+      this.lastMonth = true;
+      this.style = "slide-right";
+    },
+    nextNews() {
+      this.lastMonth = false;
+      this.thisMonth = true;
+      this.style = "slide-left";
+    },
     openModalShow(news) {
       this.selectedNews = news;
       this.modalShow = true;
@@ -68,23 +93,30 @@ export default {
 </script>
 
 <style scoped>
-.news-box {
-  height: 100%;
-}
+
 .news-header {
   position: relative;
 }
 h3 {
   cursor: default;
 }
-.news-header button {
+.news-header .last-month,
+.news-header .next-month {
+  display: inline-block;
+  cursor: pointer;
+}
+.news-header .news-heading{
+  display: inline-block;
+  color: #fe5f55;
+}
+.news-header .post-btn {
   display: inline-block;
   padding: 0;
   position: absolute;
   top: 20%;
   right: 2%;
 }
-.news-header button:hover {
+.news-header .post-btn:hover {
   cursor: pointer;
   opacity: 0.7;
 }
@@ -94,7 +126,7 @@ h3 {
 .news-body {
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 200px;
+  height: 230px;
 }
 .news-body::-webkit-scrollbar {
   width: 5px;
@@ -122,10 +154,41 @@ h3 {
 }
 .news-body table .content {
   width: 80%;
-
-  padding: 8px 0;
+  padding: 8px 10px 8px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.no-news {
+  height: 100%;
+  margin: 0 5%;
+  background: url("http://xs055583.xsrv.jp/storage/images/common/undraw_void_3ggu.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: #74828f;
+  text-align: center;
+}
+.slide-right-leave-active,
+.slide-right-enter-active,
+.slide-left-leave-active,
+.slide-left-enter-active {
+  transition: 0.6s;
+}
+
+.slide-right-enter,
+.slide-left-leave-to {
+  transform: translateX(150%);
+}
+
+.slide-right-leave-to,
+.slide-left-enter {
+  transform: translateX(-150%);
+}
+@media (max-width: 575.5px) {
+  .no-news {
+    text-align: right;
+  }
 }
 </style>

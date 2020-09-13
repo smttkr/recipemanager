@@ -27,11 +27,18 @@ class Shop extends Model
   }
 
 
-  public function getDisplayNews()
+  public function getThisMonthNews()
   //お店のニュースを今月のものだけ、新しい順に取得
   {
-    $this_month = Carbon::now()->firstOfMonth();
+    $this_month = new Carbon("first day of this month");
     return $this->news->where("created_at", ">", $this_month)->sortByDesc("id")->values()->collect();
+  }
+  public function getLastMonthNews()
+  //お店のニュースを先月のものだけ、新しい順に取得
+  {
+    $this_month = new Carbon("first day of this month");
+    $last_month = new Carbon("first day of last month");
+    return $this->news->where("created_at", ">", $last_month)->where("created_at", "<", $this_month)->sortByDesc("id")->values()->collect();
   }
 
   public function getAllRecipes()

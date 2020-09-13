@@ -28,18 +28,25 @@ class RecipeController extends Controller
   {
     //ホーム画面 全員
     $shop = $this->shop;
-    $news = $shop->news;
     $recipes = $shop->recipes;
+    $this_month_news = collect([]);
+    $last_month_news = collect([]);
 
-    if (count($shop->news) > 0) {
-      $news = $shop->getDisplayNews();
-    }
     if (count($recipes) > 0) {
       $recipes = $shop->getAllRecipes();
     }
+
+    if (count($shop->getThisMonthNews()) > 0) {
+      $this_month_news = $shop->getThisMonthNews();
+    }
+    if (count($shop->getLastMonthNews()) > 0) {
+      $last_month_news = $shop->getLastMonthNews();
+    }
+
     $params = [
-      "news" => $news,
       "recipes" => $recipes,
+      "this_month_news" => $this_month_news,
+      "last_month_news" => $last_month_news
     ];
     return view("recipe.index", $params);
   }

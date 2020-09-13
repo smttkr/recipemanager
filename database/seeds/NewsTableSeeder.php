@@ -14,7 +14,7 @@ class NewsTableSeeder extends Seeder
   {
     for ($i = 0; $i < 30; $i++) {
       News::create([
-        "shop_id" => mt_rand(1, 2),
+        "shop_id" => 1,
         "content" => "hello this is test2 news hello this is test2 news hello this is test2 news hello this is test2 news",
         "created_at" => "2020-09-" . $i
       ]);

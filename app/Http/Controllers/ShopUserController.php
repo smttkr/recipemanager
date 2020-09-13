@@ -30,8 +30,7 @@ class ShopUserController extends Controller
     $shop_users = $shop->getAllShopUsers();
 
     $params = [
-      "user" => $this->user,
-      "shop" => $shop,
+      "user_id" => $this->user->id,
       "shop_users" => $shop_users
     ];
     return view("shopuser.index", $params);
@@ -79,6 +78,6 @@ class ShopUserController extends Controller
       //リクエストがおかしいのでエラー画面に飛ばす
       return abort(404);
     }
-    return redirect(RouteServiceProvider::WELCOME);
+    return redirect(RouteServiceProvider::HOME);
   }
 }

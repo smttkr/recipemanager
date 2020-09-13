@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="slide-y">
-      <div class="news-post-bg" v-if="show" @click.self="close">
+      <div class="news-post-bg" v-show="show" @click.self="close">
         <div class="news-post py-2 px-1">
           <h3 class="text-center w-100">NEWS</h3>
 
@@ -19,12 +19,12 @@
               <button
                 type="button"
                 class="btn btn-outline-dark mx-2"
-                @click.stop="close"
+                @click="close"
               >
                 キャンセル
               </button>
               <button
-                @click.stop="validateNewsPosts"
+                @click="validateNewsPosts"
                 type="button"
                 class="btn btn-primary"
               >
@@ -61,15 +61,14 @@ export default {
     },
     validateNewsPosts() {
       let co = this.content;
-      //コピーしておいて、エラーがあれば写す
       var er = "";
+
       if (co.length < 1) {
         er = "未入力です";
       } else if (co.length > 300) {
         er = "300文字以内で入力してください";
       }
 
-      // エラーがなければSubmit あれば、エラーを写す
       if (er.length < 1) {
         this.submitNews();
         this.close();

@@ -1,34 +1,77 @@
 <template>
-  <table class="table ">
-    <tr v-for="user in shopUsers" :key="user.id">
-      <td class="img">
-        <img
-          :src="
-            'http://xs055583.xsrv.jp/storage/images/profile_images/' +
-              user.user.profile_image
-          "
-          alt=""
-        />
-      </td>
-      <td class="name">{{ user.user.name }}</td>
-      <td class="day">{{ user.created_at.slice(0, 10) }}</td>
-    </tr>
-  </table>
+  <div>
+    <table class="table ">
+      <tr
+        v-for="user in shopUsers"
+        :key="user.id"
+        @click="confirmDeletion(user.user_id)"
+      >
+        <td class="img">
+          <img
+            :src="
+              'http://xs055583.xsrv.jp/storage/images/profile_images/' +
+                user.user.profile_image
+            "
+            alt=""
+          />
+        </td>
+        <td class="name">{{ user.user.name }}</td>
+        <td class="day">{{ user.created_at.slice(0, 10) }}</td>
+      </tr>
+    </table>
+
+    <form action="" method="POST" ref="shopUserDeletion">
+      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="_method" value="DELETE" />
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["shopUsers"],
+  props: ["csrf","shopUsers", "userId"],
+  methods: {
+    jumpProfile(id) {
+      location.href = "/users/" + id;
+    },
+    confirmDeletion(id) {
+      if (id === this.userId) {
+        this.jumpProfile(id);
+      } else {
+        let that = this;
+        let form = this.$refs.shopUserDeletion;
+        this.$dialog
+          .confirm(
+            {
+              title: "確認",
+              body: "スタッフを退会させますか？",
+            },
+            {
+              okText: "はい",
+              cancelText: "キャンセル",
+            }
+          )
+          .then(function() {
+            form.action = "/shopusers/" + id;
+            that.submitDeletion();
+          });
+      }
+    },
+    submitDeletion() {
+      this.$refs.shopUserDeletion.submit();
+    },
+  },
 };
 </script>
 
 <style scoped>
 tr {
   height: 4rem;
-  transition: all 0.3s;
+  transition: all 0.4s;
 }
 tr:hover {
-  cursor: default;
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 td img {

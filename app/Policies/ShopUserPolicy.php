@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\ShopUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -20,10 +21,10 @@ class ShopUserPolicy
   {
     //
   }
-  
+
   public function delete(User $user, ShopUser $shopuser)
   {
-    return  $user->shopUser->id === $shopuser->id
+    return  $user->shopUser->id === $shopuser->id || Gate::authorize("isOwner")
       ? Response::allow()
       : Response::deny("自分以外のデータは操作できません");
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="slide-y">
-      <div class="news-modal-bg" v-if="show" @click.self="$emit('close')">
+      <div class="news-modal-bg" v-show="show" @click.self="$emit('close')">
         <div class="news-modal">
           <h3 class="border-bottom text-center w-100 m-0">NEWS</h3>
           <div class="news-modal-content p-2">{{ news.content }}</div>
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  props: ["show", "isOwner", "csrf", "news"],
+  props: ["show", "isOwner","news", "csrf"],
   methods: {
     deleteNews() {
       let that = this;

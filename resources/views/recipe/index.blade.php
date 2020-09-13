@@ -11,7 +11,14 @@ RecipeManager
 @section('content')
 <main class="pt-3">
   <div class="search-box input-group mb-2">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+    </div>
     <input v-model.trim="keyword" type="text" class="form-control" placeholder="キーワードを入力して検索">
+    <div class="input-group-append bg-white">
+      <button type="button" v-show="keyword" v-on:click="cleartKeyword"
+        class="btn clear-btn input-group-text bg-white"><i class="fas fa-times"></i></button>
+    </div>
   </div>
   <section>
     <h1 class="hidden">CATEGORY_＆_NEWS</h1>
@@ -24,7 +31,8 @@ RecipeManager
 
       <section class="news bg-light">
         <h2 class="hidden">NEWS</h2>
-        <news-group-component :news="{{ $news }}" :csrf="csrf" @can("isOwner") :is-owner="true" @endcan>
+        <news-group-component :this-month-news="{{ $this_month_news }}" :last-month-news="{{ $last_month_news }}"
+          :csrf="csrf" @can("isOwner") :is-owner="true" @endcan>
         </news-group-component>
       </section>
     </div>
@@ -49,15 +57,12 @@ RecipeManager
     category: "",
     keyword:"",
   },
-  computed: {
-  },
   methods: {
+    cleartKeyword(){
+      this.keyword ="";
+    },
     clearCategory() {
       this.category = "";
-      this.clearLoadNum();
-    },
-    clearLoadNum(){
-        this.$refs.recipeGroup.resetLoadNum();
     },
   },
 });

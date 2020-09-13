@@ -52,7 +52,7 @@
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
-    <button v-on:click.prevent="submitAddition" class="d-block w-25 mx-auto mt-5 btn btn-lg btn-primary">
+    <button v-on:click.prevent="submitRecipePosts" class="d-block w-25 mx-auto mt-5 btn btn-lg btn-primary">
       新規作成
     </button>
   </form>
@@ -78,7 +78,7 @@
         reader.readAsDataURL(file);
         }
       },
-      submitAddition(){
+      submitRecipePosts(){
         this.$refs.newRecipeAddition.submit();
       },
     },

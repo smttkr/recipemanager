@@ -79,13 +79,11 @@ export default {
           return r.name.indexOf(this.keyword) > -1;
         });
       }
-      //最終
+      
       if (result.length > this.loadNum) {
         result = result.slice(0, this.loadNum);
-        console.log(result.length);
       } else {
         this.loadNum = this.recipes.length;
-        console.log(result.length);
       }
       return result;
     },

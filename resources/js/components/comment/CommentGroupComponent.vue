@@ -31,11 +31,10 @@
       <a @click.prevent.once="showThread" href="">スレッドを全て表示</a>
     </div>
 
-    <form ref="commentDeletion" action="" method="POST" id="commentDeletion">
+    <form ref="commentDeletion" action="" method="POST">
       <input type="hidden" name="_token" :value="csrf" />
       <input type="hidden" name="_method" value="DELETE" />
     </form>
-    <!-- <button @click="onAlert">btn</button> -->
   </div>
 </template>
 
@@ -68,7 +67,7 @@ export default {
     confirmDeletion(comment) {
       if (this.userId === comment.shop_user.user.id || this.isOwner === true) {
         let that = this;
-        let form = document.getElementById("commentDeletion");
+        let form = this.$refs.commentDeletion;
         this.$dialog
           .confirm(
             {
@@ -84,9 +83,6 @@ export default {
             form.action = "/comments/" + comment.id;
             that.submitDeletion();
           })
-          .catch(function() {
-            //
-          });
       }
     },
     submitDeletion() {
@@ -110,7 +106,7 @@ table tr {
 
 .comment-box .mine {
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.4s;
 }
 .comment-box .mine:hover {
   background-color: rgba(0, 0, 0, 0.1);
