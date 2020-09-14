@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\RecipeCreateRequest;
 use App\Http\Requests\RecipeUpdateRequest;
@@ -26,7 +25,6 @@ class RecipeController extends Controller
 
   public function index()
   {
-    //ホーム画面 全員
     $shop = $this->shop;
     $recipes = $shop->recipes;
     $this_month_news = collect([]);
@@ -52,25 +50,22 @@ class RecipeController extends Controller
   }
 
 
-
   public function create()
   {
-    //新規作成画面
     Gate::authorize("isOwner");
+
     return view("recipe.create");
   }
 
 
   public function store(RecipeCreateRequest $request)
   {
-    //作成 オーナーGate
     Gate::authorize("isOwner");
-    $shop = $this->shop;
-    $image = basename($request->file("image")->store("public/images/dishes"));
 
+    $image = basename($request->file("image")->store("public/images/dishes"));
     Recipe::create([
-      "shop_id" => $shop->id,
-      "name" => $request->name,
+      "shop_id" => $this->shop->id,
+      "name" => $request->recipe_name,
       "category" => $request->category,
       "image" => $image,
       "description" => $request->description,
@@ -82,17 +77,17 @@ class RecipeController extends Controller
 
   public function show(Recipe $recipe)
   {
-    //詳細 全員
     $this->authorize("view", $recipe);
     $user = $this->user;
 
     $comments = $recipe->getAllComments();
+    $bookmark = $user->doesBookmark($recipe->id);
     $params = [
       "user" => $user,
       "recipe" => $recipe,
       "recipe_id" => $recipe->id,
-      "recipe_name" => $recipe->name,
       "comments" => $comments,
+      "bookmark" => $bookmark
     ];
     return view("recipe.show", $params);
   }
@@ -103,10 +98,9 @@ class RecipeController extends Controller
   {
     $this->authorize("view", $recipe);
     Gate::authorize("isOwner");
-    $response = "dd";
+
     $params = [
       "recipe" => $recipe,
-      "response" => $response,
     ];
     return view("recipe.edit", $params);
   }
@@ -121,14 +115,14 @@ class RecipeController extends Controller
     if ($request->image) {
       $image = basename($request->file("image")->store("public/images/dishes"));
       $form = [
-        "name" => $request->name,
+        "name" => $request->recipe_name,
         "category" => $request->category,
         "image" => $image,
         "description" => $request->description,
       ];
     } else {
       $form = [
-        "name" => $request->name,
+        "name" => $request->recipe_name,
         "category" => $request->category,
         "description" => $request->description,
       ];

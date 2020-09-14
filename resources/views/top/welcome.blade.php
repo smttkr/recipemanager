@@ -69,7 +69,7 @@
       </section>
     </main>
     <footer>
-      <small>Copyright © 2020 Takara Sumimoto All Rights Reserved.</small>
+      <small>2020 Takara Sumimoto Portfolio</small>
     </footer>
     <form ref="logout" action="{{ route('logout') }}" method="POST" class="hidden">
       @csrf

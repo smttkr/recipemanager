@@ -104,7 +104,6 @@ export default {
       }
     },
     submitNewComment() {
-      this.close();
       this.$refs.newCommentPosts.submit();
     },
   },

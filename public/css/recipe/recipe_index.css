@@ -5,7 +5,9 @@ main {
 main .search-box {
   width: 50%;
   margin: 0 auto;
+  background-color: transparent;
 }
+
 
 .grid {
   display: grid;

@@ -45,7 +45,6 @@ export default {
           }
         )
         .then(function() {
-          that.show = false;
           that.$refs.newsDeletion.submit();
         });
     },

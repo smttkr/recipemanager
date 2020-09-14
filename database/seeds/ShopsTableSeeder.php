@@ -18,11 +18,5 @@ class ShopsTableSeeder extends Seeder
       "created_at" => now(),
       "updated_at" => now()
     ]);
-    Shop::create([
-      "name" => "レストランB",
-      "auth_id" => "rstrnta321",
-      "created_at" => now(),
-      "updated_at" => now()
-    ]);
   }
 }

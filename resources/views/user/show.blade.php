@@ -12,7 +12,7 @@
 @section("header-link")
 @if($user->shopUser)
 <a class="navbar-brand" href="{{ route("recipes.index") }}">
-  {{ $user->shopUser->shop->name }}
+  {{ $shop_name }}
 </a>
 @else
 <a class="navbar-brand" href="{{ url("/") }}">
@@ -37,23 +37,22 @@
     </div>
     @if ($user->shopUser)
     <div class="row info-box bg-light">
-      <div class="shop col-sm border">
-        {{ $user->shopUser->shop->name }}
+      <div class="shop-name col-sm border">
+        {{ $shop_name }}
       </div>
       <div class="position col-sm border">
-        {{ $user->shopUser->position }}
+        {{ $position }}
       </div>
 
       <div class="col-12">
-        <button v-on:click="cofirmDeletion" type="button" class="btn btn-lg btn-outline-danger">
+        <button v-on:click="cofirmDeletion('{{ $position }}')" type="button" class="btn btn-lg btn-outline-danger mt-5">
           退会する
         </button>
       </div>
     </div>
     @endif
   </div>
-  <profile-edit-component :show="editShow" :user="{{ $user }}" :edit-type="editType" :csrf="csrf"
-    v-on:close="close">
+  <profile-edit-component :show="editShow" :user="{{ $user }}" :edit-type="editType" :csrf="csrf" v-on:close="close">
   </profile-edit-component>
   @if ($user->shopUser)
   <form ref="shopUserDeletion" action="{{ route("shopusers.destroy",$user->shopUser->id) }}" method="POST">
@@ -74,8 +73,8 @@
     csrf: document
     .querySelector("meta[name='csrf-token']")
     .getAttribute("content"),
-    editType: "",
     editShow: false,
+    editType: "",
   },
   methods: {
     edit(type){
@@ -84,16 +83,20 @@
     },
 
     close() {
-      this.editShow=false;
-      this.editType="";
+      this.editShow = false;
+      this.editType = "";
     },
-    cofirmDeletion(){
+    cofirmDeletion(position){
       let that = this;
+      let confirmMessage = "お店から退会してよろしいですか？"
+      if(position === "owner"){
+        confirmMessage ="お店も削除されます。よろしいですか？"
+      }
       this.$dialog
         .confirm(
           {
             title: "確認",
-            body: "本当に退会してもよろしいですか？",
+            body: confirmMessage,
           },
           {
             okText: "はい",

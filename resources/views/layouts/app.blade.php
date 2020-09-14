@@ -34,11 +34,8 @@
         {{-- ショップに属しているかどうかで、リンク先を変える --}}
         @yield('header-link')
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Right Side Of Navbar -->
-          <ul class="navbar-nav ml-auto">
-            <!-- Authentication Links -->
-
+        <div class="d-inline-block float-right">
+          <ul class="navbar-nav ">
             @guest
             <li class="nav-item">
               <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>

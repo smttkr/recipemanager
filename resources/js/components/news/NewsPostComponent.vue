@@ -71,7 +71,6 @@ export default {
 
       if (er.length < 1) {
         this.submitNews();
-        this.close();
       } else {
         this.errors = er;
       }

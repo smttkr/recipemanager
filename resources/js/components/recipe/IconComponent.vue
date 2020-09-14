@@ -5,7 +5,7 @@
         <i class="far fa-comment"></i>
       </button>
       <button
-        v-if="!doesBookmark"
+        v-if="!bookmark"
         @click="addBookmark"
 
         class="btn-clear"
@@ -14,7 +14,7 @@
       </button>
       <button
         v-else
-        @click="deleteBookmark(doesBookmark)"
+        @click="deleteBookmark(bookmark)"
         class="btn-clear"
       >
         <i class="far fa-folder-open does-bookmark"></i>
@@ -67,7 +67,7 @@
 
 <script>
 export default {
-  props: ["recipeId", "csrf", "doesBookmark", "isOwner"],
+  props: ["recipeId", "csrf", "bookmark", "isOwner"],
   methods: {
     postShow() {
       this.$emit("post-show");

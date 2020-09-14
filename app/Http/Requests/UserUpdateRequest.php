@@ -24,8 +24,8 @@ class UserUpdateRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'filled|string|max:6',
-      'profile_image' => 'filled|file|image'
+      "name" => "filled|string|max:6",
+      "profile_image" => "filled|file|image"
     ];
   }
 

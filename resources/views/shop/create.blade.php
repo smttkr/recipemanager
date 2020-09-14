@@ -30,9 +30,9 @@ RecipeManager
           <form method="POST" action="{{ route("shops.store") }}">
             @csrf
             <div class="form-group row">
-              <label for="namshop_name" class="col-md-4 col-form-label text-md-right">ショップネーム</label>
+              <label for="shop_name" class="col-md-4 col-form-label text-md-right">ショップネーム</label>
               <div class="col-md-6">
-                <input id="text" class="form-control @error(" name") is-invalid @enderror" name="shop_name"
+                <input id="text" class="form-control @error("shop_name") is-invalid @enderror" name="shop_name"
                   value="{{ old("shop_name") }}" placeholder="10文字以内" required autocomplete="off" autofocus>
                 @error("shop_name")
                 <span class="text-danger" role="alert">
@@ -42,7 +42,7 @@ RecipeManager
               </div>
             </div>
             <div class="form-group row">
-              <label for="name" class="col-md-4 col-form-label text-md-right">ショップID</label>
+              <label for="shop_auth_id" class="col-md-4 col-form-label text-md-right">ショップID</label>
               <div class="col-md-6">
                 <input id="text" class="form-control @error(" shop_auth_id") is-invalid @enderror" name="shop_auth_id"
                   value="{{ old("shop_auth_id") }}" placeholder="半角英数字のみ 6~10文字" required autocomplete="off">

@@ -1,7 +1,7 @@
 @extends("layouts.default")
 
 @section("title")
-{{ $recipe_name }}
+{{ $recipe->name }}
 @endsection
 
 @section("content")
@@ -15,8 +15,8 @@
   <section>
     <h1 class="hidden">ICON_MENU_&_COMMENTS</h1>
     <icon-component :csrf="csrf" :recipe-id="{{ $recipe_id }}" @can("isOwner") :is-owner="true" @endcan
-      @if($does_bookmark=$user->doesBookmark($recipe_id))
-      :does-bookmark="{{ $does_bookmark }}" @endif
+      @if($bookmark)
+      :bookmark="{{ $bookmark }}" @endif
       v-on:post-show="togglePostShow"
       >
     </icon-component>
@@ -24,8 +24,10 @@
     <comment-group-component :comments="{{ $comments }}" :user-id="{{ $user->id }}" @can("isOwner") :is-owner="true"
       @endcan :csrf="csrf">
     </comment-group-component>
-    <comment-post-component :show="postShow" :recipe-id="{{ $recipe_id }}" :csrf="csrf" v-on:close="postShow = false">
-    </comment-post-component>
+    <keep-alive>
+      <comment-post-component :show="postShow" :recipe-id="{{ $recipe_id }}" :csrf="csrf" v-on:close="postShow = false">
+      </comment-post-component>
+    </keep-alive>
   </section>
 </main>
 @endsection

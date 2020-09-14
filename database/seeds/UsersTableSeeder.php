@@ -19,23 +19,8 @@ class UsersTableSeeder extends Seeder
       "created_at" => now(),
       "updated_at" => now()
     ]);
-    User::create([
-      "name" => "スタッフA",
-      "email" => "staff-a@test.com",
-      "password" => Hash::make("staffstaff"),
-      "created_at" => now(),
-      "updated_at" => now()
-    ]);
-    User::create([
-      "name" => "オーナーB",
-      "email" => "owner-b@test.com",
-      "password" => Hash::make("ownerbownerb"),
-      // "remember_token" => str_random(10),
-      "created_at" => now(),
-      "updated_at" => now()
-    ]);
 
-    for ($i = 1; $i < 28; $i++) {
+    for ($i = 1; $i < 14; $i++) {
       User::create([
         "name" => "スタッフ" . $i,
         "email" => "staff" . $i . "@test.com",

@@ -2,15 +2,19 @@
   <div class="news-box">
     <div class="news-header cf border-bottom m-0 pb-1">
       <h3 class="news-heading pl-2 mb-0 mr-5">NEWS!</h3>
-      <a v-show="thisMonth" @click="backNews" class="last-month">back</a>
-      <a v-show="lastMonth" @click="nextNews" class="next-month">next</a>
+      <a v-show="thisMonth" @click="backNews" class="last-month">先月</a>
+      <a v-show="lastMonth" @click="nextNews" class="next-month">今月</a>
       <button v-if="isOwner" @click="togglePostShow" class="btn-clear post-btn">
         <i class="fas fa-plus"></i>
       </button>
     </div>
     <div class="news-body">
       <transition :name="style" mode="out-in">
-        <table v-if="displayNews.length > 0">
+        <transition-group
+          tag="table"
+          :name="style"
+          v-if="displayNews.length > 0"
+        >
           <tr
             v-for="n in displayNews"
             :key="n.id"
@@ -20,7 +24,7 @@
             <td class="day text-center">{{ n.created_at.slice(5, 10) }}</td>
             <td class="content">{{ n.content }}</td>
           </tr>
-        </table>
+        </transition-group>
 
         <div v-else class="no-news">
           No News
@@ -93,7 +97,6 @@ export default {
 </script>
 
 <style scoped>
-
 .news-header {
   position: relative;
 }
@@ -105,7 +108,7 @@ h3 {
   display: inline-block;
   cursor: pointer;
 }
-.news-header .news-heading{
+.news-header .news-heading {
   display: inline-block;
   color: #fe5f55;
 }
@@ -170,19 +173,19 @@ h3 {
   color: #74828f;
   text-align: center;
 }
-.slide-right-leave-active,
 .slide-right-enter-active,
-.slide-left-leave-active,
 .slide-left-enter-active {
   transition: 0.6s;
 }
+.slide-left-leave-active,
+.slide-right-leave-active {
+  display: none;
+}
 
-.slide-right-enter,
-.slide-left-leave-to {
+.slide-right-enter {
   transform: translateX(150%);
 }
 
-.slide-right-leave-to,
 .slide-left-enter {
   transform: translateX(-150%);
 }

@@ -12,9 +12,9 @@ class BookmarksTableSeeder extends Seeder
    */
   public function run()
   {
-    for ($i = 1; $i < 31; $i++) {
+    for ($i = 1; $i < 10; $i++) {
       Bookmark::create([
-        "shop_user_id" => mt_rand(1, 2),
+        "shop_user_id" => 1,
         "recipe_id" => $i,
       ]);
     }

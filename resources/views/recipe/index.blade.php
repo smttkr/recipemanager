@@ -15,7 +15,7 @@ RecipeManager
       <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
     </div>
     <input v-model.trim="keyword" type="text" class="form-control" placeholder="キーワードを入力して検索">
-    <div class="input-group-append bg-white">
+    <div class="input-group-append">
       <button type="button" v-show="keyword" v-on:click="cleartKeyword"
         class="btn clear-btn input-group-text bg-white"><i class="fas fa-times"></i></button>
     </div>

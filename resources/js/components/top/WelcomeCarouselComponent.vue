@@ -38,13 +38,13 @@ export default {
     return {
       images: [
         {
-          src: "http://xs055583.xsrv.jp/storage/images/top/home.png",
+          src: "http://xs055583.xsrv.jp/storage/images/common/home.png",
         },
         {
-          src: "http://xs055583.xsrv.jp/storage/images/top/show.png",
+          src: "http://xs055583.xsrv.jp/storage/images/common/show.png",
         },
         {
-          src: "http://xs055583.xsrv.jp/storage/images/top/news.png",
+          src: "http://xs055583.xsrv.jp/storage/images/common/news.png",
         },
         // { src: "" },
         // { src: "" },

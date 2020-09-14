@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\NewsRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\News;
@@ -23,10 +21,10 @@ class NewsController extends Controller
   {
     Gate::authorize("isOwner");
     News::create([
-      'shop_id' => $this->user->shopUser->shop_id,
-      'content' => $request->content,
+      "shop_id" => $this->user->shopUser->shop_id,
+      "content" => $request->content,
     ]);
-    return redirect(RouteServiceProvider::HOME);
+    return redirect()->back();
   }
 
 
@@ -36,7 +34,7 @@ class NewsController extends Controller
     Gate::authorize("isOwner");
     $this->authorize("delete", $news);
     $news->delete();
-    return redirect(RouteServiceProvider::HOME);
+    return redirect()->back();
   }
 
 }

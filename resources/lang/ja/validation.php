@@ -113,7 +113,7 @@ return [
   "starts_with" => "The :attribute must start with one of the following: :values.",
   "string" => ":attributeは文字列を入力してください",
   "timezone" => "The :attribute must be a valid zone.",
-  "unique" => ":attributeはすでに存在します。",
+  "unique" => "その:attributeはすでに存在します。",
   "uploaded" => "The :attribute failed to upload.",
   "url" => "The :attribute format is invalid.",
   "uuid" => "The :attribute must be a valid UUID.",
@@ -159,6 +159,7 @@ return [
     "image" => "画像",
     "shop_name" => "お店の名前",
     "shop_auth_id" => "ショップID",
+    "recipe_name" => "料理名"
   ],
 
 ];

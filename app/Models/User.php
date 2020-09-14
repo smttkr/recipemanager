@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ShopUser;
@@ -31,7 +30,9 @@ class User extends Authenticatable
   public function doesBookmark($recipe_id)
   {
     if ($bookmark = Bookmark::where("shop_user_id", $this->shopUser->id)->where("recipe_id", $recipe_id)->first()) {
-      return $bookmark;
+    } else {
+      return null;
     }
+    return $bookmark;
   }
 }

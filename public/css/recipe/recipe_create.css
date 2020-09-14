@@ -13,6 +13,9 @@ form .img-form span {
 form .category-form {
   width: 50%;
 }
+form button {
+  width: 25%;
+}
 @media (max-width: 899px) {
   form {
     width: 90%;
@@ -26,5 +29,10 @@ form .category-form {
   }
   form .category-form {
     width: 75%;
+  }
+}
+@media (max-width: 575.5px) {
+  form button {
+    width: 40%;
   }
 }

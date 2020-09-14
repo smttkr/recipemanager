@@ -38,20 +38,16 @@ class ShopUserController extends Controller
 
   public function create()
   {
-    //無所属ユーザーのショップへの参加フォーム
     $user = $this->user;
-    // 既にshop_idを持っているならホームへ
     if ($user->shopUser) {
       return redirect(RouteServiceProvider::HOME);
     }
-
     return view("shopuser.create", ["user" => $user]);
   }
 
 
   public function store(Request $request)
   {
-    //無所属ユーザーをショップに結びつける shop_usersテーブルにuser_idを持ったデータを記録
     $user = $this->user;
     if ($user->shopUser) {
       return redirect(RouteServiceProvider::HOME);
@@ -68,14 +64,12 @@ class ShopUserController extends Controller
   public function destroy(ShopUser $shopuser)
   {
     $this->authorize("delete", $shopuser);
-    //認証チェック
     if ($shopuser->position === "owner") {
-      //オーナーの場合ショップごと削除
+      //オーナーの場合ショップごと削除する必要があるため
       $shopuser->shop->delete();
     } else if ($shopuser->position === "staff") {
       $shopuser->delete();
     } else {
-      //リクエストがおかしいのでエラー画面に飛ばす
       return abort(404);
     }
     return redirect(RouteServiceProvider::HOME);

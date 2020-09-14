@@ -28,13 +28,11 @@ class Shop extends Model
 
 
   public function getThisMonthNews()
-  //お店のニュースを今月のものだけ、新しい順に取得
   {
     $this_month = new Carbon("first day of this month");
     return $this->news->where("created_at", ">", $this_month)->sortByDesc("id")->values()->collect();
   }
   public function getLastMonthNews()
-  //お店のニュースを先月のものだけ、新しい順に取得
   {
     $this_month = new Carbon("first day of this month");
     $last_month = new Carbon("first day of last month");
@@ -42,13 +40,11 @@ class Shop extends Model
   }
 
   public function getAllRecipes()
-  // お店のレシピを更新日が新しい順に取得
   {
     return $this->recipes->sortByDesc("updated_at")->values()->collect();
   }
 
   public function getAllShopUsers()
-  // お店に所属する全てのユーザー情報を所得
   {
     $shop_users = $this->shopUsers;
     foreach ($shop_users as $obj) {
@@ -59,7 +55,7 @@ class Shop extends Model
 
   public function makeOwner($user_id)
   {
-    //ショップが作成されたときに、作成したユーザーがオーナーとしてShopUsersテーブルに記録される
+    //ショップが作成されたときに、作成したユーザーがオーナーとしてShopUsersテーブルに記録するためのもの
     ShopUser::create([
       "shop_id" => $this->id,
       "user_id" => $user_id,
@@ -69,7 +65,6 @@ class Shop extends Model
 
   public function toAccept($user_id)
   {
-    // ShopUserテーブルにユーザーのidを記録して一員とする
     ShopUser::create([
       "shop_id" => $this->id,
       "user_id" => $user_id,

@@ -15,11 +15,7 @@
 
 <script>
 export default {
-  props: {
-    recipe: {
-      type: Object,
-    },
-  },
+  props: ["recipe"],
   data() {
     return {
       category: ["salad", "meat", "fried", "dessert"],

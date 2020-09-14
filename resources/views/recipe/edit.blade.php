@@ -27,10 +27,10 @@
       @enderror
     </div>
     <div class="form-group name-form mx-auto">
-      <label for="name">料理名</label>
-      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
+      <label for="recipe_name">料理名</label>
+      <input type="text" name="recipe_name" class="form-control @error('recipe_name') is-invalid @enderror" id="recipe_name"
         value="{{ $recipe->name }}" placeholder="20文字以内" />
-      @error('name')
+      @error('recipe_name')
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>

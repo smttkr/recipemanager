@@ -9,5 +9,4 @@ class News extends Model
   protected $table = 'news';
   protected $fillable = ['shop_id', 'category', 'content'];
 
-
 }

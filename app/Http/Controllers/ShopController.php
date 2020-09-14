@@ -23,8 +23,8 @@ class ShopController extends Controller
 
   public function create()
   {
-    $user = $this->user;
-    return view("shop.create", ["user" => $user]);
+    $params = ["user" => $this->user];
+    return view("shop.create", $params);
   }
 
 

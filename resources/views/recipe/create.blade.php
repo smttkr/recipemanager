@@ -24,10 +24,10 @@
       @enderror
     </div>
     <div class="form-group name-form mx-auto">
-      <label for="name">料理名</label>
-      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-        value="{{ old('name') }}" placeholder="20文字以内" autofocus />
-      @error('name')
+      <label for="recipe_name">料理名</label>
+      <input type="text" name="recipe_name" class="form-control @error('recipe_name') is-invalid @enderror" id="name"
+        value="{{ old('recipe_name') }}" placeholder="20文字以内" autofocus />
+      @error('recipe_name')
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
@@ -52,7 +52,7 @@
       <small class="text-danger" role="alert">{{ $message }}</small>
       @enderror
     </div>
-    <button v-on:click.prevent="submitRecipePosts" class="d-block w-25 mx-auto mt-5 btn btn-lg btn-primary">
+    <button v-on:click.prevent="submitRecipePosts" class="d-block mx-auto mt-5 btn btn-lg btn-primary">
       新規作成
     </button>
   </form>

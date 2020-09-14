@@ -18,19 +18,9 @@ class ShopUsersTableSeeder extends Seeder
       "position" => "owner",
     ]);
 
-    ShopUser::create([
-      "shop_id" => 1,
-      "user_id" => 2,
-      "position" => "staff",
-    ]);
-    ShopUser::create([
-      "shop_id" => 2,
-      "user_id" => 3,
-      "position" => "owner",
-    ]);
-    for ($i = 4; $i < 31; $i++) {
+    for ($i = 2; $i < 15; $i++) {
       ShopUser::create([
-        "shop_id" => mt_rand(1, 2),
+        "shop_id" => 1,
         "user_id" => $i,
         "position" => "staff",
       ]);
